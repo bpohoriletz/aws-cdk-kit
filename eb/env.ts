@@ -4,7 +4,6 @@ import * as ec2 from "aws-cdk-lib/aws-ec2";
 import { CfnApplication, CfnEnvironment, CfnEnvironmentProps } from "aws-cdk-lib/aws-elasticbeanstalk";
 import { CfnInstanceProfile } from "aws-cdk-lib/aws-iam";
 import { DatabaseInstance } from "aws-cdk-lib/aws-rds";
-import { CfnScheduledAction } from 'aws-cdk-lib/aws-autoscaling';
 import * as sharedUiConfig from "../../config/eb/shared-ui.json"
 import { convUiConfig } from "../../config/eb/conventional-ui"
 import * as sharedApiConfig from "../../config/eb/shared-api.json"
@@ -13,6 +12,7 @@ import { uniqApiConfig } from "../../config/eb/uniq-api"
 import { uniqUiConfig } from "../../config/eb/uniq-ui"
 import { excludesApiConfig } from "../../config/eb/excludes-api"
 import { excludesUiConfig } from "../../config/eb/excludes-ui"
+import { createWebSg }  from "../ec2/security-group";
 import * as con from "../naming/resources"
 
 // TOFIX; Have single function for both environments and pass configuration inside
@@ -273,16 +273,3 @@ function createSecurityGroups(resourceNamePrefix: string[], vpc: ec2.IVpc, stack
   return [lbSecurityGroup, webSecurityGroup]
 }
 
-function createWebSg(resourceNamePrefix: string[], vpc: ec2.IVpc, stack: Stack): ec2.SecurityGroup {
-  let resourceName: string;
-  // Create Security Group for web instances
-  resourceName = con.ec2SecurityGroupName(resourceNamePrefix.slice(0,3), "web")
-  const webSecurityGroup = new ec2.SecurityGroup(stack, resourceName, {
-    vpc: vpc,
-    description: "Security Group for the Web instances",
-    securityGroupName: resourceName,
-    allowAllOutbound: true
-  })
-
-  return webSecurityGroup
-}

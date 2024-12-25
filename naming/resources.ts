@@ -8,6 +8,23 @@ function partsToName(parts: string[]) : string {
   return parts.filter((item): item is string => !!item).map(chunk => chunk.charAt(0).toUpperCase() + chunk.substr(1)).join("");
 }
 
+// CodeDeploy
+export function deploymentGroupName(resourceNamePrefix: string[]) : string {
+  const name: string[] = resourceNamePrefix.slice(0,2).concat(["codedeploy","dg"]);
+
+  return partsToName(name);
+}
+export function applicationName(resourceNamePrefix: string[]) : string {
+  const name: string[] = resourceNamePrefix.slice(0,2).concat(["codedeploy","app"]);
+
+  return partsToName(name);
+}
+// EC2
+export function ec2Name(resourceNamePrefix: string[], resourceName: string) : string {
+  const name: string[] = resourceNamePrefix.slice(0,3).concat(resourceName).concat("ec2");
+
+  return partsToName(name);
+}
 // SNS
 export function snsTopicName(resourceNamePrefix: string[], resourceName: string) : string {
   const name: string[] = resourceNamePrefix.slice(0,1).concat(resourceName).concat("topic");
@@ -39,25 +56,25 @@ export function s3BucketDeploymentName(resourceNamePrefix: string[]) : string {
 }
 // ElasticBeanstalk
 export function ebApplicationName(resourceNamePrefix: string[]) : string {
-  const name: string[] = resourceNamePrefix.slice(0,2).filter(n => n).concat("app");
+  const name: string[] = resourceNamePrefix.slice(0,2).concat("app");
 
   return partsToDashedName(name);
 }
 
 export function ebApplicationRoleName(resourceNamePrefix: string[]) : string {
-  const name: string[] = resourceNamePrefix.slice(0,2).filter(n => n).concat("app", "role");
+  const name: string[] = resourceNamePrefix.slice(0,2).concat("app", "role");
 
   return partsToName(name);
 }
 
 export function ebEnvironmentName(resourceNamePrefix: string[]) : string {
-  const name: string[] = resourceNamePrefix.slice(0,3).filter(n => n).concat("env");
+  const name: string[] = resourceNamePrefix.slice(0,3).concat("env");
 
   return partsToDashedName(name);
 }
 
 export function shortEbEnvironmentName(resourceNamePrefix: string[]) : string {
-  const name: string[] = resourceNamePrefix.slice(0,2).filter(n => n);
+  const name: string[] = resourceNamePrefix.slice(0,2);
 
   return partsToDashedName(name);
 }
