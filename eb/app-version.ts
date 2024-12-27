@@ -12,7 +12,7 @@ export function createInitAppVersions(resourceNamePrefix: string[],
     // store demo app in the bucket
     // https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/samples/ruby.zip
     const name: string = con.s3BucketDeploymentName(resourceNamePrefix);
-    const bucket: IBucket = Bucket.fromBucketArn(stack, "RegionalEbBucket-local", bucketArn)
+    const bucket: IBucket = Bucket.fromBucketArn(stack, "RegionalEbBucket-local", bucketArn);
     const versionDeployment = new BucketDeployment(stack, name, {
       sources: [Source.asset("./app_versions")],
       destinationBucket: bucket,
@@ -24,7 +24,7 @@ export function createInitAppVersions(resourceNamePrefix: string[],
     const initialVersion = new CfnApplicationVersion(stack, "InitialVersion", {
       applicationName: application.applicationName!,
       sourceBundle: {
-        s3Bucket: bucket.bucketName!,
+        s3Bucket: bucket.bucketName,
         s3Key: `${application.applicationName!}/versions/initial.zip`,
       },
       description: "Initial application from AWS"
@@ -35,7 +35,7 @@ export function createInitAppVersions(resourceNamePrefix: string[],
     const openingVersion = new CfnApplicationVersion(stack, "OpeningVersion", {
       applicationName: application.applicationName!,
       sourceBundle: {
-        s3Bucket: bucket.bucketName!,
+        s3Bucket: bucket.bucketName,
         s3Key: `${application.applicationName!}/versions/opening.zip`,
       },
       description: "First version of the application"

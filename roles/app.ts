@@ -5,7 +5,7 @@ import * as con from "../naming/resources";
 export function createAppRole(resourceNamePrefix: string[], stack: Stack) : Role {
   const cloudAppRole = new Role(stack, con.ebApplicationRoleName(resourceNamePrefix), {
     assumedBy: new ServicePrincipal("cloudformation.amazonaws.com"),
-  })
+  });
 
   return cloudAppRole;
 }
