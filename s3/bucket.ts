@@ -1,12 +1,24 @@
 import { Stack, RemovalPolicy } from "aws-cdk-lib";
-import { Bucket, BlockPublicAccess, CfnBucket, CfnBucketPolicy } from "aws-cdk-lib/aws-s3";
-import * as con from "../naming/resources"
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as naming from "../naming/resources";
 
-export function createPrivateBucket(resourceNamePrefix: string[], stack: Stack) : Bucket {
-  const resourceName: string = con.s3BucketName(resourceNamePrefix);
-  const bucket: Bucket = new Bucket(stack, resourceName, {
-    blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
+export function createPrivateBucket(resourceNamePrefix: string[], stack: Stack) : s3.Bucket {
+  const resourceName = naming.s3BucketName(resourceNamePrefix);
+  const bucket = new s3.Bucket(stack, resourceName, {
+    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
     bucketName: resourceName,
+    versioned: false,
+    removalPolicy: RemovalPolicy.RETAIN
+  });
+
+  return bucket;
+}
+
+export function createEbBucket(name: string, stack: Stack) : s3.Bucket {
+  const bucket = new s3.Bucket(stack, name, {
+    blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+    bucketName: name,
+    objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_PREFERRED,
     versioned: false,
     removalPolicy: RemovalPolicy.DESTROY
   });
