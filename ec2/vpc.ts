@@ -8,7 +8,6 @@ export function createMinimalVpc(resourceNamePrefix: string[], stack: cdk.Stack)
   const vpc = new ec2.Vpc(stack, resourceName, {
     ipAddresses: conf.vpcCidrConfig(resourceName),
     maxAzs: 1,
-    subnetConfiguration: conf.vpcSubnetConfig(resourceName),
     natGatewayProvider: ec2.NatProvider.instanceV2({
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.T2,
@@ -18,6 +17,8 @@ export function createMinimalVpc(resourceNamePrefix: string[], stack: cdk.Stack)
     natGatewaySubnets: {
       subnetType: ec2.SubnetType.PUBLIC, // Make NAT instance reside in a public subnet
     },
+    subnetConfiguration: conf.vpcSubnetConfig(resourceName),
+    vpcName: resourceName,
   });
 
   return vpc;
@@ -28,7 +29,6 @@ export function createVpc(resourceNamePrefix: string[], stack: cdk.Stack): ec2.V
   const vpc = new ec2.Vpc(stack, resourceName, {
     ipAddresses: conf.vpcCidrConfig(resourceName),
     maxAzs: 2,             // Use 2 availability zones
-    subnetConfiguration: conf.vpcSubnetConfig(resourceName),
     natGatewayProvider: ec2.NatProvider.instanceV2({
       instanceType: ec2.InstanceType.of(
         ec2.InstanceClass.T3,
@@ -38,6 +38,8 @@ export function createVpc(resourceNamePrefix: string[], stack: cdk.Stack): ec2.V
     natGatewaySubnets: {
       subnetType: ec2.SubnetType.PUBLIC, // Make NAT instance reside in a public subnet
     },
+    subnetConfiguration: conf.vpcSubnetConfig(resourceName),
+    vpcName: resourceName,
   });
 
   return vpc;
