@@ -15,32 +15,30 @@ export function createNonprodDatabase(
   const securityGroup = new ec2.SecurityGroup(stack, resourceName, { vpc });
 
   const rdsInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
+    backupRetention: cdk.Duration.days(0),
     databaseName: names.rdsDatabaseName(resourceNamePrefix),
+    engine: rds.DatabaseInstanceEngine.postgres({ version: version }),
+    instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
+    multiAz: false,
+    publiclyAccessible: false,
+    removalPolicy: cdk.RemovalPolicy.DESTROY,
+    securityGroups: [securityGroup],
+    storageType: rds.StorageType.STANDARD,
     vpc: vpc,
     vpcSubnets: {
       subnetType: ec2.SubnetType.PUBLIC,
     },
-    engine: rds.DatabaseInstanceEngine.postgres({ version: version }),
-    multiAz: false,
-    instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
-    publiclyAccessible: false,
-    securityGroups: [securityGroup],
-    storageType: rds.StorageType.STANDARD,
-    removalPolicy: cdk.RemovalPolicy.DESTROY,
-    //maxAllocatedStorage: 1000,
-    backupRetention: cdk.Duration.days(0)
   });
 
   return [rdsInstance, securityGroup];
 }
-export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
 
+export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
   const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "pg");
   const securityGroup = new ec2.SecurityGroup(stack, resourceName, { vpc });
 
   const rdsInstance: rds.DatabaseInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     allocatedStorage: 20,
-    // TOFIX; Confirm
     backupRetention: cdk.Duration.days(14),
     databaseName: names.rdsDatabaseName(resourceNamePrefix),
     deletionProtection: true,
@@ -64,7 +62,6 @@ export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack
 };
 
 export function createRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
-
   const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "pg");
   const securityGroup = new ec2.SecurityGroup(stack, resourceName, { vpc });
 
@@ -85,23 +82,4 @@ export function createRdsDatabase(resourceNamePrefix: string[], stack: Stack, vp
   });
 
   return [rdsInstance, securityGroup];
-}
-export function createDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : rds.DatabaseInstance {
-
-  const rdsInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
-    databaseName: names.rdsDatabaseName(resourceNamePrefix),
-    vpc: vpc,
-    vpcSubnets: {
-      subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
-    },
-    engine: rds.DatabaseInstanceEngine.postgres({ version: rds.PostgresEngineVersion.VER_16_3 }),
-    multiAz: false,
-    instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
-    storageType: rds.StorageType.STANDARD,
-    removalPolicy: cdk.RemovalPolicy.DESTROY,
-    //maxAllocatedStorage: 1000,
-    backupRetention: cdk.Duration.days(0)
-  });
-
-  return rdsInstance;
 }
