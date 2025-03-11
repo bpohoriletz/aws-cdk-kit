@@ -3,10 +3,10 @@ import * as iam from "aws-cdk-lib/aws-iam";
 
 export function createGithubCliRole(githubAccount: string, stack: cdk.Stack) : iam.Role {
   const name = "GitHubActionsRole";
-  const oidcProvider = new iam.OpenIdConnectProvider(stack, 'GitHubOIDCProvider', {
-    url: 'https://token.actions.githubusercontent.com',
-    clientIds: ['sts.amazonaws.com'],
-    thumbprints: ['6938fd4d98bab03faadb97b34396831e3780aea1'], // GitHub's current root CA thumbprint
+  const _oidcProvider = new iam.OpenIdConnectProvider(stack, "GitHubOIDCProvider", {
+    url: "https://token.actions.githubusercontent.com",
+    clientIds: ["sts.amazonaws.com"],
+    thumbprints: ["6938fd4d98bab03faadb97b34396831e3780aea1"], // GitHub's current root CA thumbprint
   });
   const cliRole = new iam.Role(stack, name, {
     assumedBy: new iam.FederatedPrincipal(

@@ -17,7 +17,7 @@ export function createDeploymentGroupToAsg(
   stack: cdk.Stack): [codedeploy.ServerDeploymentGroup, ec2.SecurityGroup, autoscaling.AutoScalingGroup] {
 
     let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "asg");
-    const securityGroup = createWebSecurityGroup(resourceNamePrefix, vpc, stack)
+    const securityGroup = createWebSecurityGroup(resourceNamePrefix, vpc, stack);
     // Define the launch template for Spot instances
     resourceName = names.launchTemplateName(resourceNamePrefix);
     const launchTemplate = new ec2.LaunchTemplate(stack, resourceName, {
