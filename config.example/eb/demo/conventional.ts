@@ -3,7 +3,9 @@ import * as names from "../../../../aws-cdk-kit/naming/resources";
 
 export function envConfig(resourceNamePrefix: string[], _scope: string): eb.CfnEnvironment.OptionSettingProperty[] {
   const name = names.shortEbEnvironmentName(resourceNamePrefix);
-  const config = {};
+  const config = {
+    "": [],
+  };
 
 
   if (config.hasOwnProperty(name)) {
