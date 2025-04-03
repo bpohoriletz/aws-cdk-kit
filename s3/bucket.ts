@@ -1,6 +1,6 @@
 import { Stack, RemovalPolicy } from "aws-cdk-lib";
 import * as s3 from "aws-cdk-lib/aws-s3";
-import * as naming from "../naming/resources";
+import * as naming from "../utils/naming";
 
 export function createPrivateBucket(resourceNamePrefix: string[], stack: Stack) : s3.Bucket {
   const resourceName = naming.s3BucketName(resourceNamePrefix);

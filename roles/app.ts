@@ -1,6 +1,6 @@
 import { Stack } from "aws-cdk-lib";
 import { Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 export function createAppRole(resourceNamePrefix: string[], stack: Stack) : Role {
   const cloudAppRole = new Role(stack, con.ebApplicationRoleName(resourceNamePrefix), {

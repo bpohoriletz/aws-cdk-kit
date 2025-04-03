@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import * as codedeploy from "aws-cdk-lib/aws-codedeploy";
 
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 export function createCdApplication(resourceNamePrefix: string[], stack: cdk.Stack) : codedeploy.ServerApplication {
   const resourceName = con.codedeployApplicationName(resourceNamePrefix);

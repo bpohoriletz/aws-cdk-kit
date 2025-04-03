@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
-import * as names from "../naming/resources";
+import * as names from "../utils/naming";
 import * as conf from "../../config/ec2/vpc";
 
 export function createMinimalVpc(resourceNamePrefix: string[], stack: cdk.Stack): ec2.Vpc {

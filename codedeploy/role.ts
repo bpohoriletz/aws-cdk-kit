@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import * as iam from "aws-cdk-lib/aws-iam";
 
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 // TOFIX; delete
 export function createCodedeployRole(resourceNamePrefix: string[], regionalCdBucketArn: string,  stack: cdk.Stack) : iam.Role {

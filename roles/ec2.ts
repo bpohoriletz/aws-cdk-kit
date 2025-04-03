@@ -1,6 +1,6 @@
 import { Role, RoleProps, ServicePrincipal, ManagedPolicy, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Stack } from "aws-cdk-lib";
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[], stack: Stack) : Role {
   const roleProps: RoleProps = {

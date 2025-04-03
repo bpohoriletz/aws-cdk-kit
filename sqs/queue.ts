@@ -2,7 +2,7 @@ import { Stack, CfnOutput } from "aws-cdk-lib";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { SqsSubscription } from "aws-cdk-lib/aws-sns-subscriptions";
 import { Queue } from "aws-cdk-lib/aws-sqs";
-import * as cn from "../naming/resources";
+import * as cn from "../utils/naming";
 
 export function createOrdersQueue(resourceNamePrefix: string[], topic: Topic, stack: Stack) : Queue {
   const resourceName = cn.sqsQueueName(resourceNamePrefix, "Orders");

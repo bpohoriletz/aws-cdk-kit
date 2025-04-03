@@ -2,7 +2,7 @@ import * as cdk from "aws-cdk-lib/core";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 
-import * as names from "../naming/resources";
+import * as names from "../utils/naming";
 
 export function createPublicInstance(
   resourceNamePrefix: string[],

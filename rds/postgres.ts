@@ -2,7 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import { Stack } from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as rds from "aws-cdk-lib/aws-rds";
-import * as names from "../naming/resources";
+import * as names from "../utils/naming";
 
 // TOFIX; extract confguration
 export function createNonprodDatabase(

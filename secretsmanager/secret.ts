@@ -1,7 +1,7 @@
 import { Stack } from "aws-cdk-lib";
 import { Group, Role } from "aws-cdk-lib/aws-iam";
 import { Secret } from "aws-cdk-lib/aws-secretsmanager";
-import * as names from "../naming/resources";
+import * as names from "../utils/naming";
 
 export function createProdSecret(resourceNamePrefix : string[], stack: Stack, secretDetails: string): Secret {
   const resourceName = names.secretName(resourceNamePrefix, secretDetails);

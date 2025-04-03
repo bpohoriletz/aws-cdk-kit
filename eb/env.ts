@@ -4,7 +4,7 @@ import { CfnApplication, CfnEnvironment } from "aws-cdk-lib/aws-elasticbeanstalk
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { envOptionSettings } from "./setting";
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 export async function createEnvironment(
   application: CfnApplication,

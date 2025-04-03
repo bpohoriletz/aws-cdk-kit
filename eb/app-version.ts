@@ -2,7 +2,7 @@ import { Stack } from "aws-cdk-lib";
 import { Source, BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
 import { Bucket, IBucket } from "aws-cdk-lib/aws-s3";
 import { CfnApplication, CfnApplicationVersion } from "aws-cdk-lib/aws-elasticbeanstalk";
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 export function createInitAppVersions(resourceNamePrefix: string[],
                                       application: CfnApplication,

@@ -2,7 +2,7 @@ import { Stack } from "aws-cdk-lib";
 import * as iam from "aws-cdk-lib/aws-iam";
 
 import { createEc2Role } from "./ec2";
-import * as con from "../naming/resources";
+import * as con from "../utils/naming";
 
 export function createEc2InstanceProfile(resourceNamePrefix: string[], bucketArns: string[], stack: Stack) : iam.InstanceProfile {
   // create role for EC2

@@ -4,7 +4,7 @@ import * as codedeploy from "aws-cdk-lib/aws-codedeploy";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 
-import * as names from "../naming/resources";
+import * as names from "../utils/naming";
 
 export function createDeploymentGroupToAsg(
   resourceNamePrefix: string[],
