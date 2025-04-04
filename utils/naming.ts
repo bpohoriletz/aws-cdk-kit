@@ -5,7 +5,7 @@ function partsToDashedName(parts: string[]) : string {
 }
 
 function partsToName(parts: string[]) : string {
-  return parts.filter((item): item is string => !!item).map(chunk => chunk.charAt(0).toUpperCase() + chunk.substr(1)).join("");
+  return parts.filter((item): item is string => !!item).map(chunk => chunk.charAt(0).toUpperCase() + chunk.substring(1)).join("");
 }
 // Shared
 export function subnetGroupName(resourceNamePrefix: string[]) : string {
