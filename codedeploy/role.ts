@@ -12,6 +12,7 @@ export function createCodedeployRole(resourceNamePrefix: string[], regionalCdBuc
     managedPolicies: [
       iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSCodeDeployRole"),
     ],
+    roleName: resourceName,
   });
   const allowEc2UploadToEbRegionalCdBucket: iam.Policy = new iam.Policy(stack, "allowEc2UploadToEbRegionalCdBucket", {
     statements: [
