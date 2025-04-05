@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-function partsToDashedName(parts: string[]) : string {
+export function partsToDashedName(parts: string[]) : string {
   return parts.filter((item): item is string => !!item).join("-").toLowerCase();
 }
 
-function partsToName(parts: string[]) : string {
+export function partsToName(parts: string[]) : string {
   return parts.filter((item): item is string => !!item).map(chunk => chunk.charAt(0).toUpperCase() + chunk.substring(1)).join("");
 }
 // Shared
@@ -56,7 +56,7 @@ export function secretName(resourceNamePrefix: string[], resourceName: string) :
 }
 // S3
 export function s3BucketName(resourceNamePrefix: string[]) : string {
-  const name: string[] = resourceNamePrefix.slice(0,3).concat("bct");
+  const name: string[] = resourceNamePrefix.concat("bct");
 
   return partsToDashedName(name);
 }
