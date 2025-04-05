@@ -1,0 +1,96 @@
+name: Build and Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      account:
+        description: "Select Account"
+        required: true
+        default: 000000000000
+        type: choice
+        options:
+          - 000000000000
+      application:
+        description: "Select application"
+        required: true
+        default: ______
+        type: choice
+        options:
+          - ______
+      environment:
+        description: "Select environment"
+        required: true
+        default: _________
+        type: choice
+        options:
+          - _________
+
+env:
+  roleArn: arn:aws:iam::${{ github.event.inputs.account }}:role/GitHubActionsRole
+  AWS_REGION: us-east-1
+  S3_BUCKET: codedeploy-us-east-1-${{ github.event.inputs.account }}-bct
+  S3_FOLDER: resources/versions
+  SECRET_NAME: _______________Secret
+
+
+jobs:
+  build:
+    name: Build and store in S3
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.roleArn }}
+          role-session-name: GitHub-Actions-Deploy
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Get secret with RDS creadentials
+        id: env_vars
+        uses: aws-actions/aws-secretsmanager-get-secrets@v1
+        with:
+          secret-ids: |
+            RDS_SECRET, ${{ env.SECRET_NAME }}
+      - name: Set sha output
+        id: sha_vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Set message output
+        id: msg_vars
+        run: echo "message_short=$(git show -s --format=%s | cut -c1-80 | tr \/ '.')" >> $GITHUB_OUTPUT
+
+      - name: Extract DB secret
+        run:  echo $RDS_SECRET | jq -r 'to_entries[] | [("RDS_"+(.key|ascii_upcase)),(.value|tostring)] | join("=")' >> ./.platform/.env.production
+
+      - name: Generate deployment package
+        run: zip -r ${{ steps.sha_vars.outputs.sha_short }}.zip . -x '.git/*'
+
+      - name: Upload Artifact to s3
+        run: aws s3 cp ${{ steps.sha_vars.outputs.sha_short }}.zip s3://${{ env.S3_BUCKET }}/${{ env.S3_FOLDER }}/${{ github.event.inputs.application }}/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: Dev
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set sha output
+        id: sha_vars
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.roleArn }}
+          role-session-name: GitHub-Actions-Deploy
+          aws-region: ${{ env.AWS_REGION }}
+      - run: |
+          echo "Deploying branch ${{ env.GITHUB_REF }} to ${{ github.event.inputs.environment }}"
+          aws deploy create-deployment \
+            --application-name ${{github.event.inputs.environment}}-${{github.event.inputs.application}}-cd-app \
+            --deployment-group-name ${{github.event.inputs.environment}}-${{github.event.inputs.application}}-dg \
+            --s3-location bucket=${{ env.S3_BUCKET }},key=${{env.S3_FOLDER}}/${{github.event.inputs.application}}/${{steps.sha_vars.outputs.sha_short}}.zip,bundleType=zip \
+            --ignore-application-stop-failures
