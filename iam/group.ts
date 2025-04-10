@@ -18,11 +18,11 @@ export function createDevelopersGroup(stack: cdk.Stack) : iam.Group {
   devsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonEC2ReadOnlyAccess"));
   devsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonSSMReadOnlyAccess"));
 
-  const ssmPolicy = new iam.Policy(stack, 'DeveloperSsmPolicy', {
+  const ssmPolicy = new iam.Policy(stack, "DeveloperSsmPolicy", {
     statements: [
       new iam.PolicyStatement({
-        actions: ['ssm:StartSession'],
-        resources: ['*'],
+        actions: ["ssm:StartSession"],
+        resources: ["*"],
       }),
     ],
   });
