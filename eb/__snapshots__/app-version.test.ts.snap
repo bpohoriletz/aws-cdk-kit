@@ -47,6 +47,12 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
       "Type": "Custom::CDKBucketDeployment",
       "UpdateReplacePolicy": "Delete",
     },
+    "CfnApplicationId": {
+      "Properties": {
+        "ApplicationName": "eb.CfnApplication",
+      },
+      "Type": "AWS::ElasticBeanstalk::Application",
+    },
     "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536": {
       "DependsOn": [
         "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756CServiceRoleDefaultPolicy88902FDF",
@@ -187,12 +193,6 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Policy",
-    },
-    "EBCfnApplicationId": {
-      "Properties": {
-        "ApplicationName": "eb.CfnApplication",
-      },
-      "Type": "AWS::ElasticBeanstalk::Application",
     },
     "InitialVersion": {
       "DependsOn": [

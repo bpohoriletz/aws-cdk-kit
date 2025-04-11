@@ -8,13 +8,15 @@ import * as iam from "aws-cdk-lib/aws-iam";
 export function stub(stack: Stack, clazz: string, id?: string) : any {
   switch (clazz) {
     case "cd.ServerApplication":
-      return new codedeploy.ServerApplication(stack, id || "CDApplicationID");
+      return new codedeploy.ServerApplication(stack, id || "ServerApplicationID");
+    case "iam.CfnInstanceProfile":
+      return new iam.CfnInstanceProfile(stack, id || "CfnInstanceProfileID", { roles: [] });
     case "iam.InstanceProfile":
       return new iam.InstanceProfile(stack, id || "InstanceProfileID");
     case "iam.Role":
       return new iam.Role(stack, id || "RoleID", { assumedBy: new iam.AnyPrincipal() });
     case "eb.CfnApplication":
-      return new eb.CfnApplication(stack, id || "EBCfnApplicationId", { applicationName: "eb.CfnApplication"});
+      return new eb.CfnApplication(stack, id || "CfnApplicationId", { applicationName: "eb.CfnApplication"});
     case "ec2.Vpc":
       return new ec2.Vpc(stack, "VpcID");
     default:

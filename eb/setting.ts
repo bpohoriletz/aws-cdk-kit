@@ -54,7 +54,9 @@ async function loadConfig(resourceNamePrefix: string[], scope: string, kind: str
     return config.envConfig(resourceNamePrefix, scope);
   }
   catch (_error) {
-    console.log(_error);
+    if ("true" == process.env.DEBUG) {
+      console.log(_error);
+    }
 
     return [];
   }
