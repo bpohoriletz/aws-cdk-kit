@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "CDApplicationIDD0C61747": {
+      "Properties": {
+        "ComputePlatform": "Server",
+      },
+      "Type": "AWS::CodeDeploy::Application",
+    },
+    "RoleID477B5CA1": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSCodeDeployRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "dg2371A324": {
+      "Properties": {
+        "ApplicationName": {
+          "Ref": "CDApplicationIDD0C61747",
+        },
+        "AutoRollbackConfiguration": {
+          "Enabled": true,
+          "Events": [
+            "DEPLOYMENT_FAILURE",
+          ],
+        },
+        "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+        "DeploymentGroupName": "dg",
+        "Ec2TagSet": {
+          "Ec2TagSetList": [
+            {
+              "Ec2TagGroup": [
+                {
+                  "Key": "Environment",
+                  "Type": "KEY_AND_VALUE",
+                  "Value": "stack",
+                },
+              ],
+            },
+            {
+              "Ec2TagGroup": [
+                {
+                  "Key": "Application",
+                  "Type": "KEY_AND_VALUE",
+                  "Value": {
+                    "Ref": "CDApplicationIDD0C61747",
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        "ServiceRoleArn": {
+          "Fn::GetAtt": [
+            "RoleID477B5CA1",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::CodeDeploy::DeploymentGroup",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

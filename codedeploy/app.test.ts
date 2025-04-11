@@ -10,15 +10,15 @@ describe("CodeDeploy .createCdApplication()", () => {
     stack = new cdk.Stack();
   });
 
-  test('matches snapshot', () => {
+  test("matches snapshot", () => {
     app.createCdApplication(["test"], stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
 
-  test('has proper name', () => {
+  test("has proper name", () => {
     app.createCdApplication(["name"], stack);
 
-    Template.fromStack(stack).hasResourceProperties("AWS::CodeDeploy::Application", { "ApplicationName": "name-cd-app" })
+    Template.fromStack(stack).hasResourceProperties("AWS::CodeDeploy::Application", { "ApplicationName": "name-cd-app" });
   });
 });

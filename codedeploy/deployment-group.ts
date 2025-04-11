@@ -10,7 +10,6 @@ export function createDeploymentGroupToAsg(
   resourceNamePrefix: string[],
   instanceTypes: ec2.InstanceType[],
   app: codedeploy.ServerApplication,
-  stackName: string,
   instanceProfile: iam.InstanceProfile,
   codedeployRole: iam.Role,
   vpc: ec2.IVpc,
@@ -19,6 +18,8 @@ export function createDeploymentGroupToAsg(
     let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "asg");
     const securityGroup = createWebSecurityGroup(resourceNamePrefix, vpc, stack);
     // Define the launch template for Spot instances
+    const userData = ec2.UserData.forLinux();
+    userData.addCommands("echo Hello World");
     resourceName = names.launchTemplateName(resourceNamePrefix);
     const launchTemplate = new ec2.LaunchTemplate(stack, resourceName, {
       associatePublicIpAddress: false,
@@ -27,6 +28,7 @@ export function createDeploymentGroupToAsg(
       launchTemplateName: resourceName,
       machineImage: ec2.MachineImage.latestAmazonLinux2023(),
       securityGroup: securityGroup,
+      userData: userData,
     });
 
     // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
@@ -48,8 +50,8 @@ export function createDeploymentGroupToAsg(
       minCapacity: 1,
       maxCapacity: 1,
       desiredCapacity: 1,
-      healthCheck: autoscaling.HealthCheck.ec2({
-        grace: cdk.Duration.minutes(5),
+      healthChecks: autoscaling.HealthChecks.ec2({
+        gracePeriod: cdk.Duration.minutes(5),
       }),
     });
 
