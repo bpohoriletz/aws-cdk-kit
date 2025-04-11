@@ -1,10 +1,10 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { stub, arn } from "../test/stubs"
+import { stub } from "../test/stubs"
 
-import * as func from "./app-version";
+import * as func from "./app";
 
-describe("ElasticBeanstalk .createInitAppVersions()", () => {
+describe("ElasticBeanstalk .createApplication()", () => {
   let stack: cdk.Stack;
 
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe("ElasticBeanstalk .createInitAppVersions()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createInitAppVersions([], stub(stack, "eb.CfnApplication"), arn(), stack);
+    func.createApplication([], stub(stack, "ec2.Role"), stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CodeDeploy .createInitAppVersions() matches snapshot 1`] = `
+exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
 {
   "Parameters": {
     "BootstrapVersion": {
