@@ -11,7 +11,7 @@ describe("CodeDeploy .createCodedeployRole()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createCodedeployRole(["role"], "arn::role", stack);
+    func.createCodedeployRole(["pre", "fix"], "arn::role", stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
@@ -19,7 +19,7 @@ describe("CodeDeploy .createCodedeployRole()", () => {
   test("grants bucket access", () => {
     const resourceCapture = new Capture();
     const actionCapture = new Capture();
-    func.createCodedeployRole(["role"], "arn::", stack);
+    func.createCodedeployRole(["pre", "fix"], "arn::", stack);
 
     Template.fromStack(stack).hasResourceProperties("AWS::IAM::Policy", {
       PolicyDocument: {

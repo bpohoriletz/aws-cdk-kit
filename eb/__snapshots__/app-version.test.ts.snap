@@ -10,43 +10,6 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "BctDeploymentAwsCliLayer547C85EB": {
-      "Properties": {
-        "Content": {
-          "S3Bucket": {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-          "S3Key": "566e8d9f8eaa36ffa4f62af3b2cb2abfe3a5e01497f47d6232038964297e694d.zip",
-        },
-        "Description": "/opt/awscli/aws",
-      },
-      "Type": "AWS::Lambda::LayerVersion",
-    },
-    "BctDeploymentCustomResource2C0EF221": {
-      "DeletionPolicy": "Delete",
-      "Properties": {
-        "DestinationBucketKeyPrefix": "eb.CfnApplication/versions",
-        "DestinationBucketName": "resource",
-        "OutputObjectKeys": true,
-        "Prune": false,
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
-            "Arn",
-          ],
-        },
-        "SourceBucketNames": [
-          {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-        ],
-        "SourceObjectKeys": [
-          "b7826d21185e020066e56b133136e1082372d08cf21209a8823ac39710782f68.zip",
-        ],
-      },
-      "Type": "Custom::CDKBucketDeployment",
-      "UpdateReplacePolicy": "Delete",
-    },
     "CfnApplicationId": {
       "Properties": {
         "ApplicationName": "eb.CfnApplication",
@@ -73,7 +36,7 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
         "Handler": "index.handler",
         "Layers": [
           {
-            "Ref": "BctDeploymentAwsCliLayer547C85EB",
+            "Ref": "PreFixBctDeploymentAwsCliLayerB7165D6D",
           },
         ],
         "Role": {
@@ -196,8 +159,8 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
     },
     "InitialVersion": {
       "DependsOn": [
-        "BctDeploymentAwsCliLayer547C85EB",
-        "BctDeploymentCustomResource2C0EF221",
+        "PreFixBctDeploymentAwsCliLayerB7165D6D",
+        "PreFixBctDeploymentCustomResource5CD28A13",
       ],
       "Properties": {
         "ApplicationName": "eb.CfnApplication",
@@ -211,8 +174,8 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
     },
     "OpeningVersion": {
       "DependsOn": [
-        "BctDeploymentAwsCliLayer547C85EB",
-        "BctDeploymentCustomResource2C0EF221",
+        "PreFixBctDeploymentAwsCliLayerB7165D6D",
+        "PreFixBctDeploymentCustomResource5CD28A13",
       ],
       "Properties": {
         "ApplicationName": "eb.CfnApplication",
@@ -223,6 +186,43 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
         },
       },
       "Type": "AWS::ElasticBeanstalk::ApplicationVersion",
+    },
+    "PreFixBctDeploymentAwsCliLayerB7165D6D": {
+      "Properties": {
+        "Content": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "566e8d9f8eaa36ffa4f62af3b2cb2abfe3a5e01497f47d6232038964297e694d.zip",
+        },
+        "Description": "/opt/awscli/aws",
+      },
+      "Type": "AWS::Lambda::LayerVersion",
+    },
+    "PreFixBctDeploymentCustomResource5CD28A13": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "DestinationBucketKeyPrefix": "eb.CfnApplication/versions",
+        "DestinationBucketName": "resource",
+        "OutputObjectKeys": true,
+        "Prune": false,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomCDKBucketDeployment8693BB64968944B69AAFB0CC9EB8756C81C01536",
+            "Arn",
+          ],
+        },
+        "SourceBucketNames": [
+          {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+        ],
+        "SourceObjectKeys": [
+          "b7826d21185e020066e56b133136e1082372d08cf21209a8823ac39710782f68.zip",
+        ],
+      },
+      "Type": "Custom::CDKBucketDeployment",
+      "UpdateReplacePolicy": "Delete",
     },
   },
   "Rules": {

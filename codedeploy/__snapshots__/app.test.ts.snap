@@ -10,9 +10,9 @@ exports[`CodeDeploy .createCdApplication() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "testcdapp07C32602": {
+    "prefixcdappA2CDD7A8": {
       "Properties": {
-        "ApplicationName": "test-cd-app",
+        "ApplicationName": "pre-fix-cd-app",
         "ComputePlatform": "Server",
       },
       "Type": "AWS::CodeDeploy::Application",

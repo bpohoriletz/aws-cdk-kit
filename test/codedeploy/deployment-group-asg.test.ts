@@ -10,7 +10,7 @@ describe("CodeDeploy .createDeploymentGroupToAsg()", () => {
   beforeEach(() => { stack = new cdk.Stack(); });
 
   test("matches snapshot", () => {
-    func.createDeploymentGroupToAsg(["prefix"], [stub(stack, "ec2.InstanceType")], stub(stack, "cd.ServerApplication"),
+    func.createDeploymentGroupToAsg(["pre", "fix"], [stub(stack, "ec2.InstanceType")], stub(stack, "cd.ServerApplication"),
                                     stub(stack, "iam.InstanceProfile"), stub(stack, "iam.Role"),
                                     stub(stack, "ec2.Vpc"), stack);
 

@@ -236,9 +236,9 @@ exports[`ElasticBeanstalk .createApplication() matches snapshot 1`] = `
       "Type": "Custom::AWS",
       "UpdateReplacePolicy": "Delete",
     },
-    "app": {
+    "prefixapp": {
       "Properties": {
-        "ApplicationName": "app",
+        "ApplicationName": "pre-fix-app",
         "ResourceLifecycleConfig": {
           "VersionLifecycleConfig": {
             "MaxCountRule": {

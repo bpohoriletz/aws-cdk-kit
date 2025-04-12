@@ -11,14 +11,14 @@ describe("CodeDeploy .createCdApplication()", () => {
   });
 
   test("matches snapshot", () => {
-    app.createCdApplication(["test"], stack);
+    app.createCdApplication(["pre", "fix"], stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
 
   test("has proper name", () => {
-    app.createCdApplication(["name"], stack);
+    app.createCdApplication(["pre", "fix"], stack);
 
-    Template.fromStack(stack).hasResourceProperties("AWS::CodeDeploy::Application", { "ApplicationName": "name-cd-app" });
+    Template.fromStack(stack).hasResourceProperties("AWS::CodeDeploy::Application", { "ApplicationName": "pre-fix-cd-app" });
   });
 });

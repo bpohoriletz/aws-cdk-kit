@@ -1,131 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CodeDeploy .createDeploymentGroupToAsg() matches snapshot 1`] = `
+exports[`EC2 .createPublicInstance() matches snapshot 1`] = `
 {
-  "Mappings": {
-    "LatestNodeRuntimeMap": {
-      "af-south-1": {
-        "value": "nodejs20.x",
-      },
-      "ap-east-1": {
-        "value": "nodejs20.x",
-      },
-      "ap-northeast-1": {
-        "value": "nodejs20.x",
-      },
-      "ap-northeast-2": {
-        "value": "nodejs20.x",
-      },
-      "ap-northeast-3": {
-        "value": "nodejs20.x",
-      },
-      "ap-south-1": {
-        "value": "nodejs20.x",
-      },
-      "ap-south-2": {
-        "value": "nodejs20.x",
-      },
-      "ap-southeast-1": {
-        "value": "nodejs20.x",
-      },
-      "ap-southeast-2": {
-        "value": "nodejs20.x",
-      },
-      "ap-southeast-3": {
-        "value": "nodejs20.x",
-      },
-      "ap-southeast-4": {
-        "value": "nodejs20.x",
-      },
-      "ap-southeast-5": {
-        "value": "nodejs20.x",
-      },
-      "ap-southeast-7": {
-        "value": "nodejs20.x",
-      },
-      "ca-central-1": {
-        "value": "nodejs20.x",
-      },
-      "ca-west-1": {
-        "value": "nodejs20.x",
-      },
-      "cn-north-1": {
-        "value": "nodejs20.x",
-      },
-      "cn-northwest-1": {
-        "value": "nodejs20.x",
-      },
-      "eu-central-1": {
-        "value": "nodejs20.x",
-      },
-      "eu-central-2": {
-        "value": "nodejs20.x",
-      },
-      "eu-isoe-west-1": {
-        "value": "nodejs18.x",
-      },
-      "eu-north-1": {
-        "value": "nodejs20.x",
-      },
-      "eu-south-1": {
-        "value": "nodejs20.x",
-      },
-      "eu-south-2": {
-        "value": "nodejs20.x",
-      },
-      "eu-west-1": {
-        "value": "nodejs20.x",
-      },
-      "eu-west-2": {
-        "value": "nodejs20.x",
-      },
-      "eu-west-3": {
-        "value": "nodejs20.x",
-      },
-      "il-central-1": {
-        "value": "nodejs20.x",
-      },
-      "me-central-1": {
-        "value": "nodejs20.x",
-      },
-      "me-south-1": {
-        "value": "nodejs20.x",
-      },
-      "mx-central-1": {
-        "value": "nodejs20.x",
-      },
-      "sa-east-1": {
-        "value": "nodejs20.x",
-      },
-      "us-east-1": {
-        "value": "nodejs20.x",
-      },
-      "us-east-2": {
-        "value": "nodejs20.x",
-      },
-      "us-gov-east-1": {
-        "value": "nodejs20.x",
-      },
-      "us-gov-west-1": {
-        "value": "nodejs20.x",
-      },
-      "us-iso-east-1": {
-        "value": "nodejs18.x",
-      },
-      "us-iso-west-1": {
-        "value": "nodejs18.x",
-      },
-      "us-isob-east-1": {
-        "value": "nodejs18.x",
-      },
-      "us-west-1": {
-        "value": "nodejs20.x",
-      },
-      "us-west-2": {
-        "value": "nodejs20.x",
-      },
-    },
-  },
   "Parameters": {
     "BootstrapVersion": {
       "Default": "/cdk-bootstrap/hnb659fds/version",
@@ -138,69 +14,6 @@ exports[`CodeDeploy .createDeploymentGroupToAsg() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "AWS679f53fac002430cb0da5b7982bd22872D164C4C": {
-      "DependsOn": [
-        "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-      ],
-      "Properties": {
-        "Code": {
-          "S3Bucket": {
-            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
-          },
-          "S3Key": "4cd2f2411231aa073e609dc99a49b5c5e974252bf9abf0f9350d237d17cce8be.zip",
-        },
-        "FunctionName": "Stub-ec2-InstanceType",
-        "Handler": "index.handler",
-        "Role": {
-          "Fn::GetAtt": [
-            "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-            "Arn",
-          ],
-        },
-        "Runtime": {
-          "Fn::FindInMap": [
-            "LatestNodeRuntimeMap",
-            {
-              "Ref": "AWS::Region",
-            },
-            "value",
-          ],
-        },
-        "Timeout": 120,
-      },
-      "Type": "AWS::Lambda::Function",
-    },
-    "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "lambda.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
-              ],
-            ],
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
     "InstanceProfileIDE79A37AF": {
       "Properties": {
         "Roles": [
@@ -227,63 +40,6 @@ exports[`CodeDeploy .createDeploymentGroupToAsg() matches snapshot 1`] = `
         },
       },
       "Type": "AWS::IAM::Role",
-    },
-    "InstanceProfileIDInstanceRoleDefaultPolicy2535B464": {
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": [
-                "s3:GetObject*",
-                "s3:GetBucket*",
-                "s3:List*",
-              ],
-              "Effect": "Allow",
-              "Resource": [
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::aws-codedeploy-",
-                      {
-                        "Ref": "AWS::Region",
-                      },
-                    ],
-                  ],
-                },
-                {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "arn:",
-                      {
-                        "Ref": "AWS::Partition",
-                      },
-                      ":s3:::aws-codedeploy-",
-                      {
-                        "Ref": "AWS::Region",
-                      },
-                      "/latest/*",
-                    ],
-                  ],
-                },
-              ],
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "InstanceProfileIDInstanceRoleDefaultPolicy2535B464",
-        "Roles": [
-          {
-            "Ref": "InstanceProfileIDInstanceRole9444F891",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
     },
     "PreFixEc2Sg86D116B5": {
       "Properties": {
@@ -318,196 +74,79 @@ exports[`CodeDeploy .createDeploymentGroupToAsg() matches snapshot 1`] = `
       },
       "Type": "AWS::EC2::SecurityGroup",
     },
-    "PreFixLtA4FCEB40": {
+    "PreFixInst0576B269": {
       "DependsOn": [
-        "InstanceProfileIDInstanceRoleDefaultPolicy2535B464",
         "InstanceProfileIDInstanceRole9444F891",
+        "VpcIDPublicSubnet1DefaultRoute73EE5304",
+        "VpcIDPublicSubnet1RouteTableAssociation2D570C68",
+        "VpcIDPublicSubnet2DefaultRoute16A93887",
+        "VpcIDPublicSubnet2RouteTableAssociation5A90573C",
       ],
       "Properties": {
-        "LaunchTemplateData": {
-          "IamInstanceProfile": {
-            "Arn": {
-              "Fn::GetAtt": [
-                "InstanceProfileIDE79A37AF",
-                "Arn",
-              ],
-            },
-          },
-          "ImageId": {
-            "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter",
-          },
-          "InstanceType": "Default/Stub-ec2-InstanceType",
-          "NetworkInterfaces": [
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
             {
-              "AssociatePublicIpAddress": false,
-              "DeviceIndex": 0,
-              "Groups": [
-                {
-                  "Fn::GetAtt": [
-                    "PreFixEc2Sg86D116B5",
-                    "GroupId",
-                  ],
-                },
-              ],
+              "Fn::GetAZs": "",
             },
           ],
-          "TagSpecifications": [
-            {
-              "ResourceType": "instance",
-              "Tags": [
-                {
-                  "Key": "Name",
-                  "Value": "Default/PreFixLt",
-                },
-              ],
-            },
-            {
-              "ResourceType": "volume",
-              "Tags": [
-                {
-                  "Key": "Name",
-                  "Value": "Default/PreFixLt",
-                },
-              ],
-            },
-          ],
-          "UserData": {
-            "Fn::Base64": {
-              "Fn::Join": [
-                "",
-                [
-                  "#!/bin/bash
-echo Hello World
-set +e
-PKG_CMD=\`which yum 2>/dev/null\`
-set -e
-if [ -z "$PKG_CMD" ]; then
-PKG_CMD=apt-get
-else
-PKG_CMD=yum
-fi
-$PKG_CMD update -y
-set +e
-$PKG_CMD install -y ruby2.0
-RUBY2_INSTALL=$?
-set -e
-if [ $RUBY2_INSTALL -ne 0 ]; then
-$PKG_CMD install -y ruby
-fi
-AWS_CLI_PACKAGE_NAME=awscli
-if [ "$PKG_CMD" = "yum" ]; then
-AWS_CLI_PACKAGE_NAME=aws-cli
-fi
-$PKG_CMD install -y $AWS_CLI_PACKAGE_NAME
-TMP_DIR=\`mktemp -d\`
-cd $TMP_DIR
-aws s3 cp s3://aws-codedeploy-",
-                  {
-                    "Ref": "AWS::Region",
-                  },
-                  "/latest/install . --region ",
-                  {
-                    "Ref": "AWS::Region",
-                  },
-                  "
-chmod +x ./install
-./install auto
-rm -fr $TMP_DIR",
-                ],
-              ],
-            },
-          },
         },
-        "LaunchTemplateName": "PreFixLt",
-        "TagSpecifications": [
+        "IamInstanceProfile": {
+          "Ref": "InstanceProfileIDE79A37AF",
+        },
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter",
+        },
+        "InstanceType": "t2.micro",
+        "NetworkInterfaces": [
           {
-            "ResourceType": "launch-template",
-            "Tags": [
+            "AssociatePublicIpAddress": true,
+            "DeviceIndex": "0",
+            "GroupSet": [
               {
-                "Key": "Name",
-                "Value": "Default/PreFixLt",
+                "Fn::GetAtt": [
+                  "PreFixEc2Sg86D116B5",
+                  "GroupId",
+                ],
               },
             ],
+            "SubnetId": {
+              "Ref": "VpcIDPublicSubnet1Subnet49ECF0B5",
+            },
           },
         ],
-      },
-      "Type": "AWS::EC2::LaunchTemplate",
-    },
-    "RoleID477B5CA1": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "AWS": "*",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": [
+        "Tags": [
           {
+            "Key": "Name",
+            "Value": "PreFixInst",
+          },
+        ],
+        "UserData": {
+          "Fn::Base64": {
             "Fn::Join": [
               "",
               [
-                "arn:",
+                "#!/bin/bash
+sudo yum update -y
+sudo yum install -y ruby wget
+cd /home/ec2-user
+wget https://aws-codedeploy-",
                 {
-                  "Ref": "AWS::Partition",
+                  "Ref": "AWS::Region",
                 },
-                ":iam::aws:policy/service-role/AWSCodeDeployRole",
+                ".s3.",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ".amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto",
               ],
             ],
           },
-        ],
-      },
-      "Type": "AWS::IAM::Role",
-    },
-    "ServerApplicationID0A7B7E9A": {
-      "Properties": {
-        "ComputePlatform": "Server",
-      },
-      "Type": "AWS::CodeDeploy::Application",
-    },
-    "Stubec2InstanceType20C07FE8": {
-      "DeletionPolicy": "Delete",
-      "DependsOn": [
-        "Stubec2InstanceTypeCustomResourcePolicy143CCA59",
-      ],
-      "Properties": {
-        "Create": "{"service":"sts","action":"GetCallerIdentity","physicalResourceId":{"id":"CustomID"}}",
-        "InstallLatestAwsSdk": true,
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "AWS679f53fac002430cb0da5b7982bd22872D164C4C",
-            "Arn",
-          ],
         },
       },
-      "Type": "Custom::AWS",
-      "UpdateReplacePolicy": "Delete",
-    },
-    "Stubec2InstanceTypeCustomResourcePolicy143CCA59": {
-      "Properties": {
-        "PolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:GetCallerIdentity",
-              "Effect": "Allow",
-              "Resource": "*",
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "PolicyName": "Stubec2InstanceTypeCustomResourcePolicy143CCA59",
-        "Roles": [
-          {
-            "Ref": "AWS679f53fac002430cb0da5b7982bd2287ServiceRoleC1EA0FF2",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::Policy",
+      "Type": "AWS::EC2::Instance",
     },
     "VpcID703024FC": {
       "Properties": {
@@ -899,81 +538,6 @@ rm -fr $TMP_DIR",
         },
       },
       "Type": "AWS::EC2::VPCGatewayAttachment",
-    },
-    "prefixasgASGD04A8C02": {
-      "Properties": {
-        "AutoScalingGroupName": "pre-fix-asg",
-        "DesiredCapacity": "1",
-        "HealthCheckGracePeriod": 300,
-        "HealthCheckType": "EC2",
-        "MaxSize": "1",
-        "MinSize": "1",
-        "MixedInstancesPolicy": {
-          "InstancesDistribution": {
-            "OnDemandBaseCapacity": 0,
-            "OnDemandPercentageAboveBaseCapacity": 0,
-          },
-          "LaunchTemplate": {
-            "LaunchTemplateSpecification": {
-              "LaunchTemplateId": {
-                "Ref": "PreFixLtA4FCEB40",
-              },
-              "Version": {
-                "Fn::GetAtt": [
-                  "PreFixLtA4FCEB40",
-                  "LatestVersionNumber",
-                ],
-              },
-            },
-            "Overrides": [
-              {
-                "InstanceType": "Default/Stub-ec2-InstanceType",
-              },
-            ],
-          },
-        },
-        "VPCZoneIdentifier": [
-          {
-            "Ref": "VpcIDPrivateSubnet1SubnetE31736A9",
-          },
-          {
-            "Ref": "VpcIDPrivateSubnet2SubnetC6B60E3F",
-          },
-        ],
-      },
-      "Type": "AWS::AutoScaling::AutoScalingGroup",
-      "UpdatePolicy": {
-        "AutoScalingScheduledAction": {
-          "IgnoreUnmodifiedGroupSizeProperties": true,
-        },
-      },
-    },
-    "prefixdg66D052C2": {
-      "Properties": {
-        "ApplicationName": {
-          "Ref": "ServerApplicationID0A7B7E9A",
-        },
-        "AutoRollbackConfiguration": {
-          "Enabled": true,
-          "Events": [
-            "DEPLOYMENT_FAILURE",
-          ],
-        },
-        "AutoScalingGroups": [
-          {
-            "Ref": "prefixasgASGD04A8C02",
-          },
-        ],
-        "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-        "DeploymentGroupName": "pre-fix-dg",
-        "ServiceRoleArn": {
-          "Fn::GetAtt": [
-            "RoleID477B5CA1",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::CodeDeploy::DeploymentGroup",
     },
   },
   "Rules": {

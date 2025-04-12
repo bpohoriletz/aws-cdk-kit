@@ -1,0 +1,595 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EC2 .createMinimalVpc() matches snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "PreFixVpc359F0D17": {
+      "Properties": {
+        "CidrBlock": "10.255.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PreFixVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "PreFixVpcIGWB72EC1F8": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PreFixVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "PreFixVpcPublicSubnet1DefaultRouteB716A66A": {
+      "DependsOn": [
+        "PreFixVpcVPCGWC09F8D3F",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet1RouteTable23041149",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "PreFixVpcPublicSubnet1RouteTable23041149": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "PreFixVpcPublicSubnet1RouteTableAssociation0CC9D25D": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet1RouteTable23041149",
+        },
+        "SubnetId": {
+          "Ref": "PreFixVpcPublicSubnet1Subnet8F335C33",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "PreFixVpcPublicSubnet1Subnet8F335C33": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.255.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "PreFixVpcVPCGWC09F8D3F": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`EC2 .createProdVpc() matches snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "PreFixVpc359F0D17": {
+      "Properties": {
+        "CidrBlock": "10.255.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "PreFixVpcIGWB72EC1F8": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "PreFixVpcPublicSubnet1DefaultRouteB716A66A": {
+      "DependsOn": [
+        "PreFixVpcVPCGWC09F8D3F",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet1RouteTable23041149",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "PreFixVpcPublicSubnet1RouteTable23041149": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "PreFixVpcPublicSubnet1RouteTableAssociation0CC9D25D": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet1RouteTable23041149",
+        },
+        "SubnetId": {
+          "Ref": "PreFixVpcPublicSubnet1Subnet8F335C33",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "PreFixVpcPublicSubnet1Subnet8F335C33": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.255.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "PreFixVpcPublicSubnet2DefaultRoute41C7E8D0": {
+      "DependsOn": [
+        "PreFixVpcVPCGWC09F8D3F",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet2RouteTableF7146078",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "PreFixVpcPublicSubnet2RouteTableAssociationB661D737": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet2RouteTableF7146078",
+        },
+        "SubnetId": {
+          "Ref": "PreFixVpcPublicSubnet2Subnet387DF9A4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "PreFixVpcPublicSubnet2RouteTableF7146078": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "PreFixVpcPublicSubnet2Subnet387DF9A4": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.255.64.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "PreFixVpcVPCGWC09F8D3F": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`EC2 .createVpc() matches snapshot 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "PreFixVpc359F0D17": {
+      "Properties": {
+        "CidrBlock": "10.255.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PreFixVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "PreFixVpcIGWB72EC1F8": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PreFixVpc",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "PreFixVpcPublicSubnet1DefaultRouteB716A66A": {
+      "DependsOn": [
+        "PreFixVpcVPCGWC09F8D3F",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet1RouteTable23041149",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "PreFixVpcPublicSubnet1RouteTable23041149": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "PreFixVpcPublicSubnet1RouteTableAssociation0CC9D25D": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet1RouteTable23041149",
+        },
+        "SubnetId": {
+          "Ref": "PreFixVpcPublicSubnet1Subnet8F335C33",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "PreFixVpcPublicSubnet1Subnet8F335C33": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.255.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet1",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "PreFixVpcPublicSubnet2DefaultRoute41C7E8D0": {
+      "DependsOn": [
+        "PreFixVpcVPCGWC09F8D3F",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet2RouteTableF7146078",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "PreFixVpcPublicSubnet2RouteTableAssociationB661D737": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "PreFixVpcPublicSubnet2RouteTableF7146078",
+        },
+        "SubnetId": {
+          "Ref": "PreFixVpcPublicSubnet2Subnet387DF9A4",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "PreFixVpcPublicSubnet2RouteTableF7146078": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "PreFixVpcPublicSubnet2Subnet387DF9A4": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.255.64.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "Name",
+            "Value": "Default/PreFixVpc/PublicSubnet2",
+          },
+        ],
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "PreFixVpcVPCGWC09F8D3F": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "PreFixVpcIGWB72EC1F8",
+        },
+        "VpcId": {
+          "Ref": "PreFixVpc359F0D17",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;

@@ -10,7 +10,7 @@ describe("CodeDeploy .createDeploymentGroupToEc2()", () => {
   beforeEach(() => { stack = new cdk.Stack(); });
 
   test("matches snapshot", () => {
-    func.createDeploymentGroupToEc2([], stub(stack, "ec2.Instance"),
+    func.createDeploymentGroupToEc2(["pre", "fix"], stub(stack, "ec2.Instance"),
                                     stub(stack, "cd.ServerApplication"), "stack", stub(stack, "iam.Role"), stack);
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });

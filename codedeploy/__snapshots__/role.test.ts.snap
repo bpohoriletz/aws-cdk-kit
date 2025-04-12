@@ -10,7 +10,7 @@ exports[`CodeDeploy .createCodedeployRole() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "RoleCodedeployRole71D7C023": {
+    "PreFixCodedeployRole548A928C": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -38,7 +38,7 @@ exports[`CodeDeploy .createCodedeployRole() matches snapshot 1`] = `
             ],
           },
         ],
-        "RoleName": "RoleCodedeployRole",
+        "RoleName": "PreFixCodedeployRole",
       },
       "Type": "AWS::IAM::Role",
     },
@@ -66,7 +66,7 @@ exports[`CodeDeploy .createCodedeployRole() matches snapshot 1`] = `
         "PolicyName": "allowEc2UploadToEbRegionalCdBucket94B7A9C3",
         "Roles": [
           {
-            "Ref": "RoleCodedeployRole71D7C023",
+            "Ref": "PreFixCodedeployRole548A928C",
           },
         ],
       },

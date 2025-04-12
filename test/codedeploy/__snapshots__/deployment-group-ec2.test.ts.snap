@@ -197,12 +197,6 @@ exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "CDApplicationIDD0C61747": {
-      "Properties": {
-        "ComputePlatform": "Server",
-      },
-      "Type": "AWS::CodeDeploy::Application",
-    },
     "RoleID477B5CA1": {
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -233,6 +227,12 @@ exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "ServerApplicationID0A7B7E9A": {
+      "Properties": {
+        "ComputePlatform": "Server",
+      },
+      "Type": "AWS::CodeDeploy::Application",
     },
     "Stubec2Instance9DD605F6": {
       "DeletionPolicy": "Delete",
@@ -273,10 +273,10 @@ exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
       },
       "Type": "AWS::IAM::Policy",
     },
-    "dg2371A324": {
+    "prefixdg66D052C2": {
       "Properties": {
         "ApplicationName": {
-          "Ref": "CDApplicationIDD0C61747",
+          "Ref": "ServerApplicationID0A7B7E9A",
         },
         "AutoRollbackConfiguration": {
           "Enabled": true,
@@ -285,7 +285,7 @@ exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
           ],
         },
         "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-        "DeploymentGroupName": "dg",
+        "DeploymentGroupName": "pre-fix-dg",
         "Ec2TagSet": {
           "Ec2TagSetList": [
             {
@@ -303,7 +303,7 @@ exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
                   "Key": "Application",
                   "Type": "KEY_AND_VALUE",
                   "Value": {
-                    "Ref": "CDApplicationIDD0C61747",
+                    "Ref": "ServerApplicationID0A7B7E9A",
                   },
                 },
               ],
