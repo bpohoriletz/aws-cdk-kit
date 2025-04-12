@@ -18,20 +18,37 @@ export function stub(stack: Stack, clazz: string, id?: string) : any {
     case "eb.CfnApplication":
       return new eb.CfnApplication(stack, id || "CfnApplicationId", { applicationName: "eb.CfnApplication"});
     case "ec2.Vpc":
-      return new ec2.Vpc(stack, "VpcID");
+      return new ec2.Vpc(stack, "VpcID", { subnetConfiguration: [
+      {
+        name: "Public",
+        subnetType: ec2.SubnetType.PUBLIC,
+        cidrMask: 19,
+      },
+      {
+        name: "Isolated",
+        subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+        cidrMask: 19,
+      },
+      {
+        name: "Private",
+        subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+        cidrMask: 19,
+      },
+    ],
+    });
     default:
       var stubId = `Stub-${clazz}`.replace(".", "-")
       return new AwsCustomResource(stack, id || stubId, {
-      functionName: stubId,
-      onCreate: {
-        service: "sts",
-        action: "GetCallerIdentity",
-        physicalResourceId: PhysicalResourceId.of(id || "CustomID"),
-      },
-      policy:  AwsCustomResourcePolicy.fromSdkCalls({
-        resources: AwsCustomResourcePolicy.ANY_RESOURCE,
-      }),
-    });
+        functionName: stubId,
+        onCreate: {
+          service: "sts",
+          action: "GetCallerIdentity",
+          physicalResourceId: PhysicalResourceId.of(id || "CustomID"),
+        },
+        policy:  AwsCustomResourcePolicy.fromSdkCalls({
+          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+        }),
+      });
   }
 }
 
