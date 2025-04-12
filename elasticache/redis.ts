@@ -2,7 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import * as elasticache from "aws-cdk-lib/aws-elasticache";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as names from "../utils/naming";
-import * as conf from "../../config/elasticache/redis";
+import * as conf from "../../config/eca/redis";
 
 export function createRedisInstance(resourceNamePrefix: string[], vpc: ec2.IVpc, stack: cdk.Stack): [elasticache.CfnCacheCluster, ec2.SecurityGroup] {
   const subnetGroupName = names.subnetGroupName(resourceNamePrefix.concat("redis"));
