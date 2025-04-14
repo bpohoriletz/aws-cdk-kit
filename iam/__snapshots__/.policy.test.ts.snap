@@ -9,6 +9,25 @@ exports[`IAM .createDeveloperPolicy() matches snapshot 1`] = `
       "Type": "AWS::SSM::Parameter::Value<String>",
     },
   },
+  "Resources": {
+    "PreFixEc2AccessPolicyE7438C9B": {
+      "Properties": {
+        "Description": "Developer-level access to EC2 services",
+        "Path": "/",
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "ec2:*",
+              "Effect": "Allow",
+              "Resource": "*",
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+      },
+      "Type": "AWS::IAM::ManagedPolicy",
+    },
+  },
   "Rules": {
     "CheckBootstrapVersion": {
       "Assertions": [

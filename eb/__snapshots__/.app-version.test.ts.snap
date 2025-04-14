@@ -10,7 +10,7 @@ exports[`ElasticBeanstalk .createInitAppVersions() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "CfnApplicationId": {
+    "CfnApplicationID": {
       "Properties": {
         "ApplicationName": "eb.CfnApplication",
       },

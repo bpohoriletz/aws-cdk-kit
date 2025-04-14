@@ -1,9 +1,10 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
+import { stub } from "../test/stubs"
 
-import * as func from "./topic";
+import * as func from "./queue";
 
-describe("SNS .createOrdersTopic()", () => {
+describe("SQS .createOrdersQueue()", () => {
   let stack: cdk.Stack;
 
   beforeEach(() => {
@@ -11,7 +12,7 @@ describe("SNS .createOrdersTopic()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createOrdersTopic(["pre", "fix"], stack)
+    func.createOrdersQueue(["pre", "fix"], stub(stack, "sns.Topic"), stack)
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
