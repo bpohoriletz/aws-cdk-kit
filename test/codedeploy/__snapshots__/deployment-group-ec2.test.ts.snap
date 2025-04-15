@@ -230,6 +230,7 @@ exports[`CodeDeploy .createDeploymentGroupToEc2() matches snapshot 1`] = `
     },
     "ServerApplicationID0A7B7E9A": {
       "Properties": {
+        "ApplicationName": "cd.ServerApplication",
         "ComputePlatform": "Server",
       },
       "Type": "AWS::CodeDeploy::Application",
