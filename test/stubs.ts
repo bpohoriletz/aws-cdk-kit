@@ -7,9 +7,11 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import * as sns from "aws-cdk-lib/aws-sns";
 
 export function stub(stack: Stack, clazz: string, id?: string) : any {
+  if (process.env.DEBUG) { console.log(clazz) }
+
   switch (clazz) {
     case "cd.ServerApplication":
-      return new codedeploy.ServerApplication(stack, id || "ServerApplicationID");
+      return new codedeploy.ServerApplication(stack, id || "ServerApplicationID", { applicationName: "cd.ServerApplication" });
     case "iam.CfnInstanceProfile":
       return new iam.CfnInstanceProfile(stack, id || "CfnInstanceProfileID", { roles: [] });
     case "iam.InstanceProfile":
