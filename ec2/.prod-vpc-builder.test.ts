@@ -1,10 +1,10 @@
-import SmallVpcBuilder from "./small-vpc-builder";
+import ProdVpcBuilder from "./prod-vpc-builder";
 
-describe("new SmallVpcBuilder()", () => {
-  let instance: SmallVpcBuilder;
+describe("new ProdVpcBuilder()", () => {
+  let instance: ProdVpcBuilder;
 
   beforeEach(() => {
-    instance = new SmallVpcBuilder("Vpc");
+    instance = new ProdVpcBuilder("Vpc");
   });
 
   test("Matches snapshot", () => {
