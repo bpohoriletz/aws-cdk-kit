@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new SmallVpcBuilder() Matches snapshot 1`] = `
+exports[`new PetVpcBuilder() Matches snapshot 1`] = `
 VpcProduct {
   "ipAddressesSet": Cidr {
     "cidrBlock": "10.255.0.0/16",

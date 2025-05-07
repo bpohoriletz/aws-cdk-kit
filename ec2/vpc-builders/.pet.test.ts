@@ -1,10 +1,10 @@
-import ProdVpcBuilder from "./prod-vpc-builder";
+import PetVpcBuilder from "./pet";
 
-describe("new ProdVpcBuilder()", () => {
-  let instance: ProdVpcBuilder;
+describe("new PetVpcBuilder()", () => {
+  let instance: PetVpcBuilder;
 
   beforeEach(() => {
-    instance = new ProdVpcBuilder("Vpc");
+    instance = new PetVpcBuilder("Vpc");
   });
 
   test("Matches snapshot", () => {
