@@ -11,6 +11,16 @@ export function createAdminsGroup(stack: cdk.Stack) : iam.Group {
   return adminsGroup;
 }
 
+export function createBillingGroup(stack: cdk.Stack) : iam.Group {
+  const billingGroup = new iam.Group(stack, "BillingGroup", {
+    groupName: "Billing",
+  });
+
+  billingGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("job-function/Billing"));
+
+  return billingGroup;
+}
+
 export function createDevelopersGroup(stack: cdk.Stack) : iam.Group {
   const devsGroup = new iam.Group(stack, "DevelopersGroup", {
     groupName: "Developers",
