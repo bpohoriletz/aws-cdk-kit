@@ -4,15 +4,15 @@ describe("new ProdVpcBuilder()", () => {
   let instance: ProdVpcBuilder;
 
   beforeEach(() => {
-    instance = new ProdVpcBuilder("Vpc");
+    instance = new ProdVpcBuilder();
   });
 
   test("Matches snapshot", () => {
     instance.customizeAzs()
-      .customizeCidr()
+      .customizeCidr("Vpc")
       .customizeNatProvider()
       .customizeNatSubnets()
-      .customizeSubnetConfiguration()
+      .customizeSubnetConfiguration("Vpc")
 
     expect(instance.getResult()).toMatchSnapshot();
   })
