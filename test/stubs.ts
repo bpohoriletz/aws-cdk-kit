@@ -1,5 +1,5 @@
 import { Stack } from "aws-cdk-lib";
-import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
+import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from "aws-cdk-lib/custom-resources";
 import * as codedeploy from "aws-cdk-lib/aws-codedeploy";
 import * as eb from "aws-cdk-lib/aws-elasticbeanstalk";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
@@ -7,7 +7,7 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import * as sns from "aws-cdk-lib/aws-sns";
 
 export function stub(stack: Stack, clazz: string, id?: string) : any {
-  if (process.env.DEBUG) { console.log(clazz) }
+  if (process.env.DEBUG) { console.log(clazz); }
 
   switch (clazz) {
     case "cd.ServerApplication":
@@ -42,7 +42,7 @@ export function stub(stack: Stack, clazz: string, id?: string) : any {
     case "sns.Topic":
       return new sns.Topic(stack, id || "TopicID");
     default:
-      var stubId = `Stub-${clazz}`.replace(".", "-")
+      var stubId = `Stub-${clazz}`.replace(".", "-");
       return new AwsCustomResource(stack, id || stubId, {
         functionName: stubId,
         onCreate: {
@@ -58,5 +58,5 @@ export function stub(stack: Stack, clazz: string, id?: string) : any {
 }
 
 export function arn() : string {
-  return "arn:partition:service:region:account-id:resource"
+  return "arn:partition:service:region:account-id:resource";
 }

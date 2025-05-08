@@ -37,7 +37,7 @@ export default class VpcBuilder implements IVpcBuilder {
   }
   customizeSubnetConfiguration(name: string): this {
     const config = conf.vpcSubnetConfig(name);
-    this.vpcProps.setSubnetConfiguration(config)
+    this.vpcProps.setSubnetConfiguration(config);
 
     return this;
   }
