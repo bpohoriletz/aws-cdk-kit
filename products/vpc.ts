@@ -29,14 +29,14 @@ export class VpcProduct implements ec2.VpcProps {
 }
 
 export interface IVpcBuilder {
-  customizeCidr(): this;
+  customizeCidr(name: string): this;
   customizeAzs(): this;
   customizeNatProvider(): this;
   customizeNatSubnets(): this;
-  customizeSubnetConfiguration(): this;
+  customizeSubnetConfiguration(name: string): this;
   getResult(): VpcProduct;
 }
 
 export interface IVpcBuilderConstructor {
-  new(resourceName: string): IVpcBuilder;
+  new(): IVpcBuilder;
 }
