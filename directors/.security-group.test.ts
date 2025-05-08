@@ -1,8 +1,8 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { stub } from "../test/stubs"
-import SecurityGroupDirector from "./security-group"
-import SecurityGroupBuilder from "../ec2/security-group-builder"
+import { stub } from "../test/stubs";
+import SecurityGroupDirector from "./security-group";
+import SecurityGroupBuilder from "../ec2/security-group-builder";
 
 describe("new SecurityGroupDirector()", () => {
   let instance: SecurityGroupDirector;
@@ -18,4 +18,4 @@ describe("new SecurityGroupDirector()", () => {
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
-})
+});

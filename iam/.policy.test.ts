@@ -12,7 +12,7 @@ describe("IAM .createDeveloperPolicy()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createDeveloperPolicy("ec2", ["pre", "fix"], stack)
+    func.createDeveloperPolicy("ec2", ["pre", "fix"], stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });

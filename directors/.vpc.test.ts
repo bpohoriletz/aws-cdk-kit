@@ -1,7 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import VpcDirector from "./vpc"
-import PetVpcBuilder from "../ec2/vpc-builders/pet"
+import VpcDirector from "./vpc";
+import PetVpcBuilder from "../ec2/vpc-builders/pet";
 
 describe("new VpcDirector()", () => {
   let instance: VpcDirector;
@@ -17,4 +17,4 @@ describe("new VpcDirector()", () => {
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
-})
+});
