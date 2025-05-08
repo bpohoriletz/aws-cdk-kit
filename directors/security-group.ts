@@ -15,11 +15,11 @@ export default class SecurityGroupDirector {
                       .customizeDescription("Web security group")
                       .getResult();
 
-    const group =  new ec2.SecurityGroup(scope, id, params)
+    const group =  new ec2.SecurityGroup(scope, id, params);
     // Allow web traffic
     group.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), "Allow incoming traffic over port 80");
     group.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443), "Allow incoming traffic over port 443");
 
-    return group
+    return group;
   }
 }

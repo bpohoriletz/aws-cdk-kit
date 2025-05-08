@@ -18,6 +18,6 @@ export default class VpcDirector {
                      .customizeSubnetConfiguration(scope.node.path + id)
                      .getResult();
 
-    return new ec2.Vpc(scope, id, props)
+    return new ec2.Vpc(scope, id, props);
   }
 }

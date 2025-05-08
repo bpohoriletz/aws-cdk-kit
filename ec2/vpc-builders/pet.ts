@@ -1,4 +1,4 @@
-import VpcBuilder from "../vpc-builder"
+import VpcBuilder from "../vpc-builder";
 
 export default class PetVpcBuilder extends VpcBuilder {
   customizeAzs(): this {
