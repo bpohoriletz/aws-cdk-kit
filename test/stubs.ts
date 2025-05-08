@@ -6,6 +6,7 @@ import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as sns from "aws-cdk-lib/aws-sns";
 
+/* eslint-disable  @typescript-eslint/no-explicit-any */
 export function stub(stack: Stack, clazz: string, id?: string) : any {
   if (process.env.DEBUG) { console.log(clazz); }
 
@@ -41,8 +42,8 @@ export function stub(stack: Stack, clazz: string, id?: string) : any {
     });
     case "sns.Topic":
       return new sns.Topic(stack, id || "TopicID");
-    default:
-      var stubId = `Stub-${clazz}`.replace(".", "-");
+    default: {
+      const stubId = `Stub-${clazz}`.replace(".", "-");
       return new AwsCustomResource(stack, id || stubId, {
         functionName: stubId,
         onCreate: {
@@ -54,6 +55,7 @@ export function stub(stack: Stack, clazz: string, id?: string) : any {
           resources: AwsCustomResourcePolicy.ANY_RESOURCE,
         }),
       });
+    }
   }
 }
 

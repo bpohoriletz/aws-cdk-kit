@@ -12,8 +12,8 @@ describe("new ProdVpcBuilder()", () => {
       .customizeCidr("Vpc")
       .customizeNatProvider()
       .customizeNatSubnets()
-      .customizeSubnetConfiguration("Vpc")
+      .customizeSubnetConfiguration("Vpc");
 
     expect(instance.getResult()).toMatchSnapshot();
-  })
-})
+  });
+});

@@ -11,7 +11,7 @@ describe("SNS .createOrdersTopic()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createOrdersTopic(["pre", "fix"], stack)
+    func.createOrdersTopic(["pre", "fix"], stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
