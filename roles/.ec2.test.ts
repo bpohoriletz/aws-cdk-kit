@@ -1,6 +1,6 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { arn } from "../test/stubs"
+import { arn } from "../test/stubs";
 
 import * as func from "./ec2";
 

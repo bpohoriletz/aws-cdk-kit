@@ -1,6 +1,5 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-import { stub } from "../test/stubs"
 
 import * as func from "./secret";
 
@@ -12,7 +11,7 @@ describe("SecretsManager .createSecret()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createSecret(["pre", "fix"], stack, "details")
+    func.createSecret(["pre", "fix"], stack, "details");
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
@@ -26,7 +25,7 @@ describe("SecretsManager .createProdSecret()", () => {
   });
 
   test("matches snapshot", () => {
-    func.createProdSecret(["pre", "fix"], stack, "details")
+    func.createProdSecret(["pre", "fix"], stack, "details");
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
