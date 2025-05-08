@@ -41,39 +41,6 @@ exports[`EC2 .createPublicInstance() matches snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "PreFixEc2Sg86D116B5": {
-      "Properties": {
-        "GroupDescription": "Security Group for the EC2",
-        "GroupName": "PreFixEc2Sg",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1",
-          },
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow incoming traffic over port 80",
-            "FromPort": 80,
-            "IpProtocol": "tcp",
-            "ToPort": 80,
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow incoming traffic over port 443",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443,
-          },
-        ],
-        "VpcId": {
-          "Ref": "VpcID703024FC",
-        },
-      },
-      "Type": "AWS::EC2::SecurityGroup",
-    },
     "PreFixInst0576B269": {
       "DependsOn": [
         "InstanceProfileIDInstanceRole9444F891",
@@ -105,7 +72,7 @@ exports[`EC2 .createPublicInstance() matches snapshot 1`] = `
             "GroupSet": [
               {
                 "Fn::GetAtt": [
-                  "PreFixEc2Sg86D116B5",
+                  "PreFixInstSecurityGroup6956CE2F",
                   "GroupId",
                 ],
               },
@@ -147,6 +114,38 @@ sudo ./install auto",
         },
       },
       "Type": "AWS::EC2::Instance",
+    },
+    "PreFixInstSecurityGroup6956CE2F": {
+      "Properties": {
+        "GroupDescription": "Web security group",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
+          },
+        ],
+        "VpcId": {
+          "Ref": "VpcID703024FC",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
     },
     "VpcID703024FC": {
       "Properties": {
