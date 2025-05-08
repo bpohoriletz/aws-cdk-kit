@@ -2,6 +2,8 @@ import * as cdk from "aws-cdk-lib/core";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 
+import SecurityGroupDirector from "../directors/security-group";
+import SecurityGroupBuilder from "./security-group-builder";
 import * as names from "../utils/naming";
 
 export function createPublicInstance(
@@ -28,28 +30,11 @@ export function createPublicInstance(
     instanceName: resourceName,
     instanceProfile: instanceProfile,
     machineImage: ec2.MachineImage.latestAmazonLinux2023(),
-    securityGroup: createWebSecurityGroup(resourceNamePrefix, vpc, stack),
+    securityGroup: new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, `${resourceName}/SecurityGroup`, vpc),
     userData: userDataScript,
     vpc: vpc,
     vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
   });
 
   return instance;
-}
-
-// TOFIX; Extract Private
-function createWebSecurityGroup(resourceNamePrefix: string[], vpc: ec2.IVpc, stack: cdk.Stack): ec2.SecurityGroup {
-  const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "ec2");
-  const securityGroup = new ec2.SecurityGroup(stack, resourceName , {
-    vpc: vpc,
-    description: "Security Group for the EC2",
-    securityGroupName: resourceName,
-    allowAllOutbound: true
-  });
-
-  // Allow Security Group inbound traffic for load balancer
-  securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), "Allow incoming traffic over port 80");
-  securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443), "Allow incoming traffic over port 443");
-
-  return securityGroup;
 }
