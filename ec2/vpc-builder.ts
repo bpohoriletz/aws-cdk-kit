@@ -3,16 +3,14 @@ import { IVpcBuilder, VpcProduct } from "../products/vpc";
 import * as conf from "../../config/ec2/vpc";
 
 export default class VpcBuilder implements IVpcBuilder {
-  private resourceName: string;
   protected vpcProps: VpcProduct;
 
-  constructor(resourceName: string) {
-    this.resourceName = resourceName;
+  constructor() {
     this.vpcProps = new VpcProduct();
   }
 
-  customizeCidr(): this {
-    this.vpcProps.setCidr(conf.vpcCidrConfig(this.resourceName));
+  customizeCidr(name: string): this {
+    this.vpcProps.setCidr(conf.vpcCidrConfig(name));
 
     return this;
   }
@@ -37,8 +35,8 @@ export default class VpcBuilder implements IVpcBuilder {
 
     return this;
   }
-  customizeSubnetConfiguration(): this {
-    const config = conf.vpcSubnetConfig(this.resourceName);
+  customizeSubnetConfiguration(name: string): this {
+    const config = conf.vpcSubnetConfig(name);
     this.vpcProps.setSubnetConfiguration(config)
 
     return this;
