@@ -18,6 +18,6 @@ export function instanceConfig(name: string): eca.CfnCacheClusterProps {
     if (process.env.DEBUG) {
       console.log(`[DEBUG] Using default CIDR for: ${name}`);
     }
-    return config["defaultConfig"]
+    return config["defaultConfig"];
   }
 }
