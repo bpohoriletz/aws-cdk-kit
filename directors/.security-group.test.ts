@@ -13,7 +13,13 @@ describe("new SecurityGroupDirector()", () => {
     stack = new cdk.Stack();
   });
 
-  test("construct vpc for pet projects", () => {
+  test("construct SecurityGroups", () => {
+    instance.constructSecurityGroup(stack, "SecurityGroup", stub(stack, "ec2.Vpc"));
+
+    expect(Template.fromStack(stack)).toMatchSnapshot();
+  });
+
+  test("construct SecurityGroup with web access", () => {
     instance.constructWebSecurityGroup(stack, "WebSG", stub(stack, "ec2.Vpc"));
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
