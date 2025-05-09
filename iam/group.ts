@@ -1,38 +1,38 @@
-import * as cdk from "aws-cdk-lib";
-import * as iam from "aws-cdk-lib/aws-iam";
+import * as cdk from 'aws-cdk-lib';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
-export function createAdminsGroup(stack: cdk.Stack) : iam.Group {
-  const adminsGroup = new iam.Group(stack, "AdministratorsGroup", {
-    groupName: "Administrators",
+export function createAdminsGroup(stack: cdk.Stack): iam.Group {
+  const adminsGroup = new iam.Group(stack, 'AdministratorsGroup', {
+    groupName: 'Administrators',
   });
 
-  adminsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AdministratorAccess"));
+  adminsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AdministratorAccess'));
 
   return adminsGroup;
 }
 
-export function createBillingGroup(stack: cdk.Stack) : iam.Group {
-  const billingGroup = new iam.Group(stack, "BillingGroup", {
-    groupName: "Billing",
+export function createBillingGroup(stack: cdk.Stack): iam.Group {
+  const billingGroup = new iam.Group(stack, 'BillingGroup', {
+    groupName: 'Billing',
   });
 
-  billingGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("job-function/Billing"));
+  billingGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('job-function/Billing'));
 
   return billingGroup;
 }
 
-export function createDevelopersGroup(stack: cdk.Stack) : iam.Group {
-  const devsGroup = new iam.Group(stack, "DevelopersGroup", {
-    groupName: "Developers",
+export function createDevelopersGroup(stack: cdk.Stack): iam.Group {
+  const devsGroup = new iam.Group(stack, 'DevelopersGroup', {
+    groupName: 'Developers',
   });
-  devsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonEC2ReadOnlyAccess"));
-  devsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonSSMReadOnlyAccess"));
+  devsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonEC2ReadOnlyAccess'));
+  devsGroup.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonSSMReadOnlyAccess'));
 
-  const ssmPolicy = new iam.Policy(stack, "DeveloperSsmPolicy", {
+  const ssmPolicy = new iam.Policy(stack, 'DeveloperSsmPolicy', {
     statements: [
       new iam.PolicyStatement({
-        actions: ["ssm:StartSession"],
-        resources: ["*"],
+        actions: ['ssm:StartSession'],
+        resources: ['*'],
       }),
     ],
   });

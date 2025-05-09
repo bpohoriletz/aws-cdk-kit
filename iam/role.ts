@@ -1,59 +1,55 @@
-import * as cdk from "aws-cdk-lib";
-import * as iam from "aws-cdk-lib/aws-iam";
+import * as cdk from 'aws-cdk-lib';
+import * as iam from 'aws-cdk-lib/aws-iam';
 
-export function createGithubCliRole(githubAccount: string, stack: cdk.Stack) : iam.Role {
-  const name = "GitHubActionsRole";
-  const _oidcProvider = new iam.OpenIdConnectProvider(stack, "GitHubOIDCProvider", {
-    url: "https://token.actions.githubusercontent.com",
-    clientIds: ["sts.amazonaws.com"],
-    thumbprints: ["6938fd4d98bab03faadb97b34396831e3780aea1"], // GitHub's current root CA thumbprint
+export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): iam.Role {
+  const name = 'GitHubActionsRole';
+  new iam.OpenIdConnectProvider(stack, 'GitHubOIDCProvider', {
+    url: 'https://token.actions.githubusercontent.com',
+    clientIds: ['sts.amazonaws.com'],
+    thumbprints: ['6938fd4d98bab03faadb97b34396831e3780aea1'], // GitHub's current root CA thumbprint
   });
   const cliRole = new iam.Role(stack, name, {
     assumedBy: new iam.FederatedPrincipal(
       `arn:aws:iam::${stack.account}:oidc-provider/token.actions.githubusercontent.com`,
       {
         StringEquals: {
-          "token.actions.githubusercontent.com:aud": "sts.amazonaws.com",
+          'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
         },
         StringLike: {
-          "token.actions.githubusercontent.com:sub": `repo:${githubAccount}/*`,
+          'token.actions.githubusercontent.com:sub': `repo:${githubAccount}/*`,
         },
       },
-      "sts:AssumeRoleWithWebIdentity"
+      'sts:AssumeRoleWithWebIdentity'
     ),
     roleName: name,
-    description: "Role for GitHub Actions to access AWS resources",
+    description: 'Role for GitHub Actions to access AWS resources',
   });
+  cliRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSElasticBeanstalkWebTier'));
   cliRole.addManagedPolicy(
-    iam.ManagedPolicy.fromAwsManagedPolicyName("AWSElasticBeanstalkWebTier"),
+    iam.ManagedPolicy.fromAwsManagedPolicyName('AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy')
   );
-  cliRole.addManagedPolicy(
-    iam.ManagedPolicy.fromAwsManagedPolicyName("AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy"),
-  );
-  cliRole.addManagedPolicy(
-    iam.ManagedPolicy.fromAwsManagedPolicyName("SecretsManagerReadWrite"),
-  );
-  const accessCodeDeployBucket: iam.Policy = new iam.Policy(stack, "accessCodeDeployBucket", {
+  cliRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('SecretsManagerReadWrite'));
+  const accessCodeDeployBucket: iam.Policy = new iam.Policy(stack, 'accessCodeDeployBucket', {
     statements: [
       new iam.PolicyStatement({
-        actions: ["s3:PutObject", "s3:ListBucket", "s3:ListBucketVersions", "s3:GetObject", "s3:GetObjectVersion"],
-        resources: [ "arn:aws:s3:::codedeploy-*", "arn:aws:s3:::codedeploy-*/*"],
+        actions: ['s3:PutObject', 's3:ListBucket', 's3:ListBucketVersions', 's3:GetObject', 's3:GetObjectVersion'],
+        resources: ['arn:aws:s3:::codedeploy-*', 'arn:aws:s3:::codedeploy-*/*'],
       }),
     ],
   });
   accessCodeDeployBucket.attachToRole(cliRole);
-  const codeDeploy: iam.Policy = new iam.Policy(stack, "codeDeploy", {
+  const codeDeploy: iam.Policy = new iam.Policy(stack, 'codeDeploy', {
     statements: [
       new iam.PolicyStatement({
-        actions: ["codedeploy:*"],
-        resources: ["*"],
+        actions: ['codedeploy:*'],
+        resources: ['*'],
       }),
     ],
   });
   codeDeploy.attachToRole(cliRole);
-  new cdk.CfnOutput(stack, "GitHub Actions Role ARN", {
+  new cdk.CfnOutput(stack, 'GitHub Actions Role ARN', {
     value: cliRole.roleArn,
-    description: "The ARN of the IAM Role that should be assumed in GitHub",
+    description: 'The ARN of the IAM Role that should be assumed in GitHub',
   });
 
   return cliRole;

@@ -1,8 +1,8 @@
-import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
 export function vpcCidrConfig(name: string): ec2.IIpAddresses {
   const config = {
-    "PrototypeSandboxDemoVpc": ec2.IpAddresses.cidr("10.0.0.0/16"),
+    PrototypeSandboxDemoVpc: ec2.IpAddresses.cidr('10.0.0.0/16'),
   };
 
   if (config.hasOwnProperty(name)) {
@@ -10,25 +10,25 @@ export function vpcCidrConfig(name: string): ec2.IIpAddresses {
     return config[name as keyof typeof config];
   } else {
     console.log(`[DEBUG] Using default CIDR for: ${name}`);
-    return ec2.IpAddresses.cidr("10.255.0.0/16");
+    return ec2.IpAddresses.cidr('10.255.0.0/16');
   }
 }
 
 export function vpcSubnetConfig(name: string): ec2.SubnetConfiguration[] {
   const config = {
-    "PrototypeSandboxDemoVpc": [
+    PrototypeSandboxDemoVpc: [
       {
-        name: "Public",
+        name: 'Public',
         subnetType: ec2.SubnetType.PUBLIC,
         cidrMask: 19,
       },
       {
-        name: "Isolated",
+        name: 'Isolated',
         subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
         cidrMask: 19,
       },
       {
-        name: "Private",
+        name: 'Private',
         subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
         cidrMask: 19,
       },
@@ -43,9 +43,9 @@ export function vpcSubnetConfig(name: string): ec2.SubnetConfiguration[] {
     return [
       {
         cidrMask: 18,
-        name: "Public",
+        name: 'Public',
         subnetType: ec2.SubnetType.PUBLIC,
-      }
+      },
     ];
   }
 }

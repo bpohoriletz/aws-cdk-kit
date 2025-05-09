@@ -1,5 +1,5 @@
-import * as ec2 from "aws-cdk-lib/aws-ec2";
-import { ISecurityGroupBuilder, SecurityGroupProduct } from "../products/security-group";
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import { ISecurityGroupBuilder, SecurityGroupProduct } from '../products/security-group';
 
 export default class SecurityGroupBuilder implements ISecurityGroupBuilder {
   protected securityGroupProps: SecurityGroupProduct;
@@ -28,5 +28,5 @@ export default class SecurityGroupBuilder implements ISecurityGroupBuilder {
 
   getResult(): SecurityGroupProduct {
     return this.securityGroupProps;
-  };
+  }
 }

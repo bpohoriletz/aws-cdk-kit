@@ -3,21 +3,21 @@ on:
   workflow_dispatch:
     inputs:
       account:
-        description: "Select Account"
+        description: 'Select Account'
         required: true
         default: 000000000000
         type: choice
         options:
           - 000000000000
       application:
-        description: "Select application"
+        description: 'Select application'
         required: true
         default: ______
         type: choice
         options:
           - ______
       environment:
-        description: "Select environment"
+        description: 'Select environment'
         required: true
         default: _________
         type: choice
@@ -30,7 +30,6 @@ env:
   S3_BUCKET: codedeploy-us-east-1-${{ github.event.inputs.account }}-bct
   S3_FOLDER: resources/versions
   SECRET_NAME: _______________Secret
-
 
 jobs:
   build:
@@ -61,7 +60,7 @@ jobs:
         run: echo "message_short=$(git show -s --format=%s | cut -c1-80 | tr \/ '.')" >> $GITHUB_OUTPUT
 
       - name: Extract DB secret
-        run:  echo $RDS_SECRET | jq -r 'to_entries[] | [("RDS_"+(.key|ascii_upcase)),(.value|tostring)] | join("=")' >> ./.platform/.env.production
+        run: echo $RDS_SECRET | jq -r 'to_entries[] | [("RDS_"+(.key|ascii_upcase)),(.value|tostring)] | join("=")' >> ./.platform/.env.production
 
       - name: Generate deployment package
         run: zip -r ${{ steps.sha_vars.outputs.sha_short }}.zip . -x '.git/*'

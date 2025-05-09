@@ -1,20 +1,24 @@
-import * as cdk from "aws-cdk-lib";
-import { Stack } from "aws-cdk-lib";
-import * as ec2 from "aws-cdk-lib/aws-ec2";
-import * as rds from "aws-cdk-lib/aws-rds";
+import * as cdk from 'aws-cdk-lib';
+import { Stack } from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as rds from 'aws-cdk-lib/aws-rds';
 
-import SecurityGroupDirector from "../directors/security-group";
-import SecurityGroupBuilder from "../ec2/security-group-builder";
-import * as names from "../utils/naming";
+import SecurityGroupDirector from '../directors/security-group';
+import SecurityGroupBuilder from '../ec2/security-group-builder';
+import * as names from '../utils/naming';
 
 // TOFIX; extract confguration
 export function createNonprodDatabase(
   resourceNamePrefix: string[],
   stack: Stack,
   vpc: ec2.IVpc,
-  version: rds.PostgresEngineVersion = rds.PostgresEngineVersion.VER_16_3 ) : [rds.DatabaseInstance, ec2.SecurityGroup] {
-
-  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "RdsSecurityGroup", vpc);
+  version: rds.PostgresEngineVersion = rds.PostgresEngineVersion.VER_16_3
+): [rds.DatabaseInstance, ec2.SecurityGroup] {
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
+    stack,
+    'RdsSecurityGroup',
+    vpc
+  );
 
   const rdsInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     backupRetention: cdk.Duration.days(0),
@@ -35,8 +39,16 @@ export function createNonprodDatabase(
   return [rdsInstance, securityGroup];
 }
 
-export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
-  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "RdsSecurityGroup", vpc);
+export function createProdRdsDatabase(
+  resourceNamePrefix: string[],
+  stack: Stack,
+  vpc: ec2.IVpc
+): [rds.DatabaseInstance, ec2.SecurityGroup] {
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
+    stack,
+    'RdsSecurityGroup',
+    vpc
+  );
 
   const rdsInstance: rds.DatabaseInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     allocatedStorage: 20,
@@ -44,7 +56,9 @@ export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack
     databaseName: names.rdsDatabaseName(resourceNamePrefix),
     deletionProtection: true,
     enablePerformanceInsights: true,
-    engine: rds.DatabaseInstanceEngine.postgres({ version: rds.PostgresEngineVersion.VER_16_6 }),
+    engine: rds.DatabaseInstanceEngine.postgres({
+      version: rds.PostgresEngineVersion.VER_16_6,
+    }),
     instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MEDIUM),
     maxAllocatedStorage: 1024,
     multiAz: true,
@@ -60,15 +74,25 @@ export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack
   });
 
   return [rdsInstance, securityGroup];
-};
+}
 
-export function createRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
-  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "RdsSecurityGroup", vpc);
+export function createRdsDatabase(
+  resourceNamePrefix: string[],
+  stack: Stack,
+  vpc: ec2.IVpc
+): [rds.DatabaseInstance, ec2.SecurityGroup] {
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
+    stack,
+    'RdsSecurityGroup',
+    vpc
+  );
 
   const rdsInstance: rds.DatabaseInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     backupRetention: cdk.Duration.days(0),
     databaseName: names.rdsDatabaseName(resourceNamePrefix),
-    engine: rds.DatabaseInstanceEngine.postgres({ version: rds.PostgresEngineVersion.VER_16_6 }),
+    engine: rds.DatabaseInstanceEngine.postgres({
+      version: rds.PostgresEngineVersion.VER_16_6,
+    }),
     instanceType: ec2.InstanceType.of(ec2.InstanceClass.T4G, ec2.InstanceSize.MICRO),
     multiAz: false,
     publiclyAccessible: false,

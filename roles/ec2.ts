@@ -1,41 +1,41 @@
-import { Role, RoleProps, ServicePrincipal, ManagedPolicy, Policy, PolicyStatement } from "aws-cdk-lib/aws-iam";
-import { Stack } from "aws-cdk-lib";
-import * as con from "../utils/naming";
+import { Role, RoleProps, ServicePrincipal, ManagedPolicy, Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { Stack } from 'aws-cdk-lib';
+import * as con from '../utils/naming';
 
-export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[], stack: Stack) : Role {
+export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[], stack: Stack): Role {
   const roleProps: RoleProps = {
-    assumedBy: new ServicePrincipal("ec2.amazonaws.com"),
+    assumedBy: new ServicePrincipal('ec2.amazonaws.com'),
     managedPolicies: [
-      ManagedPolicy.fromManagedPolicyArn(stack, stack.stackId, "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore")
-    ]
+      ManagedPolicy.fromManagedPolicyArn(stack, stack.stackId, 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore'),
+    ],
   };
   const ec2Role = new Role(stack, con.iamInstanceRoleName(resourceNamePrefix), roleProps);
-  const allowEc2UploadLogsToEbRegionalBucket: Policy = new Policy(stack, "allowEc2UploadLogsToEbRegionalBucket", {
+  const allowEc2UploadLogsToEbRegionalBucket: Policy = new Policy(stack, 'allowEc2UploadLogsToEbRegionalBucket', {
     statements: [
       new PolicyStatement({
-        actions: ["s3:PutObject", "s3:ListBucket", "s3:ListBucketVersions", "s3:GetObject", "s3:GetObjectVersion"],
+        actions: ['s3:PutObject', 's3:ListBucket', 's3:ListBucketVersions', 's3:GetObject', 's3:GetObjectVersion'],
         resources: bucketArns.flatMap((arn) => [arn, `${arn}/resources/*`]),
       }),
     ],
   });
   allowEc2UploadLogsToEbRegionalBucket.attachToRole(ec2Role);
 
-  const allowEc2PutStatistics: Policy = new Policy(stack, "allowEc2PutStatistics", {
+  const allowEc2PutStatistics: Policy = new Policy(stack, 'allowEc2PutStatistics', {
     statements: [
       new PolicyStatement({
-        actions: ["elasticbeanstalk:PutInstanceStatistics"],
-        resources: ["*"],
+        actions: ['elasticbeanstalk:PutInstanceStatistics'],
+        resources: ['*'],
       }),
     ],
   });
   allowEc2PutStatistics.attachToRole(ec2Role);
 
-  const allowEc2UploadLogs: Policy = new Policy(stack, "allowEc2UploadLogs", {
+  const allowEc2UploadLogs: Policy = new Policy(stack, 'allowEc2UploadLogs', {
     statements: [
       new PolicyStatement({
-        actions: ["logs:CreateLogStream", "logs:PutLogEvents"],
-        resources: ["*"],
-      })
+        actions: ['logs:CreateLogStream', 'logs:PutLogEvents'],
+        resources: ['*'],
+      }),
     ],
   });
   allowEc2UploadLogs.attachToRole(ec2Role);

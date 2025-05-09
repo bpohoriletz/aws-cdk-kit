@@ -1,18 +1,19 @@
-import PetVpcBuilder from "./pet";
+import PetVpcBuilder from './pet';
 
-describe("new PetVpcBuilder()", () => {
+describe('new PetVpcBuilder()', () => {
   let instance: PetVpcBuilder;
 
   beforeEach(() => {
     instance = new PetVpcBuilder();
   });
 
-  test("Matches snapshot", () => {
-    instance.customizeAzs()
-      .customizeCidr("Vpc")
+  test('Matches snapshot', () => {
+    instance
+      .customizeAzs()
+      .customizeCidr('Vpc')
       .customizeNatProvider()
       .customizeNatSubnets()
-      .customizeSubnetConfiguration("Vpc");
+      .customizeSubnetConfiguration('Vpc');
 
     expect(instance.getResult()).toMatchSnapshot();
   });

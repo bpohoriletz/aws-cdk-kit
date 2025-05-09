@@ -1,6 +1,6 @@
-import * as ec2 from "aws-cdk-lib/aws-ec2";
-import { IVpcBuilder, VpcProduct } from "../products/vpc";
-import * as conf from "../../config/ec2/vpc";
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import { IVpcBuilder, VpcProduct } from '../products/vpc';
+import * as conf from '../../config/ec2/vpc';
 
 export default class VpcBuilder implements IVpcBuilder {
   protected vpcProps: VpcProduct;
@@ -21,10 +21,7 @@ export default class VpcBuilder implements IVpcBuilder {
   }
   customizeNatProvider(): this {
     const provider = ec2.NatProvider.instanceV2({
-      instanceType: ec2.InstanceType.of(
-        ec2.InstanceClass.T2,
-        ec2.InstanceSize.NANO
-      ),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.NANO),
     });
     this.vpcProps.setNatProvider(provider);
 
@@ -44,5 +41,5 @@ export default class VpcBuilder implements IVpcBuilder {
 
   getResult(): VpcProduct {
     return this.vpcProps;
-  };
+  }
 }
