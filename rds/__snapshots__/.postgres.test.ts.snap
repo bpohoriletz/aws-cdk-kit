@@ -10,14 +10,30 @@ exports[`RDS .createNonprodDatabase() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "PreFixPgSgA3217258": {
+    "RdsSecurityGroup632A77E4": {
       "Properties": {
-        "GroupDescription": "Default/PreFixPgSg",
+        "GroupDescription": "Web security group",
         "SecurityGroupEgress": [
           {
             "CidrIp": "0.0.0.0/0",
             "Description": "Allow all outbound traffic by default",
             "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
           },
         ],
         "VpcId": {
@@ -574,7 +590,7 @@ exports[`RDS .createNonprodDatabase() matches snapshot 1`] = `
         "VPCSecurityGroups": [
           {
             "Fn::GetAtt": [
-              "PreFixPgSgA3217258",
+              "RdsSecurityGroup632A77E4",
               "GroupId",
             ],
           },
@@ -674,14 +690,30 @@ exports[`RDS .createProdRdsDatabase() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "PreFixPgSgA3217258": {
+    "RdsSecurityGroup632A77E4": {
       "Properties": {
-        "GroupDescription": "Default/PreFixPgSg",
+        "GroupDescription": "Web security group",
         "SecurityGroupEgress": [
           {
             "CidrIp": "0.0.0.0/0",
             "Description": "Allow all outbound traffic by default",
             "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
           },
         ],
         "VpcId": {
@@ -1243,7 +1275,7 @@ exports[`RDS .createProdRdsDatabase() matches snapshot 1`] = `
         "VPCSecurityGroups": [
           {
             "Fn::GetAtt": [
-              "PreFixPgSgA3217258",
+              "RdsSecurityGroup632A77E4",
               "GroupId",
             ],
           },
@@ -1345,14 +1377,30 @@ exports[`RDS .createRdsDatabase() matches snapshot 1`] = `
     },
   },
   "Resources": {
-    "PreFixPgSgA3217258": {
+    "RdsSecurityGroup632A77E4": {
       "Properties": {
-        "GroupDescription": "Default/PreFixPgSg",
+        "GroupDescription": "Web security group",
         "SecurityGroupEgress": [
           {
             "CidrIp": "0.0.0.0/0",
             "Description": "Allow all outbound traffic by default",
             "IpProtocol": "-1",
+          },
+        ],
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow incoming traffic over port 443",
+            "FromPort": 443,
+            "IpProtocol": "tcp",
+            "ToPort": 443,
           },
         ],
         "VpcId": {
@@ -1909,7 +1957,7 @@ exports[`RDS .createRdsDatabase() matches snapshot 1`] = `
         "VPCSecurityGroups": [
           {
             "Fn::GetAtt": [
-              "PreFixPgSgA3217258",
+              "RdsSecurityGroup632A77E4",
               "GroupId",
             ],
           },

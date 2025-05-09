@@ -19,7 +19,7 @@ exports[`Elasticache .createRedisInstance() matches snapshot 1`] = `
         "VpcSecurityGroupIds": [
           {
             "Fn::GetAtt": [
-              "PreFixRedisconnSg6E1F05A2",
+              "RedisSecurityGroupB05951F6",
               "GroupId",
             ],
           },
@@ -42,9 +42,9 @@ exports[`Elasticache .createRedisInstance() matches snapshot 1`] = `
       },
       "Type": "AWS::ElastiCache::SubnetGroup",
     },
-    "PreFixRedisconnSg6E1F05A2": {
+    "RedisSecurityGroupB05951F6": {
       "Properties": {
-        "GroupDescription": "Default/PreFixRedisconnSg",
+        "GroupDescription": "Security group",
         "SecurityGroupEgress": [
           {
             "CidrIp": "0.0.0.0/0",
