@@ -2,6 +2,9 @@ import * as cdk from "aws-cdk-lib";
 import { Stack } from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as rds from "aws-cdk-lib/aws-rds";
+
+import SecurityGroupDirector from "../directors/security-group";
+import SecurityGroupBuilder from "../ec2/security-group-builder";
 import * as names from "../utils/naming";
 
 // TOFIX; extract confguration
@@ -11,8 +14,7 @@ export function createNonprodDatabase(
   vpc: ec2.IVpc,
   version: rds.PostgresEngineVersion = rds.PostgresEngineVersion.VER_16_3 ) : [rds.DatabaseInstance, ec2.SecurityGroup] {
 
-  const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "pg");
-  const securityGroup = new ec2.SecurityGroup(stack, resourceName, { vpc });
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "RdsSecurityGroup", vpc);
 
   const rdsInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     backupRetention: cdk.Duration.days(0),
@@ -34,8 +36,7 @@ export function createNonprodDatabase(
 }
 
 export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
-  const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "pg");
-  const securityGroup = new ec2.SecurityGroup(stack, resourceName, { vpc });
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "RdsSecurityGroup", vpc);
 
   const rdsInstance: rds.DatabaseInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     allocatedStorage: 20,
@@ -62,8 +63,7 @@ export function createProdRdsDatabase(resourceNamePrefix: string[], stack: Stack
 };
 
 export function createRdsDatabase(resourceNamePrefix: string[], stack: Stack, vpc: ec2.IVpc) : [rds.DatabaseInstance, ec2.SecurityGroup] {
-  const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "pg");
-  const securityGroup = new ec2.SecurityGroup(stack, resourceName, { vpc });
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "RdsSecurityGroup", vpc);
 
   const rdsInstance: rds.DatabaseInstance = new rds.DatabaseInstance(stack, names.rdsDatabaseName(resourceNamePrefix), {
     backupRetention: cdk.Duration.days(0),

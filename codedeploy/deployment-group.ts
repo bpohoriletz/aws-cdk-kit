@@ -4,6 +4,8 @@ import * as codedeploy from "aws-cdk-lib/aws-codedeploy";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as iam from "aws-cdk-lib/aws-iam";
 
+import SecurityGroupDirector from "../directors/security-group";
+import SecurityGroupBuilder from "../ec2/security-group-builder";
 import * as names from "../utils/naming";
 
 export function createDeploymentGroupToAsg(
@@ -14,9 +16,8 @@ export function createDeploymentGroupToAsg(
   codedeployRole: iam.Role,
   vpc: ec2.IVpc,
   stack: cdk.Stack): [codedeploy.ServerDeploymentGroup, ec2.SecurityGroup, autoscaling.AutoScalingGroup] {
-
     let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "asg");
-    const securityGroup = createWebSecurityGroup(resourceNamePrefix, vpc, stack);
+    const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(stack, "WebSecurityGroup", vpc);
     // Define the launch template for Spot instances
     const userData = ec2.UserData.forLinux();
     userData.addCommands("echo Hello World");
@@ -97,21 +98,4 @@ export function createDeploymentGroupToEc2(
     });
 
     return deplGroup;
-}
-
-// TOFIX; import
-function createWebSecurityGroup(resourceNamePrefix: string[], vpc: ec2.IVpc, stack: cdk.Stack): ec2.SecurityGroup {
-  const resourceName = names.ec2SecurityGroupName(resourceNamePrefix, "ec2");
-  const securityGroup = new ec2.SecurityGroup(stack, resourceName , {
-    vpc: vpc,
-    description: "Security Group for the EC2",
-    securityGroupName: resourceName,
-    allowAllOutbound: true
-  });
-
-  // Allow Security Group inbound traffic for load balancer
-  securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), "Allow incoming traffic over port 80");
-  securityGroup.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443), "Allow incoming traffic over port 443");
-
-  return securityGroup;
 }
