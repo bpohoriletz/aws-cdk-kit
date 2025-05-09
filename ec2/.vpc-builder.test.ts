@@ -1,18 +1,19 @@
-import VpcBuilder from "./vpc-builder";
+import VpcBuilder from './vpc-builder';
 
-describe("new VpcBuilder()", () => {
+describe('new VpcBuilder()', () => {
   let instance: VpcBuilder;
 
   beforeEach(() => {
     instance = new VpcBuilder();
   });
 
-  test("Matches snapshot", () => {
-    instance.customizeAzs()
-      .customizeCidr("Vpc")
+  test('Matches snapshot', () => {
+    instance
+      .customizeAzs()
+      .customizeCidr('Vpc')
       .customizeNatProvider()
       .customizeNatSubnets()
-      .customizeSubnetConfiguration("Vpc");
+      .customizeSubnetConfiguration('Vpc');
 
     expect(instance.getResult()).toMatchSnapshot();
   });
