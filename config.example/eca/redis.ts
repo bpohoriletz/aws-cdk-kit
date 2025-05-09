@@ -1,12 +1,12 @@
-import * as eca from "aws-cdk-lib/aws-elasticache";
+import * as eca from 'aws-cdk-lib/aws-elasticache';
 
 export function instanceConfig(name: string): eca.CfnCacheClusterProps {
   const config = {
-    "defaultConfig": {
-      cacheNodeType: "cache.t2.micro",
-      engine: "redis",
+    defaultConfig: {
+      cacheNodeType: 'cache.t2.micro',
+      engine: 'redis',
       numCacheNodes: 1,
-    }
+    },
   };
 
   if (config.hasOwnProperty(name)) {
@@ -18,6 +18,6 @@ export function instanceConfig(name: string): eca.CfnCacheClusterProps {
     if (process.env.DEBUG) {
       console.log(`[DEBUG] Using default CIDR for: ${name}`);
     }
-    return config["defaultConfig"];
+    return config['defaultConfig'];
   }
 }
