@@ -7,6 +7,12 @@ export default class PolicyStatementBuilder implements IPolicyStatementBuilder {
     this.policyStatementProps = new PolicyStatementProduct();
   }
 
+  addResource(resource: string): this {
+    console.log(resource);
+
+    return this;
+  }
+
   getResult(): PolicyStatementProduct {
     return this.policyStatementProps;
   }
