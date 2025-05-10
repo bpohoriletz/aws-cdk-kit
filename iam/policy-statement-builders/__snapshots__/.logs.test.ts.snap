@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new LogsPolicyStatementBuilder .addResource adds resource 1`] = `
+LogsPolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [
+      "*",
+    ],
+  },
+}
+`;
+
+exports[`new LogsPolicyStatementBuilder .setUpload allows upload logs 1`] = `
+LogsPolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ],
+    "resources": [],
+  },
+}
+`;
+
+exports[`new LogsPolicyStatementBuilder has correct defaults set 1`] = `
+LogsPolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [],
+  },
+}
+`;
