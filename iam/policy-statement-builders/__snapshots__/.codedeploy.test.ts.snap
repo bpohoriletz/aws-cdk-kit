@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new CodedeployBPolicyStatementBuilder .addResource adds resource 1`] = `
+CodedeployPolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [
+      "*",
+    ],
+  },
+}
+`;
+
+exports[`new CodedeployBPolicyStatementBuilder .setFullAccess allows full access to CodeDeploy 1`] = `
+CodedeployPolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [
+      "codedeploy:*",
+    ],
+    "resources": [],
+  },
+}
+`;
+
+exports[`new CodedeployBPolicyStatementBuilder has correct defaults set 1`] = `
+CodedeployPolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [],
+  },
+}
+`;

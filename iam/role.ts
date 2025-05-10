@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import PolicyStatementDirector from '../directors/policy-statement';
 import S3PolicyStatementBuilder from './policy-statement-builders/s3';
+import CodedeployPolicyStatementBuilder from './policy-statement-builders/codedeploy';
 
 export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): iam.Role {
   const name = 'GitHubActionsRole';
@@ -35,15 +36,10 @@ export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): ia
   new iam.Policy(stack, 'accessCodeDeployBucket', {
     statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement(resources)],
   }).attachToRole(cliRole);
-  const codeDeploy: iam.Policy = new iam.Policy(stack, 'codeDeploy', {
-    statements: [
-      new iam.PolicyStatement({
-        actions: ['codedeploy:*'],
-        resources: ['*'],
-      }),
-    ],
-  });
-  codeDeploy.attachToRole(cliRole);
+  new iam.Policy(stack, 'codeDeploy', {
+    statements: [new PolicyStatementDirector(CodedeployPolicyStatementBuilder).constructFullAccess()],
+  }).attachToRole(cliRole);
+
   new cdk.CfnOutput(stack, 'GitHub Actions Role ARN', {
     value: cliRole.roleArn,
     description: 'The ARN of the IAM Role that should be assumed in GitHub',
