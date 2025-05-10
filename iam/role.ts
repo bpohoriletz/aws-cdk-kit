@@ -1,5 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import PolicyStatementDirector from '../directors/policy-statement';
+import S3PolicyStatementBuilder from './policy-statement-builders/s3';
 
 export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): iam.Role {
   const name = 'GitHubActionsRole';
@@ -29,15 +31,10 @@ export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): ia
     iam.ManagedPolicy.fromAwsManagedPolicyName('AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy')
   );
   cliRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('SecretsManagerReadWrite'));
-  const accessCodeDeployBucket: iam.Policy = new iam.Policy(stack, 'accessCodeDeployBucket', {
-    statements: [
-      new iam.PolicyStatement({
-        actions: ['s3:PutObject', 's3:ListBucket', 's3:ListBucketVersions', 's3:GetObject', 's3:GetObjectVersion'],
-        resources: ['arn:aws:s3:::codedeploy-*', 'arn:aws:s3:::codedeploy-*/*'],
-      }),
-    ],
-  });
-  accessCodeDeployBucket.attachToRole(cliRole);
+  const resources = ['arn:aws:s3:::codedeploy-*', 'arn:aws:s3:::codedeploy-*/*'];
+  new iam.Policy(stack, 'accessCodeDeployBucket', {
+    statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement(resources)],
+  }).attachToRole(cliRole);
   const codeDeploy: iam.Policy = new iam.Policy(stack, 'codeDeploy', {
     statements: [
       new iam.PolicyStatement({

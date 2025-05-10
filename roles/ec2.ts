@@ -1,5 +1,7 @@
 import { Role, RoleProps, ServicePrincipal, ManagedPolicy, Policy, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Stack } from 'aws-cdk-lib';
+import PolicyStatementDirector from '../directors/policy-statement';
+import S3PolicyStatementBuilder from '../iam/policy-statement-builders/s3';
 import * as con from '../utils/naming';
 
 export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[], stack: Stack): Role {
@@ -10,14 +12,11 @@ export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[]
     ],
   };
   const ec2Role = new Role(stack, con.iamInstanceRoleName(resourceNamePrefix), roleProps);
+  const resources = bucketArns.flatMap((arn) => [arn, `${arn}/resources/*`]);
   const allowEc2UploadLogsToEbRegionalBucket: Policy = new Policy(stack, 'allowEc2UploadLogsToEbRegionalBucket', {
-    statements: [
-      new PolicyStatement({
-        actions: ['s3:PutObject', 's3:ListBucket', 's3:ListBucketVersions', 's3:GetObject', 's3:GetObjectVersion'],
-        resources: bucketArns.flatMap((arn) => [arn, `${arn}/resources/*`]),
-      }),
-    ],
+    statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement(resources)],
   });
+
   allowEc2UploadLogsToEbRegionalBucket.attachToRole(ec2Role);
 
   const allowEc2PutStatistics: Policy = new Policy(stack, 'allowEc2PutStatistics', {

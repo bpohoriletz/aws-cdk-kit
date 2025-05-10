@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new PolicyStatementBuilder() has defaults set 1`] = `
+PolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [],
+  },
+}
+`;
