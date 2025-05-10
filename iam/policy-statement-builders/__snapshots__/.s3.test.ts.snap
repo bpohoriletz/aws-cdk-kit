@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new S3PolicyStatementBuilder .addResource adds resource 1`] = `
+S3PolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [
+      "*",
+    ],
+  },
+}
+`;
+
+exports[`new S3PolicyStatementBuilder .setRead grants read, read version access 1`] = `
+S3PolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [
+      "s3:ListBucket",
+      "s3:ListBucketVersions",
+      "s3:GetObject",
+      "s3:GetObjectVersion",
+    ],
+    "resources": [],
+  },
+}
+`;
+
+exports[`new S3PolicyStatementBuilder .setWrite grants write access 1`] = `
+S3PolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [
+      "s3:PutObject",
+    ],
+    "resources": [],
+  },
+}
+`;
+
+exports[`new S3PolicyStatementBuilder has correct defaults set 1`] = `
+S3PolicyStatementBuilder {
+  "policyStatementProps": PolicyStatementProduct {
+    "actions": [],
+    "resources": [],
+  },
+}
+`;

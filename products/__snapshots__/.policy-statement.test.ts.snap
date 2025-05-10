@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new PolicyStatementProduct() has correct defaults 1`] = `
+PolicyStatementProduct {
+  "actions": [],
+  "resources": [],
+}
+`;
