@@ -8,11 +8,9 @@ export default class LogsPolicyStatementBuilder implements IPolicyStatementBuild
   }
 
   setUpload(): this {
-   this.policyStatementProps
-     .addAction('logs:CreateLogStream')
-     .addAction('logs:PutLogEvents');
+    this.policyStatementProps.addAction('logs:CreateLogStream').addAction('logs:PutLogEvents');
 
-     return this;
+    return this;
   }
 
   addResource(resource: string): this {

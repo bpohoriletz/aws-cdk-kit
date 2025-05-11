@@ -9,11 +9,12 @@ import * as con from '../utils/naming';
 export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[], stack: Stack): Role {
   const roleProps: RoleProps = {
     assumedBy: new ServicePrincipal('ec2.amazonaws.com'),
-    managedPolicies: [
-      ManagedPolicy.fromManagedPolicyArn(stack, stack.stackId, 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore'),
-    ],
   };
   const ec2Role = new Role(stack, con.iamInstanceRoleName(resourceNamePrefix), roleProps);
+  ec2Role.addManagedPolicy(
+    ManagedPolicy.fromManagedPolicyArn(stack, stack.stackId, 'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore')
+  );
+
   const resources = bucketArns.flatMap((arn) => [arn, `${arn}/resources/*`]);
   new Policy(stack, 'allowEc2UploadLogsToEbRegionalBucket', {
     statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement(resources)],
