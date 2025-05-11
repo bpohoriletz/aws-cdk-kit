@@ -8,10 +8,9 @@ export default class ElasticBPolicyStatementBuilder implements IPolicyStatementB
   }
 
   setUploadEC2Stats(): this {
-   this.policyStatementProps
-     .addAction('elasticbeanstalk:PutInstanceStatistics');
+    this.policyStatementProps.addAction('elasticbeanstalk:PutInstanceStatistics');
 
-     return this;
+    return this;
   }
 
   addResource(resource: string): this {

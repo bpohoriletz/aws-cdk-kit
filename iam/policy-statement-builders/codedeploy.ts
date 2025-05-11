@@ -8,10 +8,9 @@ export default class CodedeployPolicyStatementBuilder implements IPolicyStatemen
   }
 
   setFullAccess(): this {
-   this.policyStatementProps
-     .addAction('codedeploy:*');
+    this.policyStatementProps.addAction('codedeploy:*');
 
-     return this;
+    return this;
   }
 
   addResource(resource: string): this {

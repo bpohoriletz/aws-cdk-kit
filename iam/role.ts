@@ -28,13 +28,17 @@ export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): ia
     description: 'Role for GitHub Actions to access AWS resources',
   });
   cliRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AWSElasticBeanstalkWebTier'));
+  cliRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('SecretsManagerReadWrite'));
   cliRole.addManagedPolicy(
     iam.ManagedPolicy.fromAwsManagedPolicyName('AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy')
   );
-  cliRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('SecretsManagerReadWrite'));
-  const resources = ['arn:aws:s3:::codedeploy-*', 'arn:aws:s3:::codedeploy-*/*'];
   new iam.Policy(stack, 'accessCodeDeployBucket', {
-    statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement(resources)],
+    statements: [
+      new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement([
+        'arn:aws:s3:::codedeploy-*',
+        'arn:aws:s3:::codedeploy-*/*',
+      ]),
+    ],
   }).attachToRole(cliRole);
   new iam.Policy(stack, 'codeDeploy', {
     statements: [new PolicyStatementDirector(CodedeployPolicyStatementBuilder).constructFullAccess()],
