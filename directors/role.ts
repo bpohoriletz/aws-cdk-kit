@@ -9,7 +9,11 @@ export default class RoleDirector {
     this.builder = builder;
   }
 
-  constructEc2Role(stack: Stack, roleId: string, bucketArn: string): iam.Role {
-    return new this.builder(stack, roleId).setInlinePolicies([bucketArn]).setManagedPolicies().getResult();
+  constructEc2Role(stack: Stack, roleId: string, ec2BucketArn: string): iam.Role {
+    return new this.builder(stack, roleId).setInlinePolicies([ec2BucketArn]).setManagedPolicies().getResult();
+  }
+
+  constructGtihubRole(stack: Stack, accountName: string): iam.Role {
+    return new this.builder(stack, accountName).setInlinePolicies([]).setManagedPolicies().getResult();
   }
 }
