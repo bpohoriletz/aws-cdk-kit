@@ -11,14 +11,8 @@ describe('new S3PolicyStatementBuilder', () => {
     expect(instance).toMatchSnapshot();
   });
 
-  test('.setRead grants read, read version access', () => {
-    instance.setRead();
-
-    expect(instance).toMatchSnapshot();
-  });
-
-  test('.setWrite grants write access', () => {
-    instance.setWrite();
+  test('.setPermissions grants read, read version access', () => {
+    instance.setPermissions();
 
     expect(instance).toMatchSnapshot();
   });

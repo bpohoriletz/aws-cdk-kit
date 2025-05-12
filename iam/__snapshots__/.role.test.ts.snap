@@ -275,7 +275,7 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
                 {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy",
+                ":iam::aws:policy/SecretsManagerReadWrite",
               ],
             ],
           },
@@ -287,7 +287,7 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
                 {
                   "Ref": "AWS::Partition",
                 },
-                ":iam::aws:policy/SecretsManagerReadWrite",
+                ":iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy",
               ],
             ],
           },

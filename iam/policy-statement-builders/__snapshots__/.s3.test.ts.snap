@@ -11,7 +11,7 @@ S3PolicyStatementBuilder {
 }
 `;
 
-exports[`new S3PolicyStatementBuilder .setRead grants read, read version access 1`] = `
+exports[`new S3PolicyStatementBuilder .setPermissions grants read, read version access 1`] = `
 S3PolicyStatementBuilder {
   "policyStatementProps": PolicyStatementProduct {
     "actions": [
@@ -19,16 +19,6 @@ S3PolicyStatementBuilder {
       "s3:ListBucketVersions",
       "s3:GetObject",
       "s3:GetObjectVersion",
-    ],
-    "resources": [],
-  },
-}
-`;
-
-exports[`new S3PolicyStatementBuilder .setWrite grants write access 1`] = `
-S3PolicyStatementBuilder {
-  "policyStatementProps": PolicyStatementProduct {
-    "actions": [
       "s3:PutObject",
     ],
     "resources": [],

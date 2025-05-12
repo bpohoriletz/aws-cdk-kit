@@ -8,42 +8,11 @@ export default class PolicyStatementDirector {
     this.builder = new builder();
   }
 
-  constructEmptyPolicyStatement(): iam.PolicyStatement {
-    return new iam.PolicyStatement(this.builder.getResult());
-  }
-
-  constructFullAccess(resources: string[] = ['*']): iam.PolicyStatement {
-    this.builder.setFullAccess!();
+  constructPolicyStatement(resources: string[] = ['*']): iam.PolicyStatement {
     resources.forEach((resource) => {
-      this.builder.addResource!(resource);
+      this.builder.addResource(resource);
     });
-
-    return new iam.PolicyStatement(this.builder.getResult());
-  }
-
-  constructEbEC2StatsPolicyStatement(resources: string[] = ['*']): iam.PolicyStatement {
-    this.builder.setUploadEC2Stats!();
-    resources.forEach((resource) => {
-      this.builder.addResource!(resource);
-    });
-
-    return new iam.PolicyStatement(this.builder.getResult());
-  }
-
-  constructLogsUploadPolicyStatement(resources: string[] = ['*']): iam.PolicyStatement {
-    this.builder.setUpload!();
-    resources.forEach((resource) => {
-      this.builder.addResource!(resource);
-    });
-
-    return new iam.PolicyStatement(this.builder.getResult());
-  }
-
-  constructS3ReadWritePolicyStatement(resources: string[]): iam.PolicyStatement {
-    this.builder.setRead!().setWrite!();
-    resources.forEach((resource) => {
-      this.builder.addResource!(resource);
-    });
+    this.builder.setPermissions();
 
     return new iam.PolicyStatement(this.builder.getResult());
   }

@@ -8,12 +8,12 @@ describe('new PolicyStatementDirector()', () => {
   test('creates empty policy', () => {
     instance = new PolicyStatementDirector(PolicyStatementBuilder);
 
-    expect(instance.constructEmptyPolicyStatement()).toMatchSnapshot();
+    expect(instance.constructPolicyStatement()).toMatchSnapshot();
   });
 
   test('creates S3 read/write policy', () => {
     instance = new PolicyStatementDirector(S3PolicyStatementBuilder);
 
-    expect(instance.constructS3ReadWritePolicyStatement(['*'])).toMatchSnapshot();
+    expect(instance.constructPolicyStatement(['*'])).toMatchSnapshot();
   });
 });

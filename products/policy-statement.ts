@@ -23,11 +23,7 @@ export class PolicyStatementProduct implements iam.PolicyStatementProps {
 }
 
 export interface IPolicyStatementBuilder {
-  setFullAccess?(): this;
-  setUploadEC2Stats?(): this;
-  setUpload?(): this;
-  setRead?(): this;
-  setWrite?(): this;
+  setPermissions(): this;
   addResource(resource: string): this;
   getResult(): PolicyStatementProduct;
 }

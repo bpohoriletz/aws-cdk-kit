@@ -11,8 +11,8 @@ describe('new ElasticBPolicyStatementBuilder', () => {
     expect(instance).toMatchSnapshot();
   });
 
-  test('.setUploadEC2Stats allows sending EC2 stats', () => {
-    instance.setUploadEC2Stats();
+  test('.setPermissions allows sending EC2 stats', () => {
+    instance.setPermissions();
 
     expect(instance).toMatchSnapshot();
   });

@@ -11,7 +11,7 @@ ElasticBPolicyStatementBuilder {
 }
 `;
 
-exports[`new ElasticBPolicyStatementBuilder .setUploadEC2Stats allows sending EC2 stats 1`] = `
+exports[`new ElasticBPolicyStatementBuilder .setPermissions allows sending EC2 stats 1`] = `
 ElasticBPolicyStatementBuilder {
   "policyStatementProps": PolicyStatementProduct {
     "actions": [

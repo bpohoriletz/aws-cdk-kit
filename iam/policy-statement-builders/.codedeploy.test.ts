@@ -11,8 +11,8 @@ describe('new CodedeployBPolicyStatementBuilder', () => {
     expect(instance).toMatchSnapshot();
   });
 
-  test('.setFullAccess allows full access to CodeDeploy', () => {
-    instance.setFullAccess();
+  test('.setPermissions allows full access to CodeDeploy', () => {
+    instance.setPermissions();
 
     expect(instance).toMatchSnapshot();
   });

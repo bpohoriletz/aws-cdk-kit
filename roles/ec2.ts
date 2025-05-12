@@ -17,15 +17,15 @@ export function createEc2Role(resourceNamePrefix: string[], bucketArns: string[]
 
   const resources = bucketArns.flatMap((arn) => [arn, `${arn}/resources/*`]);
   new Policy(stack, 'allowEc2UploadLogsToEbRegionalBucket', {
-    statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructS3ReadWritePolicyStatement(resources)],
+    statements: [new PolicyStatementDirector(S3PolicyStatementBuilder).constructPolicyStatement(resources)],
   }).attachToRole(ec2Role);
 
   new Policy(stack, 'allowEc2PutStatistics', {
-    statements: [new PolicyStatementDirector(ElasticBPolicyStatementBuilder).constructEbEC2StatsPolicyStatement()],
+    statements: [new PolicyStatementDirector(ElasticBPolicyStatementBuilder).constructPolicyStatement()],
   }).attachToRole(ec2Role);
 
   new Policy(stack, 'allowEc2UploadLogs', {
-    statements: [new PolicyStatementDirector(LogsPolicyStatementBuilder).constructLogsUploadPolicyStatement()],
+    statements: [new PolicyStatementDirector(LogsPolicyStatementBuilder).constructPolicyStatement()],
   }).attachToRole(ec2Role);
 
   return ec2Role;
