@@ -131,7 +131,7 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
       "Description": "The ARN of the IAM Role that should be assumed in GitHub",
       "Value": {
         "Fn::GetAtt": [
-          "GitHubActionsRole4F1BBA26",
+          "GithubActionsRoleF5CC769F",
           "Arn",
         ],
       },
@@ -220,7 +220,29 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "GitHubActionsRole4F1BBA26": {
+    "GitHubOIDCProvider4F328116": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "ClientIDList": [
+          "sts.amazonaws.com",
+        ],
+        "CodeHash": "62fa02efcaa700e1c247e1d3cc2aa0cd07a0808a9a3e3d2230e51f57a02233fb",
+        "RejectUnauthorized": false,
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0",
+            "Arn",
+          ],
+        },
+        "ThumbprintList": [
+          "6938fd4d98bab03faadb97b34396831e3780aea1",
+        ],
+        "Url": "https://token.actions.githubusercontent.com",
+      },
+      "Type": "Custom::AWSCDKOpenIdConnectProvider",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "GithubActionsRoleF5CC769F": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -292,31 +314,8 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
             ],
           },
         ],
-        "RoleName": "GitHubActionsRole",
       },
       "Type": "AWS::IAM::Role",
-    },
-    "GitHubOIDCProvider4F328116": {
-      "DeletionPolicy": "Delete",
-      "Properties": {
-        "ClientIDList": [
-          "sts.amazonaws.com",
-        ],
-        "CodeHash": "62fa02efcaa700e1c247e1d3cc2aa0cd07a0808a9a3e3d2230e51f57a02233fb",
-        "RejectUnauthorized": false,
-        "ServiceToken": {
-          "Fn::GetAtt": [
-            "CustomAWSCDKOpenIdConnectProviderCustomResourceProviderHandlerF2C543E0",
-            "Arn",
-          ],
-        },
-        "ThumbprintList": [
-          "6938fd4d98bab03faadb97b34396831e3780aea1",
-        ],
-        "Url": "https://token.actions.githubusercontent.com",
-      },
-      "Type": "Custom::AWSCDKOpenIdConnectProvider",
-      "UpdateReplacePolicy": "Delete",
     },
     "accessCodeDeployBucket0952D2BF": {
       "Properties": {
@@ -342,7 +341,7 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
         "PolicyName": "accessCodeDeployBucket0952D2BF",
         "Roles": [
           {
-            "Ref": "GitHubActionsRole4F1BBA26",
+            "Ref": "GithubActionsRoleF5CC769F",
           },
         ],
       },
@@ -363,7 +362,7 @@ exports[`IAM .createGithubCliRole() matches snapshot 1`] = `
         "PolicyName": "codeDeploy97BF7F9E",
         "Roles": [
           {
-            "Ref": "GitHubActionsRole4F1BBA26",
+            "Ref": "GithubActionsRoleF5CC769F",
           },
         ],
       },
