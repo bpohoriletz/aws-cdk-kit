@@ -12,7 +12,7 @@ describe('IAM .createEc2InstanceProfile()', () => {
   });
 
   test('matches snapshot', () => {
-    func.createEc2InstanceProfile(['pre', 'fix'], [arn()], stack);
+    func.createEc2InstanceProfile(['pre', 'fix'], arn(), stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
