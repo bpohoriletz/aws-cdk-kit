@@ -11,7 +11,7 @@ CodedeployPolicyStatementBuilder {
 }
 `;
 
-exports[`new CodedeployBPolicyStatementBuilder .setFullAccess allows full access to CodeDeploy 1`] = `
+exports[`new CodedeployBPolicyStatementBuilder .setPermissions allows full access to CodeDeploy 1`] = `
 CodedeployPolicyStatementBuilder {
   "policyStatementProps": PolicyStatementProduct {
     "actions": [

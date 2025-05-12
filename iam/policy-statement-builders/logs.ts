@@ -7,7 +7,7 @@ export default class LogsPolicyStatementBuilder implements IPolicyStatementBuild
     this.policyStatementProps = new PolicyStatementProduct();
   }
 
-  setUpload(): this {
+  setPermissions(): this {
     this.policyStatementProps.addAction('logs:CreateLogStream').addAction('logs:PutLogEvents');
 
     return this;

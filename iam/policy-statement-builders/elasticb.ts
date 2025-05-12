@@ -7,7 +7,7 @@ export default class ElasticBPolicyStatementBuilder implements IPolicyStatementB
     this.policyStatementProps = new PolicyStatementProduct();
   }
 
-  setUploadEC2Stats(): this {
+  setPermissions(): this {
     this.policyStatementProps.addAction('elasticbeanstalk:PutInstanceStatistics');
 
     return this;

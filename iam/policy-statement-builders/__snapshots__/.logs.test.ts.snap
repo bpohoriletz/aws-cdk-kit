@@ -11,7 +11,7 @@ LogsPolicyStatementBuilder {
 }
 `;
 
-exports[`new LogsPolicyStatementBuilder .setUpload allows upload logs 1`] = `
+exports[`new LogsPolicyStatementBuilder .setPermissions allows upload logs 1`] = `
 LogsPolicyStatementBuilder {
   "policyStatementProps": PolicyStatementProduct {
     "actions": [

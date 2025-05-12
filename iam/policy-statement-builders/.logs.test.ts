@@ -11,8 +11,8 @@ describe('new LogsPolicyStatementBuilder', () => {
     expect(instance).toMatchSnapshot();
   });
 
-  test('.setUpload allows upload logs', () => {
-    instance.setUpload();
+  test('.setPermissions allows upload logs', () => {
+    instance.setPermissions();
 
     expect(instance).toMatchSnapshot();
   });

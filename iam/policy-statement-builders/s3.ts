@@ -7,18 +7,13 @@ export default class S3PolicyStatementBuilder implements IPolicyStatementBuilder
     this.policyStatementProps = new PolicyStatementProduct();
   }
 
-  setRead(): this {
+  setPermissions(): this {
     this.policyStatementProps
       .addAction('s3:ListBucket')
       .addAction('s3:ListBucketVersions')
       .addAction('s3:GetObject')
-      .addAction('s3:GetObjectVersion');
-
-    return this;
-  }
-
-  setWrite(): this {
-    this.policyStatementProps.addAction('s3:PutObject');
+      .addAction('s3:GetObjectVersion')
+      .addAction('s3:PutObject');
 
     return this;
   }

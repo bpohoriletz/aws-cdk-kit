@@ -7,7 +7,7 @@ export default class CodedeployPolicyStatementBuilder implements IPolicyStatemen
     this.policyStatementProps = new PolicyStatementProduct();
   }
 
-  setFullAccess(): this {
+  setPermissions(): this {
     this.policyStatementProps.addAction('codedeploy:*');
 
     return this;
