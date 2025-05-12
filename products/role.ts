@@ -1,3 +1,4 @@
+import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class RoleProduct implements iam.RoleProps {
@@ -14,9 +15,11 @@ export class RoleProduct implements iam.RoleProps {
 }
 
 export interface IRoleBuilder {
-  getResult(): RoleProduct;
+  setInlinePolicies(resources: string[]): this;
+  setManagedPolicies(): this;
+  getResult(): iam.Role;
 }
 
 export interface IRoleBuilderConstructor {
-  new (): IRoleBuilder;
+  new (stack: Stack, id: string): IRoleBuilder;
 }

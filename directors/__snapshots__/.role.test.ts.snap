@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IAM .createEc2InstanceProfile() matches snapshot 1`] = `
+exports[`new RoleDirector() construct EC2 role for ElasticBeanstalk 1`] = `
 {
   "Parameters": {
     "BootstrapVersion": {
@@ -29,17 +29,6 @@ exports[`IAM .createEc2InstanceProfile() matches snapshot 1`] = `
         ],
       },
       "Type": "AWS::IAM::Role",
-    },
-    "PreFixEc2InstProfB325991D": {
-      "Properties": {
-        "InstanceProfileName": "PreFixEc2InstProf",
-        "Roles": [
-          {
-            "Ref": "Ec2Role2FD9A272",
-          },
-        ],
-      },
-      "Type": "AWS::IAM::InstanceProfile",
     },
     "allowEc2PutStatisticsD9C1A435": {
       "Properties": {
