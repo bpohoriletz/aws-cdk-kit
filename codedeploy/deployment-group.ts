@@ -8,6 +8,72 @@ import SecurityGroupDirector from '../directors/security-group';
 import SecurityGroupBuilder from '../ec2/security-group-builder';
 import * as names from '../utils/naming';
 
+export function createPublicDeploymentGroup(
+  resourceNamePrefix: string[],
+  instanceTypes: ec2.InstanceType[],
+  app: codedeploy.ServerApplication,
+  instanceProfile: iam.InstanceProfile,
+  codedeployRole: iam.Role,
+  vpc: ec2.IVpc,
+  stack: cdk.Stack
+): [codedeploy.ServerDeploymentGroup, ec2.SecurityGroup, autoscaling.AutoScalingGroup] {
+  let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, 'asg');
+  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
+    stack,
+    'WebSecurityGroup',
+    vpc
+  );
+  // Define the launch template for Spot instances
+  const userData = ec2.UserData.forLinux();
+  userData.addCommands('echo Hello World');
+  resourceName = names.launchTemplateName(resourceNamePrefix);
+  const launchTemplate = new ec2.LaunchTemplate(stack, resourceName, {
+    associatePublicIpAddress: true,
+    instanceProfile: instanceProfile,
+    instanceType: instanceTypes[0],
+    launchTemplateName: resourceName,
+    machineImage: ec2.MachineImage.latestAmazonLinux2023(),
+    securityGroup: securityGroup,
+    userData: userData,
+  });
+
+  // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
+  resourceName = names.autoscalingGroupName(resourceNamePrefix);
+  const autoscalingGroup = new autoscaling.AutoScalingGroup(stack, resourceName, {
+    autoScalingGroupName: resourceName,
+    vpc: vpc,
+    vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
+    mixedInstancesPolicy: {
+      instancesDistribution: {
+        onDemandBaseCapacity: 0, // All instances are Spot
+        onDemandPercentageAboveBaseCapacity: 0, // 100% Spot instances
+      },
+      launchTemplate: launchTemplate,
+      launchTemplateOverrides: instanceTypes.map((instanceType) => ({
+        instanceType: instanceType,
+      })),
+    },
+    minCapacity: 1,
+    maxCapacity: 1,
+    desiredCapacity: 1,
+    healthChecks: autoscaling.HealthChecks.ec2({
+      gracePeriod: cdk.Duration.minutes(5),
+    }),
+  });
+
+  // Create deployment group
+  resourceName = names.codedeployDeploymentGroupName(resourceNamePrefix);
+  const deplGroup = new codedeploy.ServerDeploymentGroup(stack, resourceName, {
+    application: app,
+    autoScalingGroups: [autoscalingGroup],
+    deploymentGroupName: resourceName,
+    deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
+    installAgent: true,
+    role: codedeployRole,
+  });
+
+  return [deplGroup, securityGroup, autoscalingGroup];
+}
 export function createDeploymentGroupToAsg(
   resourceNamePrefix: string[],
   instanceTypes: ec2.InstanceType[],
