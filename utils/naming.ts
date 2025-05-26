@@ -25,6 +25,11 @@ export function autoscalingGroupName(resourceNamePrefix: string[]): string {
 
   return partsToDashedName(name);
 }
+export function autoscalingGroupHookName(resourceNamePrefix: string[], event: string): string {
+  const name: string[] = resourceNamePrefix.concat('asg', event, 'hook');
+
+  return partsToName(name);
+}
 // CodeDeploy
 export function codedeployDeploymentGroupName(resourceNamePrefix: string[]): string {
   const name: string[] = resourceNamePrefix.concat('dg');

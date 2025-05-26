@@ -1,5 +1,6 @@
 import { Stack } from 'aws-cdk-lib';
 import { AwsCustomResource, AwsCustomResourcePolicy, PhysicalResourceId } from 'aws-cdk-lib/custom-resources';
+import * as asc from 'aws-cdk-lib/aws-autoscaling';
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import * as eb from 'aws-cdk-lib/aws-elasticbeanstalk';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
@@ -13,6 +14,12 @@ export function stub(stack: Stack, clazz: string, id?: string): any {
   }
 
   switch (clazz) {
+    case 'asc.AutoScalingGroup':
+      return new asc.AutoScalingGroup(stack, id || 'AutoScalingGroupID', {
+        vpc: stub(stack, 'ec2.Vpc'),
+        instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE2, ec2.InstanceSize.MICRO),
+        machineImage: ec2.MachineImage.latestAmazonLinux2(),
+      });
     case 'cd.ServerApplication':
       return new codedeploy.ServerApplication(stack, id || 'ServerApplicationID', {
         applicationName: 'cd.ServerApplication',

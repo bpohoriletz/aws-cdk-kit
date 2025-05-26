@@ -126,6 +126,17 @@ export function createDeploymentGroupToAsg(
       gracePeriod: cdk.Duration.minutes(5),
     }),
   });
+  // Add lifecycle hooks
+  autoscalingGroup.addLifecycleHook(names.autoscalingGroupHookName(resourceNamePrefix, 'term'), {
+    defaultResult: autoscaling.DefaultResult.CONTINUE,
+    heartbeatTimeout: cdk.Duration.minutes(1),
+    lifecycleTransition: autoscaling.LifecycleTransition.INSTANCE_TERMINATING,
+  });
+  autoscalingGroup.addLifecycleHook(names.autoscalingGroupHookName(resourceNamePrefix, 'lnch'), {
+    defaultResult: autoscaling.DefaultResult.CONTINUE,
+    heartbeatTimeout: cdk.Duration.minutes(1),
+    lifecycleTransition: autoscaling.LifecycleTransition.INSTANCE_LAUNCHING,
+  });
 
   // Create deployment group
   resourceName = names.codedeployDeploymentGroupName(resourceNamePrefix);

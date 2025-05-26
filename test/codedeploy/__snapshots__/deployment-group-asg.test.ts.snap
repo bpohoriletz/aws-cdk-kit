@@ -1062,6 +1062,28 @@ rm -fr $TMP_DIR",
         },
       },
     },
+    "prefixasgLifecycleHookPreFixAsgLnchHookA91E7C12": {
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "prefixasgASGD04A8C02",
+        },
+        "DefaultResult": "CONTINUE",
+        "HeartbeatTimeout": 60,
+        "LifecycleTransition": "autoscaling:EC2_INSTANCE_LAUNCHING",
+      },
+      "Type": "AWS::AutoScaling::LifecycleHook",
+    },
+    "prefixasgLifecycleHookPreFixAsgTermHookB084B920": {
+      "Properties": {
+        "AutoScalingGroupName": {
+          "Ref": "prefixasgASGD04A8C02",
+        },
+        "DefaultResult": "CONTINUE",
+        "HeartbeatTimeout": 60,
+        "LifecycleTransition": "autoscaling:EC2_INSTANCE_TERMINATING",
+      },
+      "Type": "AWS::AutoScaling::LifecycleHook",
+    },
     "prefixdg66D052C2": {
       "Properties": {
         "ApplicationName": {
