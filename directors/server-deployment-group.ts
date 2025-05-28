@@ -24,8 +24,7 @@ export default class ServerDeploymentGroupDirector {
 
     this.builder.setApplication(this.resources.application).setRole(this.resources.role).setName(this.resources.name)
       .setEc2InstanceTags!(this.resources.ec2InstanceTags!)
-      .setDeploymentConfig()
-      .setInstallAgent();
+      .setDeploymentConfig();
 
     return new codedeploy.ServerDeploymentGroup(scope, id, this.builder.getResult());
   }

@@ -17,11 +17,11 @@ interface IVpcProduct extends ec2.VpcProps {
 }
 
 export interface IVpcBuilder {
-  customizeCidr?(name: string): this;
-  customizeAzs?(): this;
-  customizeNatProvider?(): this;
-  customizeNatSubnets?(): this;
-  customizeSubnetConfiguration?(name: string): this;
+  setCidr?(name: string): this;
+  setAzs?(): this;
+  setNatProvider?(): this;
+  setNatSubnets?(): this;
+  setSubnetConfiguration?(name: string): this;
   getResult(): ec2.VpcProps;
 }
 

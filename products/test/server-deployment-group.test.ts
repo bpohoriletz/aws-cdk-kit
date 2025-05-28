@@ -12,7 +12,7 @@ describe('new ServerDeploymentGroupProduct', () => {
   });
 
   test('can set deploymentGroupName', () => {
-    instance.setDeploymentGroupName('test');
+    instance.deploymentGroupName = 'test';
     expect(instance.deploymentGroupName).toBe('test');
   });
 });
