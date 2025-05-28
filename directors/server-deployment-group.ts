@@ -7,20 +7,30 @@ import {
 
 export default class ServerDeploymentGroupDirector {
   private builder: IServerDeploymentGroupBuilder;
+  private resources: IDeploymentGroupResources;
 
   constructor(builder: IServerDeploymentGroupBuilderConstructor) {
     this.builder = new builder();
   }
 
-  constructEmptyGroup(scope: Construct, id: string, name: string): codedeploy.ServerDeploymentGroup {
-    const props = this.builder
-      .setApplication()
-      .setDeploymentConfig()
-      .setInstallAgent()
-      .setName(name)
-      .setRole()
-      .getResult();
+  setResources(resources: IDeploymentGroupResources): this {
+    this.resources = resources;
 
-    return new codedeploy.ServerDeploymentGroup(scope, id, props);
+    return this;
   }
+
+  constructEc2Group(scope: Construct, id: string): codedeploy.ServerDeploymentGroup {
+    if (!this.resources) throw `Initialize resources first by invoking #withResources`;
+
+    this.builder.setApplication(this.resources.application).setRole(this.resources.role).setName(this.resources.name)
+      .setEc2InstanceTags!(this.resources.ec2InstanceTags!)
+      .setDeploymentConfig()
+      .setInstallAgent();
+
+    return new codedeploy.ServerDeploymentGroup(scope, id, this.builder.getResult());
+  }
+}
+
+interface IDeploymentGroupResources extends codedeploy.ServerDeploymentGroupProps {
+  name: string;
 }

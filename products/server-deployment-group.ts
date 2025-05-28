@@ -40,6 +40,7 @@ export interface IServerDeploymentGroupBuilder {
   setInstallAgent(installAgent?: boolean): IServerDeploymentGroupBuilder;
   setName(name?: string): IServerDeploymentGroupBuilder;
   setRole(role?: iam.IRole): IServerDeploymentGroupBuilder;
+  setEc2InstanceTags?(tags: codedeploy.InstanceTagSet): IServerDeploymentGroupBuilder;
   getResult(): ServerDeploymentGroupProduct;
 }
 

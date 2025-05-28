@@ -1,100 +1,183 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new ServerDeploymentGroupDirector() construct empty DeploymentGroup 1`] = `
+exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create groups for the same application 1`] = `
 {
-  "Parameters": {
-    "BootstrapVersion": {
-      "Default": "/cdk-bootstrap/hnb659fds/version",
-      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
-      "Type": "AWS::SSM::Parameter::Value<String>",
-    },
-  },
-  "Resources": {
-    "DeploymentGroup6D277AF0": {
-      "Properties": {
-        "ApplicationName": {
-          "Ref": "DeploymentGroupApplication7B89ABEB",
-        },
-        "AutoRollbackConfiguration": {
-          "Enabled": true,
-          "Events": [
-            "DEPLOYMENT_FAILURE",
-          ],
-        },
-        "DeploymentGroupName": "dir-test-dg",
-        "ServiceRoleArn": {
-          "Fn::GetAtt": [
-            "DeploymentGroupRoleC40B98DA",
-            "Arn",
-          ],
-        },
+  "DeploymentGroupDevelop5C995268": {
+    "Properties": {
+      "ApplicationName": {
+        "Ref": "ServerApplicationID0A7B7E9A",
       },
-      "Type": "AWS::CodeDeploy::DeploymentGroup",
-    },
-    "DeploymentGroupApplication7B89ABEB": {
-      "Properties": {
-        "ComputePlatform": "Server",
-      },
-      "Type": "AWS::CodeDeploy::Application",
-    },
-    "DeploymentGroupRoleC40B98DA": {
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "codedeploy.amazonaws.com",
-              },
-            },
-          ],
-          "Version": "2012-10-17",
-        },
-        "ManagedPolicyArns": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:",
-                {
-                  "Ref": "AWS::Partition",
-                },
-                ":iam::aws:policy/service-role/AWSCodeDeployRole",
-              ],
-            ],
-          },
+      "AutoRollbackConfiguration": {
+        "Enabled": true,
+        "Events": [
+          "DEPLOYMENT_FAILURE",
         ],
       },
-      "Type": "AWS::IAM::Role",
+      "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+      "DeploymentGroupName": "test-cd-dg",
+      "ServiceRoleArn": {
+        "Fn::GetAtt": [
+          "DeploymentGroupDevelopRole3F2B6EFE",
+          "Arn",
+        ],
+      },
     },
+    "Type": "AWS::CodeDeploy::DeploymentGroup",
   },
-  "Rules": {
-    "CheckBootstrapVersion": {
-      "Assertions": [
-        {
-          "Assert": {
-            "Fn::Not": [
-              {
-                "Fn::Contains": [
-                  [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                  ],
-                  {
-                    "Ref": "BootstrapVersion",
-                  },
-                ],
-              },
-            ],
+  "DeploymentGroupDevelopRole3F2B6EFE": {
+    "Properties": {
+      "AssumeRolePolicyDocument": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRole",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "codedeploy.amazonaws.com",
+            },
           },
-          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        ],
+        "Version": "2012-10-17",
+      },
+      "ManagedPolicyArns": [
+        {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":iam::aws:policy/service-role/AWSCodeDeployRole",
+            ],
+          ],
         },
       ],
     },
+    "Type": "AWS::IAM::Role",
+  },
+  "DeploymentGroupStaging19AF76AC": {
+    "Properties": {
+      "ApplicationName": {
+        "Ref": "ServerApplicationID0A7B7E9A",
+      },
+      "AutoRollbackConfiguration": {
+        "Enabled": true,
+        "Events": [
+          "DEPLOYMENT_FAILURE",
+        ],
+      },
+      "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+      "DeploymentGroupName": "test-cd-dg",
+      "ServiceRoleArn": {
+        "Fn::GetAtt": [
+          "DeploymentGroupStagingRole5DBB2C01",
+          "Arn",
+        ],
+      },
+    },
+    "Type": "AWS::CodeDeploy::DeploymentGroup",
+  },
+  "DeploymentGroupStagingRole5DBB2C01": {
+    "Properties": {
+      "AssumeRolePolicyDocument": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRole",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "codedeploy.amazonaws.com",
+            },
+          },
+        ],
+        "Version": "2012-10-17",
+      },
+      "ManagedPolicyArns": [
+        {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":iam::aws:policy/service-role/AWSCodeDeployRole",
+            ],
+          ],
+        },
+      ],
+    },
+    "Type": "AWS::IAM::Role",
+  },
+  "ServerApplicationID0A7B7E9A": {
+    "Properties": {
+      "ApplicationName": "cd.ServerApplication",
+      "ComputePlatform": "Server",
+    },
+    "Type": "AWS::CodeDeploy::Application",
+  },
+}
+`;
+
+exports[`new ServerDeploymentGroupDirector() #constructEc2Group uses defaults if only name is passed 1`] = `
+{
+  "DeploymentGroup6D277AF0": {
+    "Properties": {
+      "ApplicationName": {
+        "Ref": "DeploymentGroupApplication7B89ABEB",
+      },
+      "AutoRollbackConfiguration": {
+        "Enabled": true,
+        "Events": [
+          "DEPLOYMENT_FAILURE",
+        ],
+      },
+      "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+      "DeploymentGroupName": "test-cd-dg",
+      "ServiceRoleArn": {
+        "Fn::GetAtt": [
+          "DeploymentGroupRoleC40B98DA",
+          "Arn",
+        ],
+      },
+    },
+    "Type": "AWS::CodeDeploy::DeploymentGroup",
+  },
+  "DeploymentGroupApplication7B89ABEB": {
+    "Properties": {
+      "ComputePlatform": "Server",
+    },
+    "Type": "AWS::CodeDeploy::Application",
+  },
+  "DeploymentGroupRoleC40B98DA": {
+    "Properties": {
+      "AssumeRolePolicyDocument": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRole",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "codedeploy.amazonaws.com",
+            },
+          },
+        ],
+        "Version": "2012-10-17",
+      },
+      "ManagedPolicyArns": [
+        {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":iam::aws:policy/service-role/AWSCodeDeployRole",
+            ],
+          ],
+        },
+      ],
+    },
+    "Type": "AWS::IAM::Role",
   },
 }
 `;
