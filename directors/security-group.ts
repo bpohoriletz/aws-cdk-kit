@@ -10,15 +10,15 @@ export default class SecurityGroupDirector {
   }
 
   constructSecurityGroup(scope: Construct, id: string, vpc: ec2.IVpc): ec2.SecurityGroup {
-    const params = this.builder.customizeVpc(vpc).customizeDescription('Security group').getResult();
+    this.builder.setVpc(vpc).setDescription('Security group');
 
-    return new ec2.SecurityGroup(scope, id, params);
+    return new ec2.SecurityGroup(scope, id, this.builder.getResult());
   }
 
   constructWebSecurityGroup(scope: Construct, id: string, vpc: ec2.IVpc): ec2.SecurityGroup {
-    const params = this.builder.customizeVpc(vpc).customizeDescription('Web security group').getResult();
+    this.builder.setVpc(vpc).setDescription('Web security group');
 
-    const group = new ec2.SecurityGroup(scope, id, params);
+    const group = new ec2.SecurityGroup(scope, id, this.builder.getResult());
     // Allow web traffic
     group.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), 'Allow incoming traffic over port 80');
     group.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(443), 'Allow incoming traffic over port 443');

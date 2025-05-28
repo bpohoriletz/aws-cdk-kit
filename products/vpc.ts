@@ -8,7 +8,7 @@ export class VpcProduct implements IVpcProduct {
   subnetConfiguration?: ec2.SubnetConfiguration[];
 }
 
-export interface IVpcProduct extends ec2.VpcProps {
+interface IVpcProduct extends ec2.VpcProps {
   ipAddresses?: ec2.IIpAddresses;
   maxAzs?: number;
   natGatewayProvider?: ec2.NatProvider;

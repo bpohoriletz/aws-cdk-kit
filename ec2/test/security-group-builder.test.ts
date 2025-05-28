@@ -14,7 +14,7 @@ describe('new SecurityGroupBuilder()', () => {
 
   test('Matches snapshot', () => {
     const vpc = new ec2.Vpc(stack, 'Vpc');
-    instance.customizeVpc(vpc).customizeDescription('Description').customizeName('Name').getResult();
+    instance.setVpc(vpc).setDescription('Description').setName('Name').getResult();
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });

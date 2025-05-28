@@ -1,28 +1,22 @@
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
-export class SecurityGroupProduct implements ec2.SecurityGroupProps {
+export class SecurityGroupProduct implements ISecurityGroupProduct {
   vpc: ec2.IVpc;
-  description: string;
-  securityGroupName: string;
+  description?: string;
+  securityGroupName?: string;
+}
 
-  setVpcs(vpc: ec2.IVpc): void {
-    this.vpc = vpc;
-  }
-
-  setDescription(description: string): void {
-    this.description = description;
-  }
-
-  setSecurityGroupName(name: string): void {
-    this.securityGroupName = name;
-  }
+interface ISecurityGroupProduct extends ec2.SecurityGroupProps {
+  vpc: ec2.IVpc;
+  description?: string;
+  securityGroupName?: string;
 }
 
 export interface ISecurityGroupBuilder {
-  customizeVpc(vpc: ec2.IVpc): this;
-  customizeDescription(description: string): this;
-  customizeName(name: string): this;
-  getResult(): SecurityGroupProduct;
+  setVpc(vpc: ec2.IVpc): this;
+  setDescription(description: string): this;
+  setName(name: string): this;
+  getResult(): ec2.SecurityGroupProps;
 }
 
 export interface ISecurityGroupBuilderConstructor {

@@ -8,20 +8,20 @@ export default class SecurityGroupBuilder implements ISecurityGroupBuilder {
     this.securityGroupProps = new SecurityGroupProduct();
   }
 
-  customizeVpc(vpc: ec2.IVpc): this {
-    this.securityGroupProps.setVpcs(vpc);
+  setVpc(vpc: ec2.IVpc): this {
+    this.securityGroupProps.vpc = vpc;
 
     return this;
   }
 
-  customizeName(name: string): this {
-    this.securityGroupProps.setSecurityGroupName(name);
+  setName(name: string): this {
+    this.securityGroupProps.securityGroupName = name;
 
     return this;
   }
 
-  customizeDescription(description: string): this {
-    this.securityGroupProps.setDescription(description);
+  setDescription(description: string): this {
+    this.securityGroupProps.description = description;
 
     return this;
   }
