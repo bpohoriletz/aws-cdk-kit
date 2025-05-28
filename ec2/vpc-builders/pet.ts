@@ -1,8 +1,24 @@
-import VpcBuilder from '../vpc-builder';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import VpcBuilderBase from '../vpc-builder-base';
 
-export default class PetVpcBuilder extends VpcBuilder {
+export default class PetVpcBuilder extends VpcBuilderBase {
   customizeAzs(): this {
-    this.vpcProps.setMaxAzs(1);
+    this.vpcProps.maxAzs = 1;
+
+    return this;
+  }
+
+  customizeNatProvider(): this {
+    const provider = ec2.NatProvider.instanceV2({
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.NANO),
+    });
+    this.vpcProps.natGatewayProvider = provider;
+
+    return this;
+  }
+
+  customizeNatSubnets(): this {
+    this.vpcProps.natGatewaySubnets = { subnetType: ec2.SubnetType.PUBLIC };
 
     return this;
   }

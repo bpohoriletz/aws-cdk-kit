@@ -2,7 +2,7 @@
 
 exports[`new PetVpcBuilder() Matches snapshot 1`] = `
 VpcProduct {
-  "ipAddressesSet": Cidr {
+  "ipAddresses": Cidr {
     "cidrBlock": "10.255.0.0/16",
     "networkBuilder": NetworkBuilder {
       "networkCidr": CidrBlock {

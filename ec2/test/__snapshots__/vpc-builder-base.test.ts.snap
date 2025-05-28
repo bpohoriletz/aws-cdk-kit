@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new VpcBuilder() Matches snapshot 1`] = `
+exports[`new VpcBuilderBase() Matches snapshot 1`] = `
 VpcProduct {
-  "ipAddressesSet": Cidr {
+  "ipAddresses": Cidr {
     "cidrBlock": "10.255.0.0/16",
     "networkBuilder": NetworkBuilder {
       "networkCidr": CidrBlock {
@@ -14,22 +14,6 @@ VpcProduct {
       "nextAvailableIp": 184483840,
       "subnetCidrs": [],
     },
-  },
-  "maxAzs": 2,
-  "natGatewayProvider": NatInstanceProviderV2 {
-    "gateways": PrefSet {
-      "map": {},
-      "next": 0,
-      "vals": [],
-    },
-    "props": {
-      "instanceType": InstanceType {
-        "instanceTypeIdentifier": "t2.nano",
-      },
-    },
-  },
-  "natGatewaySubnets": {
-    "subnetType": "Public",
   },
   "subnetConfiguration": [
     {
