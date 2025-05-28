@@ -14,7 +14,7 @@ describe('CodeDeploy .createDeploymentGroupToAsg()', () => {
   test('matches snapshot', () => {
     func.createDeploymentGroupToAsg(
       ['pre', 'fix'],
-      [stub(stack, 'ec2.InstanceType')],
+      [stub(stack, 'any')],
       stub(stack, 'cd.ServerApplication'),
       stub(stack, 'iam.InstanceProfile'),
       stub(stack, 'iam.Role'),

@@ -12,7 +12,7 @@ describe('ElasticBeanstalk .createApplication()', () => {
   });
 
   test('matches snapshot', () => {
-    func.createApplication(['pre', 'fix'], stub(stack, 'ec2.Role'), stack);
+    func.createApplication(['pre', 'fix'], stub(stack, 'iam.Role'), stack);
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });

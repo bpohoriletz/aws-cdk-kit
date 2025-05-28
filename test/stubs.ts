@@ -61,18 +61,22 @@ export function stub(stack: Stack, clazz: string, id?: string): any {
     case 'sns.Topic':
       return new sns.Topic(stack, id || 'TopicID');
     default: {
-      const stubId = `Stub-${clazz}`.replace('.', '-');
-      return new AwsCustomResource(stack, id || stubId, {
-        functionName: stubId,
-        onCreate: {
-          service: 'sts',
-          action: 'GetCallerIdentity',
-          physicalResourceId: PhysicalResourceId.of(id || 'CustomID'),
-        },
-        policy: AwsCustomResourcePolicy.fromSdkCalls({
-          resources: AwsCustomResourcePolicy.ANY_RESOURCE,
-        }),
-      });
+      if (clazz.startsWith('any')) {
+        const stubId = `Stub-${clazz}`.replace('.', '-');
+        return new AwsCustomResource(stack, id || stubId, {
+          functionName: stubId,
+          onCreate: {
+            service: 'sts',
+            action: 'GetCallerIdentity',
+            physicalResourceId: PhysicalResourceId.of(id || 'CustomID'),
+          },
+          policy: AwsCustomResourcePolicy.fromSdkCalls({
+            resources: AwsCustomResourcePolicy.ANY_RESOURCE,
+          }),
+        });
+      } else {
+        throw `Found no stub definition for ${clazz}, replace with 'any' if you don't need exact stub.`;
+      }
     }
   }
 }

@@ -7,39 +7,39 @@ export class ServerDeploymentGroupProduct implements codedeploy.ServerDeployment
   deploymentConfig?: codedeploy.IServerDeploymentConfig;
   installAgent?: boolean;
   role?: iam.IRole;
+  ec2InstanceTags?: codedeploy.InstanceTagSet | undefined;
 
-  setApplication(application: codedeploy.IServerApplication) {
+  setApplication(application: codedeploy.IServerApplication): void {
     this.application = application;
-    return this;
   }
 
-  setDeploymentGroupName(deploymentGroupName: string) {
+  setDeploymentGroupName(deploymentGroupName: string): void {
     this.deploymentGroupName = deploymentGroupName;
-    return this;
   }
 
-  setDeploymentConfig(deploymentConfig: codedeploy.IServerDeploymentConfig) {
+  setDeploymentConfig(deploymentConfig: codedeploy.IServerDeploymentConfig): void {
     this.deploymentConfig = deploymentConfig;
-    return this;
   }
 
-  setInstallAgent(installAgent: boolean) {
+  setInstallAgent(installAgent: boolean): void {
     this.installAgent = installAgent;
-    return this;
   }
 
-  setRole(role: iam.IRole) {
+  setRole(role: iam.IRole): void {
     this.role = role;
-    return this;
+  }
+
+  setTags(tags: codedeploy.InstanceTagSet): void {
+    this.ec2InstanceTags = tags;
   }
 }
 
 export interface IServerDeploymentGroupBuilder {
-  setApplication(application?: codedeploy.IServerApplication): this;
-  setDeploymentConfig(deploymentConfig?: codedeploy.IServerDeploymentConfig): this;
-  setInstallAgent(installAgent?: boolean): this;
-  setName(name?: string): this;
-  setRole(role?: iam.IRole): this;
+  setApplication(application?: codedeploy.IServerApplication): IServerDeploymentGroupBuilder;
+  setDeploymentConfig(deploymentConfig?: codedeploy.IServerDeploymentConfig): IServerDeploymentGroupBuilder;
+  setInstallAgent(installAgent?: boolean): IServerDeploymentGroupBuilder;
+  setName(name?: string): IServerDeploymentGroupBuilder;
+  setRole(role?: iam.IRole): IServerDeploymentGroupBuilder;
   getResult(): ServerDeploymentGroupProduct;
 }
 

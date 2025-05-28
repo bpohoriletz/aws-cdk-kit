@@ -14,7 +14,7 @@ describe('CodeDeploy .createDeploymentGroupToEc2()', () => {
   test('matches snapshot', () => {
     func.createDeploymentGroupToEc2(
       ['pre', 'fix'],
-      stub(stack, 'ec2.Instance'),
+      stub(stack, 'any'),
       stub(stack, 'cd.ServerApplication'),
       'stack',
       stub(stack, 'iam.Role'),
