@@ -1,25 +1,10 @@
-import { IPolicyStatementBuilder, PolicyStatementProduct } from '../../products/policy-statement';
+import { IPolicyStatementBuilder } from '../../products/policy-statement';
+import PolicyStatementBuilderBase from '../policy-statement-builder-base';
 
-export default class LogsPolicyStatementBuilder implements IPolicyStatementBuilder {
-  private policyStatementProps: PolicyStatementProduct;
-
-  constructor() {
-    this.policyStatementProps = new PolicyStatementProduct();
-  }
-
+export default class LogsPolicyStatementBuilder extends PolicyStatementBuilderBase implements IPolicyStatementBuilder {
   setPermissions(): this {
     this.policyStatementProps.addAction('logs:CreateLogStream').addAction('logs:PutLogEvents');
 
     return this;
-  }
-
-  addResource(resource: string): this {
-    this.policyStatementProps.addResource(resource);
-
-    return this;
-  }
-
-  getResult(): PolicyStatementProduct {
-    return this.policyStatementProps;
   }
 }

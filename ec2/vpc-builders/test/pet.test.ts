@@ -8,12 +8,7 @@ describe('new PetVpcBuilder()', () => {
   });
 
   test('Matches snapshot', () => {
-    instance
-      .setAzs()
-      .setCidr('Vpc')
-      .setNatProvider()
-      .setNatSubnets()
-      .setSubnetConfiguration('Vpc');
+    instance.setAzs().setCidr('Vpc').setNatProvider().setNatSubnets().setSubnetConfiguration('Vpc');
 
     expect(instance.getResult()).toMatchSnapshot();
   });

@@ -1,10 +1,10 @@
-import PolicyStatementBuilder from '../policy-statement-builder';
+import PolicyStatementBuilderBase from '../policy-statement-builder-base';
 
-describe('new PolicyStatementBuilder()', () => {
-  let instance: PolicyStatementBuilder;
+describe('new PolicyStatementBuilderBase()', () => {
+  let instance: PolicyStatementBuilderBase;
 
   beforeEach(() => {
-    instance = new PolicyStatementBuilder();
+    instance = new PolicyStatementBuilderBase();
   });
 
   test('has defaults set', () => {

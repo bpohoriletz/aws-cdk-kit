@@ -1,6 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new PolicyStatementDirector() creates S3 read/write policy 1`] = `
+exports[`new PolicyStatementDirector().constructPolicyStatement() with CodedeployPolicyStatementBuilder creates CodeDeploy full access policy 1`] = `
+{
+  "Action": "codedeploy:*",
+  "Effect": "Allow",
+  "Resource": "*",
+}
+`;
+
+exports[`new PolicyStatementDirector().constructPolicyStatement() with ElasticBPolicyStatementBuilder creates statistics policy for EB instances 1`] = `
+{
+  "Action": "elasticbeanstalk:PutInstanceStatistics",
+  "Effect": "Allow",
+  "Resource": "*",
+}
+`;
+
+exports[`new PolicyStatementDirector().constructPolicyStatement() with LogsPolicyStatementBuilder creates logs policy for EB instances 1`] = `
+{
+  "Action": [
+    "logs:CreateLogStream",
+    "logs:PutLogEvents",
+  ],
+  "Effect": "Allow",
+  "Resource": "*",
+}
+`;
+
+exports[`new PolicyStatementDirector().constructPolicyStatement() with S3PolicyStatementBuilder creates S3 read/write policy 1`] = `
 {
   "Action": [
     "s3:ListBucket",
@@ -11,11 +38,5 @@ exports[`new PolicyStatementDirector() creates S3 read/write policy 1`] = `
   ],
   "Effect": "Allow",
   "Resource": "*",
-}
-`;
-
-exports[`new PolicyStatementDirector() creates empty policy 1`] = `
-{
-  "Effect": "Allow",
 }
 `;
