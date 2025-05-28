@@ -1,19 +1,15 @@
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import { IRoleBuilder, RoleProduct } from '../../products/role';
+import { IRoleBuilder } from '../../products/role';
+import RoleBuilderBase from '../role-builder-base';
 import PolicyStatementDirector from '../../directors/policy-statement';
 import S3PolicyStatementBuilder from '../../iam/policy-statement-builders/s3';
 import LogsPolicyStatementBuilder from '../../iam/policy-statement-builders/logs';
 import ElasticBPolicyStatementBuilder from '../../iam/policy-statement-builders/elasticb';
 
-export default class EbEc2RoleBuilder implements IRoleBuilder {
-  private role: iam.Role;
-  private roleProps: RoleProduct;
-  private stack: Stack;
-
+export default class EbEc2RoleBuilder extends RoleBuilderBase implements IRoleBuilder {
   constructor(stack: Stack, roleId: string) {
-    this.stack = stack;
-    this.roleProps = new RoleProduct();
+    super(stack);
     this.setProps();
     this.role = new iam.Role(this.stack, roleId, this.roleProps);
   }
@@ -46,11 +42,7 @@ export default class EbEc2RoleBuilder implements IRoleBuilder {
     return this;
   }
 
-  getResult(): iam.Role {
-    return this.role;
-  }
-
   private setProps(): void {
-    this.roleProps.setAssumedBy(new iam.ServicePrincipal('ec2.amazonaws.com'));
+    this.roleProps.assumedBy = new iam.ServicePrincipal('ec2.amazonaws.com');
   }
 }

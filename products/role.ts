@@ -1,17 +1,14 @@
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
-export class RoleProduct implements iam.RoleProps {
+export class RoleProduct implements IRoleProduct {
   assumedBy: iam.IPrincipal;
-  description: string;
+  description?: string;
+}
 
-  setAssumedBy(principal: iam.IPrincipal): void {
-    this.assumedBy = principal;
-  }
-
-  setDescription(description: string): void {
-    this.description = description;
-  }
+interface IRoleProduct extends iam.RoleProps {
+  assumedBy: iam.IPrincipal;
+  description?: string;
 }
 
 export interface IRoleBuilder {

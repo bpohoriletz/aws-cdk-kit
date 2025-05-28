@@ -1,18 +1,14 @@
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import { IRoleBuilder, RoleProduct } from '../../products/role';
+import RoleBuilderBase from '../role-builder-base';
+import { IRoleBuilder } from '../../products/role';
 import PolicyStatementDirector from '../../directors/policy-statement';
 import S3PolicyStatementBuilder from '../../iam/policy-statement-builders/s3';
 import CodedeployPolicyStatementBuilder from '../policy-statement-builders/codedeploy';
 
-export default class GithubActionsRoleBuilder implements IRoleBuilder {
-  private role: iam.Role;
-  private roleProps: RoleProduct;
-  private stack: Stack;
-
+export default class GithubActionsRoleBuilder extends RoleBuilderBase implements IRoleBuilder {
   constructor(stack: Stack, githubAccountName: string) {
-    this.stack = stack;
-    this.roleProps = new RoleProduct();
+    super(stack);
     this.setProps(githubAccountName);
     this.role = new iam.Role(this.stack, 'GithubActionsRole', this.roleProps);
   }
@@ -43,25 +39,19 @@ export default class GithubActionsRoleBuilder implements IRoleBuilder {
     return this;
   }
 
-  getResult(): iam.Role {
-    return this.role;
-  }
-
   private setProps(githubAccountName: string): void {
-    this.roleProps.setAssumedBy(
-      new iam.FederatedPrincipal(
-        `arn:aws:iam::${this.stack.account}:oidc-provider/token.actions.githubusercontent.com`,
-        {
-          StringEquals: {
-            'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
-          },
-          StringLike: {
-            'token.actions.githubusercontent.com:sub': `repo:${githubAccountName}/*`,
-          },
+    this.roleProps.assumedBy = new iam.FederatedPrincipal(
+      `arn:aws:iam::${this.stack.account}:oidc-provider/token.actions.githubusercontent.com`,
+      {
+        StringEquals: {
+          'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
         },
-        'sts:AssumeRoleWithWebIdentity'
-      )
+        StringLike: {
+          'token.actions.githubusercontent.com:sub': `repo:${githubAccountName}/*`,
+        },
+      },
+      'sts:AssumeRoleWithWebIdentity'
     );
-    this.roleProps.setDescription('Role for GitHub Actions to access AWS resources');
+    this.roleProps.description = 'Role for GitHub Actions to access AWS resources';
   }
 }
