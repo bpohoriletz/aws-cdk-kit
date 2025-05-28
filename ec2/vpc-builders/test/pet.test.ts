@@ -9,11 +9,11 @@ describe('new PetVpcBuilder()', () => {
 
   test('Matches snapshot', () => {
     instance
-      .customizeAzs()
-      .customizeCidr('Vpc')
-      .customizeNatProvider()
-      .customizeNatSubnets()
-      .customizeSubnetConfiguration('Vpc');
+      .setAzs()
+      .setCidr('Vpc')
+      .setNatProvider()
+      .setNatSubnets()
+      .setSubnetConfiguration('Vpc');
 
     expect(instance.getResult()).toMatchSnapshot();
   });

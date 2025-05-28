@@ -8,7 +8,7 @@ describe('new VpcBuilderBase()', () => {
   });
 
   test('Matches snapshot', () => {
-    instance.customizeCidr('Vpc').customizeSubnetConfiguration('Vpc');
+    instance.setCidr('Vpc').setSubnetConfiguration('Vpc');
 
     expect(instance.getResult()).toMatchSnapshot();
   });

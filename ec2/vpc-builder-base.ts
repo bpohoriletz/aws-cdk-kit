@@ -8,13 +8,13 @@ export default class VpcBuilder implements IVpcBuilder {
     this.vpcProps = new VpcProduct();
   }
 
-  customizeCidr(name: string): this {
+  setCidr(name: string): this {
     this.vpcProps.ipAddresses = conf.vpcCidrConfig(name);
 
     return this;
   }
 
-  customizeSubnetConfiguration(name: string): this {
+  setSubnetConfiguration(name: string): this {
     this.vpcProps.subnetConfiguration = conf.vpcSubnetConfig(name);
 
     return this;

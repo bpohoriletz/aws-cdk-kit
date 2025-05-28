@@ -7,18 +7,18 @@ export default class VpcDirector {
   static constructPetProjectVpc(scope: Construct, id: string): ec2.Vpc {
     const builder = new PetVpcBuilder();
     builder
-      .customizeAzs()
-      .customizeCidr(scope.node.path + id)
-      .customizeNatProvider()
-      .customizeNatSubnets()
-      .customizeSubnetConfiguration(scope.node.path + id);
+      .setAzs()
+      .setCidr(scope.node.path + id)
+      .setNatProvider()
+      .setNatSubnets()
+      .setSubnetConfiguration(scope.node.path + id);
 
     return new ec2.Vpc(scope, id, builder.getResult());
   }
 
   static constructProductionVpc(scope: Construct, id: string): ec2.Vpc {
     const builder = new VpcBuilderBase();
-    builder.customizeCidr(scope.node.path + id).customizeSubnetConfiguration(scope.node.path + id);
+    builder.setCidr(scope.node.path + id).setSubnetConfiguration(scope.node.path + id);
 
     return new ec2.Vpc(scope, id, builder.getResult());
   }
