@@ -4,6 +4,7 @@ import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import { Template } from 'aws-cdk-lib/assertions';
 import ServerDeploymentGroupDirector from '../server-deployment-group';
 import Ec2DeploymentGroupBuilder from '../../codedeploy/server-deployment-group-builders/ec2-deployment-group-builder';
+import AsgDeploymentGroupBuilder from '../../codedeploy/server-deployment-group-builders/asg-deployment-group-builder';
 import { stub } from '../../test/stubs';
 
 describe('new ServerDeploymentGroupDirector()', () => {
@@ -12,10 +13,14 @@ describe('new ServerDeploymentGroupDirector()', () => {
 
   beforeEach(() => {
     instance = new ServerDeploymentGroupDirector(Ec2DeploymentGroupBuilder);
-    stack = new StubStack(new cdk.App(), 'Stack');
+    stack = new StubStack(new cdk.Stack(), 'Stack');
   });
 
   describe('#constructEc2Group', () => {
+    beforeEach(() => {
+      instance = new ServerDeploymentGroupDirector(Ec2DeploymentGroupBuilder);
+    });
+
     it('uses defaults if only name is passed', () => {
       instance.constructEc2Group(stack, 'DeploymentGroup', 'test-cd-dg');
 
@@ -30,9 +35,21 @@ describe('new ServerDeploymentGroupDirector()', () => {
       expect(Template.fromStack(stack).toJSON().Resources).toMatchSnapshot();
     });
   });
+
+  describe('#constructAsgGroup', () => {
+    beforeEach(() => {
+      instance = new ServerDeploymentGroupDirector(AsgDeploymentGroupBuilder);
+    });
+
+    it('uses defaults if only name is passed', () => {
+      instance.constructAsgGroup(stack, 'DeploymentGroup', 'test-cd-dg');
+
+      expect(Template.fromStack(stack).toJSON().Resources).toMatchSnapshot();
+    });
+  });
 });
 
-class StubStack extends cdk.Stack {
+class StubStack extends cdk.NestedStack {
   application?: codedeploy.ServerApplication | undefined;
 
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {

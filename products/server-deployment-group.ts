@@ -1,3 +1,4 @@
+import {IAutoScalingGroup} from 'aws-cdk-lib/aws-autoscaling';
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
@@ -8,6 +9,7 @@ export class ServerDeploymentGroupProduct implements IServerDeploymentGroupProdu
   installAgent?: boolean;
   role?: iam.IRole;
   ec2InstanceTags?: codedeploy.InstanceTagSet | undefined;
+  autoScalingGroups?: IAutoScalingGroup[];
 }
 
 interface IServerDeploymentGroupProduct extends codedeploy.ServerDeploymentGroupProps {
@@ -17,6 +19,7 @@ interface IServerDeploymentGroupProduct extends codedeploy.ServerDeploymentGroup
   installAgent?: boolean;
   role?: iam.IRole;
   ec2InstanceTags?: codedeploy.InstanceTagSet | undefined;
+  autoScalingGroups?: IAutoScalingGroup[];
 }
 
 export interface IServerDeploymentGroupBuilder {
@@ -24,7 +27,8 @@ export interface IServerDeploymentGroupBuilder {
   setDeploymentConfig(deploymentConfig?: codedeploy.IServerDeploymentConfig): IServerDeploymentGroupBuilder;
   setName(name?: string): IServerDeploymentGroupBuilder;
   setRole(role?: iam.IRole): IServerDeploymentGroupBuilder;
-  setEc2InstanceTags?(tags: codedeploy.InstanceTagSet): IServerDeploymentGroupBuilder;
+  setEc2InstanceTags?(tags?: codedeploy.InstanceTagSet): IServerDeploymentGroupBuilder;
+  setAutoscalingGroups?(groups?: IAutoScalingGroup[]): IServerDeploymentGroupBuilder;
   getResult(): codedeploy.ServerDeploymentGroupProps;
 }
 

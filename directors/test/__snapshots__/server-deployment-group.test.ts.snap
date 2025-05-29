@@ -1,5 +1,69 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`new ServerDeploymentGroupDirector() #constructAsgGroup uses defaults if only name is passed 1`] = `
+{
+  "DeploymentGroup6D277AF0": {
+    "Properties": {
+      "ApplicationName": {
+        "Ref": "DeploymentGroupApplication7B89ABEB",
+      },
+      "AutoRollbackConfiguration": {
+        "Enabled": true,
+        "Events": [
+          "DEPLOYMENT_FAILURE",
+        ],
+      },
+      "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
+      "DeploymentGroupName": "test-cd-dg",
+      "ServiceRoleArn": {
+        "Fn::GetAtt": [
+          "DeploymentGroupRoleC40B98DA",
+          "Arn",
+        ],
+      },
+    },
+    "Type": "AWS::CodeDeploy::DeploymentGroup",
+  },
+  "DeploymentGroupApplication7B89ABEB": {
+    "Properties": {
+      "ComputePlatform": "Server",
+    },
+    "Type": "AWS::CodeDeploy::Application",
+  },
+  "DeploymentGroupRoleC40B98DA": {
+    "Properties": {
+      "AssumeRolePolicyDocument": {
+        "Statement": [
+          {
+            "Action": "sts:AssumeRole",
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "codedeploy.amazonaws.com",
+            },
+          },
+        ],
+        "Version": "2012-10-17",
+      },
+      "ManagedPolicyArns": [
+        {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition",
+              },
+              ":iam::aws:policy/service-role/AWSCodeDeployRole",
+            ],
+          ],
+        },
+      ],
+    },
+    "Type": "AWS::IAM::Role",
+  },
+}
+`;
+
 exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create groups for the same application 1`] = `
 {
   "DeploymentGroupDevelop5C995268": {
