@@ -3,7 +3,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class ServerDeploymentGroupProduct implements IServerDeploymentGroupProduct {
   application?: codedeploy.IServerApplication;
-  deploymentGroupName: string;
+  deploymentGroupName?: string;
   deploymentConfig?: codedeploy.IServerDeploymentConfig;
   installAgent?: boolean;
   role?: iam.IRole;

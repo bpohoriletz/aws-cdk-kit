@@ -22,4 +22,10 @@ describe('new Ec2DeploymentGroupBuilder', () => {
 
     expect(props.deploymentConfig!.deploymentConfigName).toEqual('CodeDeployDefault.AllAtOnce');
   });
+
+  test('sets name', () => {
+    const props = instance.setName('test-dg').getResult();
+
+    expect(props.deploymentGroupName).toEqual('test-dg');
+  });
 });

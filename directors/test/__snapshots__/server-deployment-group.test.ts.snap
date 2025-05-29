@@ -14,7 +14,7 @@ exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create group
         ],
       },
       "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-      "DeploymentGroupName": "test-cd-dg",
+      "DeploymentGroupName": "test-cd-dg-devel",
       "ServiceRoleArn": {
         "Fn::GetAtt": [
           "DeploymentGroupDevelopRole3F2B6EFE",
@@ -67,7 +67,7 @@ exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create group
         ],
       },
       "DeploymentConfigName": "CodeDeployDefault.AllAtOnce",
-      "DeploymentGroupName": "test-cd-dg",
+      "DeploymentGroupName": "test-cd-dg-stag",
       "ServiceRoleArn": {
         "Fn::GetAtt": [
           "DeploymentGroupStagingRole5DBB2C01",
