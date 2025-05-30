@@ -7,6 +7,8 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import SecurityGroupDirector from '../directors/security-group';
 import SecurityGroupBuilder from '../ec2/security-group-builder';
 import * as names from '../utils/naming';
+import ServerDeploymentGroupDirector from '../directors/server-deployment-group';
+import AsgDeploymentGroupBuilder from './server-deployment-group-builders/asg-deployment-group-builder';
 
 export function createPublicDeploymentGroup(
   resourceNamePrefix: string[],
@@ -84,6 +86,9 @@ export function createDeploymentGroupToAsg(
   stack: cdk.Stack
 ): [codedeploy.ServerDeploymentGroup, ec2.SecurityGroup, autoscaling.AutoScalingGroup] {
   let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, 'asg');
+  const deplGroupDirector = new ServerDeploymentGroupDirector(AsgDeploymentGroupBuilder);
+  deplGroupDirector.application = app;
+  deplGroupDirector.role = codedeployRole;
   const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
     stack,
     'WebSecurityGroup',
@@ -140,14 +145,8 @@ export function createDeploymentGroupToAsg(
 
   // Create deployment group
   resourceName = names.codedeployDeploymentGroupName(resourceNamePrefix);
-  const deplGroup = new codedeploy.ServerDeploymentGroup(stack, resourceName, {
-    application: app,
-    autoScalingGroups: [autoscalingGroup],
-    deploymentGroupName: resourceName,
-    deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
-    installAgent: true,
-    role: codedeployRole,
-  });
+  deplGroupDirector.autoScalingGroups = [autoscalingGroup];
+  const deplGroup = deplGroupDirector.constructAsgGroup(stack, resourceName, resourceName);
 
   return [deplGroup, securityGroup, autoscalingGroup];
 }

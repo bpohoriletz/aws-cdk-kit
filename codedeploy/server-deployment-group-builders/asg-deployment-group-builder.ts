@@ -2,7 +2,7 @@
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import { IServerDeploymentGroupBuilder } from '../../products/server-deployment-group';
 import ServerDeploymentGroupBuilderBase from '../server-deployment-group-builder-base';
-import {IAutoScalingGroup} from 'aws-cdk-lib/aws-autoscaling';
+import { IAutoScalingGroup } from 'aws-cdk-lib/aws-autoscaling';
 
 export default class AsgDeploymentGroupBuilder
   extends ServerDeploymentGroupBuilderBase

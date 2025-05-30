@@ -69,7 +69,7 @@ exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create group
   "DeploymentGroupDevelop5C995268": {
     "Properties": {
       "ApplicationName": {
-        "Ref": "ServerApplicationID0A7B7E9A",
+        "Ref": "DeploymentGroupDevelopApplication8497067F",
       },
       "AutoRollbackConfiguration": {
         "Enabled": true,
@@ -87,6 +87,12 @@ exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create group
       },
     },
     "Type": "AWS::CodeDeploy::DeploymentGroup",
+  },
+  "DeploymentGroupDevelopApplication8497067F": {
+    "Properties": {
+      "ComputePlatform": "Server",
+    },
+    "Type": "AWS::CodeDeploy::Application",
   },
   "DeploymentGroupDevelopRole3F2B6EFE": {
     "Properties": {
@@ -122,7 +128,7 @@ exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create group
   "DeploymentGroupStaging19AF76AC": {
     "Properties": {
       "ApplicationName": {
-        "Ref": "ServerApplicationID0A7B7E9A",
+        "Ref": "DeploymentGroupStagingApplication50335847",
       },
       "AutoRollbackConfiguration": {
         "Enabled": true,
@@ -140,6 +146,12 @@ exports[`new ServerDeploymentGroupDirector() #constructEc2Group can create group
       },
     },
     "Type": "AWS::CodeDeploy::DeploymentGroup",
+  },
+  "DeploymentGroupStagingApplication50335847": {
+    "Properties": {
+      "ComputePlatform": "Server",
+    },
+    "Type": "AWS::CodeDeploy::Application",
   },
   "DeploymentGroupStagingRole5DBB2C01": {
     "Properties": {

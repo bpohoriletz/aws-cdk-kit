@@ -1,4 +1,4 @@
-import {IAutoScalingGroup} from 'aws-cdk-lib/aws-autoscaling';
+import { IAutoScalingGroup } from 'aws-cdk-lib/aws-autoscaling';
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
