@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new LaunchTemplateDirector() #constructEc2Group uses defaults if only name is passed 1`] = `
+{
+  "Ec2LaunchTemplate37DE02F5": {
+    "Properties": {
+      "LaunchTemplateData": {
+        "TagSpecifications": [
+          {
+            "ResourceType": "instance",
+            "Tags": [
+              {
+                "Key": "Name",
+                "Value": "Default/Ec2LaunchTemplate",
+              },
+            ],
+          },
+          {
+            "ResourceType": "volume",
+            "Tags": [
+              {
+                "Key": "Name",
+                "Value": "Default/Ec2LaunchTemplate",
+              },
+            ],
+          },
+        ],
+      },
+      "TagSpecifications": [
+        {
+          "ResourceType": "launch-template",
+          "Tags": [
+            {
+              "Key": "Name",
+              "Value": "Default/Ec2LaunchTemplate",
+            },
+          ],
+        },
+      ],
+    },
+    "Type": "AWS::EC2::LaunchTemplate",
+  },
+}
+`;

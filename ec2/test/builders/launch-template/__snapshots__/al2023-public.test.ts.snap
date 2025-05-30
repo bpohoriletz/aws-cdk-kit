@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new Al2023PublicBuilder() #setName()  customizes name of LaunchTemplate 1`] = `
+LaunchTemplateProduct {
+  "launchTemplateName": "LaunchTempalte",
+}
+`;
+
+exports[`new Al2023PublicBuilder() matches default 1`] = `
+LaunchTemplateProduct {
+  "associatePublicIpAddress": true,
+  "machineImage": AmazonLinux2023ImageSsmParameter {
+    "cachedInContext": false,
+    "props": {
+      "cachedInContext": false,
+      "parameterName": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64",
+      "userData": undefined,
+    },
+  },
+  "userData": LinuxUserData {
+    "lines": [
+      "echo Hello World",
+    ],
+    "onExitLines": [],
+    "props": {},
+  },
+}
+`;

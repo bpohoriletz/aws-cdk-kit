@@ -1,4 +1,4 @@
-import { LaunchTemplateProduct } from '../launch-template';
+import { LaunchTemplateProduct } from '../../products/launch-template';
 
 describe('new LaunchTemplateProduct()', () => {
   let instance: LaunchTemplateProduct;

@@ -9,6 +9,8 @@ import SecurityGroupBuilder from '../ec2/security-group-builder';
 import * as names from '../utils/naming';
 import ServerDeploymentGroupDirector from '../directors/server-deployment-group';
 import AsgDeploymentGroupBuilder from './server-deployment-group-builders/asg-deployment-group-builder';
+import LaunchTemplateDirector from '../ec2/directors/launch-template';
+import Al2023PublicBuilder from '../ec2/launch-template-builders/al2023-public-builder';
 
 export function createPublicDeploymentGroup(
   resourceNamePrefix: string[],
@@ -20,24 +22,17 @@ export function createPublicDeploymentGroup(
   stack: cdk.Stack
 ): [codedeploy.ServerDeploymentGroup, ec2.SecurityGroup, autoscaling.AutoScalingGroup] {
   let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, 'asg');
-  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
+  const ltDirector = new LaunchTemplateDirector(Al2023PublicBuilder);
+  ltDirector.profile = instanceProfile;
+  ltDirector.securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
     stack,
     'WebSecurityGroup',
     vpc
   );
+  ltDirector.instanceType = instanceTypes[0];
   // Define the launch template for Spot instances
-  const userData = ec2.UserData.forLinux();
-  userData.addCommands('echo Hello World');
   resourceName = names.launchTemplateName(resourceNamePrefix);
-  const launchTemplate = new ec2.LaunchTemplate(stack, resourceName, {
-    associatePublicIpAddress: true,
-    instanceProfile: instanceProfile,
-    instanceType: instanceTypes[0],
-    launchTemplateName: resourceName,
-    machineImage: ec2.MachineImage.latestAmazonLinux2023(),
-    securityGroup: securityGroup,
-    userData: userData,
-  });
+  const launchTemplate = ltDirector.constructPublicEc2LaunchTemplate(stack, resourceName, resourceName);
 
   // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
   resourceName = names.autoscalingGroupName(resourceNamePrefix);
@@ -74,7 +69,7 @@ export function createPublicDeploymentGroup(
     role: codedeployRole,
   });
 
-  return [deplGroup, securityGroup, autoscalingGroup];
+  return [deplGroup, ltDirector.securityGroup, autoscalingGroup];
 }
 export function createDeploymentGroupToAsg(
   resourceNamePrefix: string[],
