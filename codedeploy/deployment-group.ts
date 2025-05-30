@@ -11,6 +11,7 @@ import ServerDeploymentGroupDirector from '../directors/server-deployment-group'
 import AsgDeploymentGroupBuilder from './server-deployment-group-builders/asg-deployment-group-builder';
 import LaunchTemplateDirector from '../ec2/directors/launch-template';
 import Al2023PublicBuilder from '../ec2/launch-template-builders/al2023-public-builder';
+import Al2023PrivateBuilder from '../ec2/launch-template-builders/al2023-private-builder';
 
 export function createPublicDeploymentGroup(
   resourceNamePrefix: string[],
@@ -32,7 +33,7 @@ export function createPublicDeploymentGroup(
   ltDirector.instanceType = instanceTypes[0];
   // Define the launch template for Spot instances
   resourceName = names.launchTemplateName(resourceNamePrefix);
-  const launchTemplate = ltDirector.constructPublicEc2LaunchTemplate(stack, resourceName, resourceName);
+  const launchTemplate = ltDirector.constructLaunchTemplate(stack, resourceName, resourceName);
 
   // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
   resourceName = names.autoscalingGroupName(resourceNamePrefix);
@@ -84,24 +85,17 @@ export function createDeploymentGroupToAsg(
   const deplGroupDirector = new ServerDeploymentGroupDirector(AsgDeploymentGroupBuilder);
   deplGroupDirector.application = app;
   deplGroupDirector.role = codedeployRole;
-  const securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
+  const ltDirector = new LaunchTemplateDirector(Al2023PrivateBuilder);
+  ltDirector.profile = instanceProfile;
+  ltDirector.securityGroup = new SecurityGroupDirector(SecurityGroupBuilder).constructWebSecurityGroup(
     stack,
     'WebSecurityGroup',
     vpc
   );
+  ltDirector.instanceType = instanceTypes[0];
   // Define the launch template for Spot instances
-  const userData = ec2.UserData.forLinux();
-  userData.addCommands('echo Hello World');
   resourceName = names.launchTemplateName(resourceNamePrefix);
-  const launchTemplate = new ec2.LaunchTemplate(stack, resourceName, {
-    associatePublicIpAddress: false,
-    instanceProfile: instanceProfile,
-    instanceType: instanceTypes[0],
-    launchTemplateName: resourceName,
-    machineImage: ec2.MachineImage.latestAmazonLinux2023(),
-    securityGroup: securityGroup,
-    userData: userData,
-  });
+  const launchTemplate = ltDirector.constructLaunchTemplate(stack, resourceName, resourceName);
 
   // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
   resourceName = names.autoscalingGroupName(resourceNamePrefix);
@@ -143,7 +137,7 @@ export function createDeploymentGroupToAsg(
   deplGroupDirector.autoScalingGroups = [autoscalingGroup];
   const deplGroup = deplGroupDirector.constructAsgGroup(stack, resourceName, resourceName);
 
-  return [deplGroup, securityGroup, autoscalingGroup];
+  return [deplGroup, ltDirector.securityGroup, autoscalingGroup];
 }
 export function createDeploymentGroupToEc2(
   resourceNamePrefix: string[],

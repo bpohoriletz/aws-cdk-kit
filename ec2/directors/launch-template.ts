@@ -14,8 +14,12 @@ export default class LaunchTemplateDirector {
     this.builder = new builder();
   }
 
-  constructPublicEc2LaunchTemplate(scope: Construct, id: string, name?: string) {
-    this.builder.setName(name);
+  constructLaunchTemplate(scope: Construct, id: string, name?: string) {
+    this.builder
+      .setName(name)
+      .setInstanceProfile(this.profile)
+      .setInstanceType(this.instanceType)
+      .setSecurityGroup(this.securityGroup).setUserData!().setPublic!().setMachineImage!();
 
     return new LaunchTemplate(scope, id, this.builder.getResult());
   }

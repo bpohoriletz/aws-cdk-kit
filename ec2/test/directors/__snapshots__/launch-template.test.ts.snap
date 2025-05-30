@@ -5,6 +5,15 @@ exports[`new LaunchTemplateDirector() #constructEc2Group uses defaults if only n
   "Ec2LaunchTemplate37DE02F5": {
     "Properties": {
       "LaunchTemplateData": {
+        "ImageId": {
+          "Ref": "SsmParameterValueawsserviceamiamazonlinuxlatestal2023amikernel61x8664C96584B6F00A464EAD1953AFF4B05118Parameter",
+        },
+        "NetworkInterfaces": [
+          {
+            "AssociatePublicIpAddress": true,
+            "DeviceIndex": 0,
+          },
+        ],
         "TagSpecifications": [
           {
             "ResourceType": "instance",
@@ -25,6 +34,10 @@ exports[`new LaunchTemplateDirector() #constructEc2Group uses defaults if only n
             ],
           },
         ],
+        "UserData": {
+          "Fn::Base64": "#!/bin/bash
+echo Hello World",
+        },
       },
       "TagSpecifications": [
         {

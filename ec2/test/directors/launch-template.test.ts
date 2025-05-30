@@ -16,7 +16,7 @@ describe('new LaunchTemplateDirector()', () => {
     beforeEach(() => {});
 
     it('uses defaults if only name is passed', () => {
-      instance.constructPublicEc2LaunchTemplate(stack, 'Ec2LaunchTemplate');
+      instance.constructLaunchTemplate(stack, 'Ec2LaunchTemplate');
 
       expect(Template.fromStack(stack).toJSON().Resources).toMatchSnapshot();
     });
