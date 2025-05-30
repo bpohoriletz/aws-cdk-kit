@@ -3,7 +3,7 @@ import { Stack } from 'aws-cdk-lib';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as rds from 'aws-cdk-lib/aws-rds';
 
-import SecurityGroupDirector from '../directors/security-group';
+import SecurityGroupDirector from '../ec2/directors/security-group';
 import SecurityGroupBuilder from '../ec2/security-group-builder';
 import * as names from '../utils/naming';
 

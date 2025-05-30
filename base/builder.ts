@@ -1,4 +1,4 @@
-  /////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 //                                                         //
 //  Buider classes are mid-level abstraction               //
 //  They do the following:                                 //
@@ -21,7 +21,7 @@
 //  their methods always return this, except for           //
 //  getResult() which returns CdkProps                     //
 //                                                         //
-  /////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////
 
 /*
 export default abstract class BaseBuilder implements IBaseBuilder {

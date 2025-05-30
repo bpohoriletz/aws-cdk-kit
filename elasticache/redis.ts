@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as elasticache from 'aws-cdk-lib/aws-elasticache';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
-import SecurityGroupDirector from '../directors/security-group';
+import SecurityGroupDirector from '../ec2/directors/security-group';
 import SecurityGroupBuilder from '../ec2/security-group-builder';
 import * as names from '../utils/naming';
 import * as conf from '../../config/eca/redis';

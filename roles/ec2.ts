@@ -1,6 +1,6 @@
 import { Role, RoleProps, ServicePrincipal, ManagedPolicy, Policy } from 'aws-cdk-lib/aws-iam';
 import { Stack } from 'aws-cdk-lib';
-import PolicyStatementDirector from '../directors/policy-statement';
+import PolicyStatementDirector from '../iam/directors/policy-statement';
 import S3PolicyStatementBuilder from '../iam/policy-statement-builders/s3';
 import LogsPolicyStatementBuilder from '../iam/policy-statement-builders/logs';
 import ElasticBPolicyStatementBuilder from '../iam/policy-statement-builders/elasticb';

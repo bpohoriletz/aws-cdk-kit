@@ -2,7 +2,7 @@ import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
 import * as con from '../utils/naming';
-import RoleDirector from '../directors/role';
+import RoleDirector from '../iam/directors/role';
 import EbEc2RoleBuilder from '../iam/role-builders/eb-ec2-role-builder';
 
 export function createEc2InstanceProfile(

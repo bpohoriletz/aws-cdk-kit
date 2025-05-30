@@ -1,8 +1,8 @@
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import RoleBuilderBase from '../role-builder-base';
-import { IRoleBuilder } from '../../products/role';
-import PolicyStatementDirector from '../../directors/policy-statement';
+import { IRoleBuilder } from '../../iam/products/role';
+import PolicyStatementDirector from '../../iam/directors/policy-statement';
 import S3PolicyStatementBuilder from '../../iam/policy-statement-builders/s3';
 import CodedeployPolicyStatementBuilder from '../policy-statement-builders/codedeploy';
 

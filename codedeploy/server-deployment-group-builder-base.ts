@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
-import { ServerDeploymentGroupProduct } from '../products/server-deployment-group';
+import { ServerDeploymentGroupProduct } from './products/server-deployment-group';
 
 export default abstract class ServerDeploymentGroupBuilderBase {
   protected deploymentGroupProps: ServerDeploymentGroupProduct;

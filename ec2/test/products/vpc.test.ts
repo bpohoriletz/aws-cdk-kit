@@ -1,4 +1,4 @@
-import { VpcProduct } from '../vpc';
+import { VpcProduct } from '../../products/vpc';
 
 describe('new VpcProduct', () => {
   let instance: VpcProduct;

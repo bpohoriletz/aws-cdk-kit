@@ -1,8 +1,8 @@
-import PolicyStatementDirector from '../policy-statement';
-import S3PolicyStatementBuilder from '../../iam/policy-statement-builders/s3';
-import LogsPolicyStatementBuilder from '../../iam/policy-statement-builders/logs';
-import ElasticBPolicyStatementBuilder from '../../iam/policy-statement-builders/elasticb';
-import CodedeployPolicyStatementBuilder from '../../iam/policy-statement-builders/codedeploy';
+import PolicyStatementDirector from '../../directors/policy-statement';
+import S3PolicyStatementBuilder from '../../../iam/policy-statement-builders/s3';
+import LogsPolicyStatementBuilder from '../../../iam/policy-statement-builders/logs';
+import ElasticBPolicyStatementBuilder from '../../../iam/policy-statement-builders/elasticb';
+import CodedeployPolicyStatementBuilder from '../../../iam/policy-statement-builders/codedeploy';
 
 describe('new PolicyStatementDirector().constructPolicyStatement()', () => {
   let instance: PolicyStatementDirector;

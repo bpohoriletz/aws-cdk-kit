@@ -3,7 +3,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { CfnApplication, CfnEnvironment } from 'aws-cdk-lib/aws-elasticbeanstalk';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
-import SecurityGroupDirector from '../directors/security-group';
+import SecurityGroupDirector from '../ec2/directors/security-group';
 import SecurityGroupBuilder from '../ec2/security-group-builder';
 import { envOptionSettings } from './setting';
 import * as con from '../utils/naming';

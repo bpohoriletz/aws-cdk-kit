@@ -1,4 +1,4 @@
-import { SecurityGroupProduct } from '../security-group';
+import { SecurityGroupProduct } from '../../products/security-group';
 
 describe('new SecurityGroupProduct()', () => {
   let instance: SecurityGroupProduct;

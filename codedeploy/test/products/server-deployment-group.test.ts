@@ -1,4 +1,4 @@
-import { ServerDeploymentGroupProduct } from '../server-deployment-group';
+import { ServerDeploymentGroupProduct } from '../../products/server-deployment-group';
 
 describe('new ServerDeploymentGroupProduct', () => {
   let instance: ServerDeploymentGroupProduct;

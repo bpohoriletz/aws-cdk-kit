@@ -2,10 +2,10 @@ import { Construct } from 'constructs';
 import * as cdk from 'aws-cdk-lib';
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import { Template } from 'aws-cdk-lib/assertions';
-import ServerDeploymentGroupDirector from '../server-deployment-group';
-import Ec2DeploymentGroupBuilder from '../../codedeploy/server-deployment-group-builders/ec2-deployment-group-builder';
-import AsgDeploymentGroupBuilder from '../../codedeploy/server-deployment-group-builders/asg-deployment-group-builder';
-import { stub } from '../../test/stubs';
+import ServerDeploymentGroupDirector from '../../directors/server-deployment-group';
+import Ec2DeploymentGroupBuilder from '../../../codedeploy/server-deployment-group-builders/ec2-deployment-group-builder'; // eslint-disable-line max-len
+import AsgDeploymentGroupBuilder from '../../../codedeploy/server-deployment-group-builders/asg-deployment-group-builder'; // eslint-disable-line max-len
+import { stub } from '../../../test/stubs';
 
 describe('new ServerDeploymentGroupDirector()', () => {
   let instance: ServerDeploymentGroupDirector;

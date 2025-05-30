@@ -1,7 +1,7 @@
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import { Construct } from 'constructs';
-import VpcBuilderBase from '../ec2/vpc-builder-base';
-import PetVpcBuilder from '../ec2/vpc-builders/pet';
+import VpcBuilderBase from '../vpc-builder-base';
+import PetVpcBuilder from '../vpc-builders/pet';
 
 export default class VpcDirector {
   static constructPetProjectVpc(scope: Construct, id: string): ec2.Vpc {

@@ -1,8 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import { arn } from '../../test/stubs';
-import RoleDirector from '../role';
-import EbEc2RoleBuilder from '../../iam/role-builders/eb-ec2-role-builder';
+import { arn } from '../../../test/stubs';
+import RoleDirector from '../../directors/role';
+import EbEc2RoleBuilder from '../../../iam/role-builders/eb-ec2-role-builder';
 
 describe('new RoleDirector()', () => {
   let instance: RoleDirector;

@@ -1,6 +1,6 @@
-  /////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 //                                                             //
-//  Buider classes are low-level abstraction                   //
+//  Product classes are low-level abstraction                  //
 //  They do the following:                                     //
 //    Override default CdkProps classes                        //
 //      a) Add writers for props                               //
@@ -15,7 +15,7 @@
 //  CAUTION: It is sometimes not safe to provide setters for   //
 //  some attributes, check documentation for each property!    //
 //                                                             //
-  /////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 /*
 export class BaseProduct implements IBaseProduct {
   parameter?: boolean;

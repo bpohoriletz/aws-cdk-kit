@@ -1,4 +1,4 @@
-  /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 //                                                     //
 //  Director classes are the top level abstraction.    //
 //  They do the following:                             //
@@ -11,7 +11,7 @@
 //  They may have multiple methods                     //
 //      a) If construction is different per construct  //
 //                                                     //
-  /////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 
 /*
 export default class BaseDirector {

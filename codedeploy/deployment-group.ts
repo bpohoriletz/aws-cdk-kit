@@ -4,10 +4,10 @@ import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
-import SecurityGroupDirector from '../directors/security-group';
+import SecurityGroupDirector from '../ec2/directors/security-group';
 import SecurityGroupBuilder from '../ec2/security-group-builder';
 import * as names from '../utils/naming';
-import ServerDeploymentGroupDirector from '../directors/server-deployment-group';
+import ServerDeploymentGroupDirector from '../codedeploy/directors/server-deployment-group';
 import AsgDeploymentGroupBuilder from './server-deployment-group-builders/asg-deployment-group-builder';
 import LaunchTemplateDirector from '../ec2/directors/launch-template';
 import Al2023PublicBuilder from '../ec2/launch-template-builders/al2023-public-builder';

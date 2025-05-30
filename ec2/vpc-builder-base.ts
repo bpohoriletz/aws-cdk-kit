@@ -1,4 +1,4 @@
-import { IVpcBuilder, VpcProduct } from '../products/vpc';
+import { IVpcBuilder, VpcProduct } from './products/vpc';
 import * as conf from '../../config/ec2/vpc';
 
 export default class VpcBuilder implements IVpcBuilder {

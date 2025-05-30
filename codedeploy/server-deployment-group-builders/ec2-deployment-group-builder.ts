@@ -1,5 +1,5 @@
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
-import { IServerDeploymentGroupBuilder } from '../../products/server-deployment-group';
+import { IServerDeploymentGroupBuilder } from '../products/server-deployment-group';
 import ServerDeploymentGroupBuilderBase from '../server-deployment-group-builder-base';
 
 export default class Ec2DeploymentGroupBuilder

@@ -1,4 +1,4 @@
-import { IPolicyStatementBuilder } from '../../products/policy-statement';
+import { IPolicyStatementBuilder } from '../products/policy-statement';
 import PolicyStatementBuilderBase from '../policy-statement-builder-base';
 
 export default class ElasticBPolicyStatementBuilder

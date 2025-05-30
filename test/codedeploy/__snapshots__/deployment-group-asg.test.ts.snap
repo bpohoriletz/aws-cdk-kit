@@ -306,7 +306,7 @@ exports[`CodeDeploy .createDeploymentGroupToAsg() matches snapshot 1`] = `
           "InstanceType": "Default/Stub-any",
           "NetworkInterfaces": [
             {
-              "AssociatePublicIpAddress": true,
+              "AssociatePublicIpAddress": false,
               "DeviceIndex": 0,
               "Groups": [
                 {

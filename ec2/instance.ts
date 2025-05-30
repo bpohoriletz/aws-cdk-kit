@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib/core';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
-import SecurityGroupDirector from '../directors/security-group';
+import SecurityGroupDirector from '../ec2/directors/security-group';
 import SecurityGroupBuilder from './security-group-builder';
 import * as names from '../utils/naming';
 

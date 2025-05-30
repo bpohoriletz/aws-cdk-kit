@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import RoleDirector from '../directors/role';
+import RoleDirector from '../iam/directors/role';
 import GithubActionsRoleBuilder from './role-builders/github-actions-role-builder';
 
 export function createGithubCliRole(githubAccount: string, stack: cdk.Stack): iam.Role {

@@ -1,6 +1,6 @@
 import { Stack } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import { RoleProduct } from '../products/role';
+import { RoleProduct } from './products/role';
 
 export default abstract class RoleBuilderBase {
   protected role: iam.Role;

@@ -1,5 +1,5 @@
 import * as iam from 'aws-cdk-lib/aws-iam';
-import { PolicyStatementProduct } from '../products/policy-statement';
+import { PolicyStatementProduct } from './products/policy-statement';
 
 export default class PolicyStatementBuilderBase {
   protected policyStatementProps: PolicyStatementProduct;

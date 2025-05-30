@@ -1,6 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
-import VpcDirector from '../vpc';
+import VpcDirector from '../../directors/vpc';
 
 describe('VpcDirector', () => {
   const described_class = VpcDirector;
