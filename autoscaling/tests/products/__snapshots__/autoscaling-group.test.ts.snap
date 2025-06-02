@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new AutoscalingGroupProduct() matches snapshot 1`] = `AutoscalingGroupProduct {}`;
