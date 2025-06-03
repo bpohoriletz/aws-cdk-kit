@@ -5,9 +5,9 @@ import { IAutoScalingGroupBullder, IAutoScalingGroupBullderConstructor } from '.
 
 export default class AutoscalingGroupDirector {
   checks: autoscaling.HealthChecks;
-  instanceType: ec2.InstanceType;
+  instanceTypes: ec2.InstanceType[];
   launchTemplate: ec2.ILaunchTemplate;
-  subnets: ec2.SubnetSelection;
+  vpcSubnets: ec2.SubnetSelection;
   vpc: ec2.IVpc;
 
   private builder: IAutoScalingGroupBullder;
@@ -17,10 +17,10 @@ export default class AutoscalingGroupDirector {
   }
 
   constructAutoscalingGroup(scope: Construct, id: string, name?: string) {
-    this.builder.setVpc(this.vpc).setName!(name).setVpcSubnets!(this.subnets).setMaxCapacity!(1).setMinCapacity!(1)
+    this.builder.setVpc(this.vpc).setName!(name).setVpcSubnets!(this.vpcSubnets).setMaxCapacity!(1).setMinCapacity!(1)
       .setDesiredCapacity!(1).setHealthChecks!(this.checks).setMixedInstancesPolicy!(
       this.launchTemplate,
-      this.instanceType
+      this.instanceTypes
     );
 
     return new autoscaling.AutoScalingGroup(scope, id, this.builder.getResult());

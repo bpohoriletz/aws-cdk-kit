@@ -12,6 +12,9 @@ import AsgDeploymentGroupBuilder from './server-deployment-group-builders/asg-de
 import LaunchTemplateDirector from '../ec2/directors/launch-template';
 import Al2023PublicBuilder from '../ec2/launch-template-builders/al2023-public-builder';
 import Al2023PrivateBuilder from '../ec2/launch-template-builders/al2023-private-builder';
+import AutoscalingGroupDirector from '../autoscaling/directors/autoscaling-group-director';
+import { AllSpotEc2AutoscalingGroupBuilder } from '../autoscaling/autoscaling-group-builders/all-spot-ec2';
+import Ec2DeploymentGroupBuilder from './server-deployment-group-builders/ec2-deployment-group-builder';
 
 export function createPublicDeploymentGroup(
   resourceNamePrefix: string[],
@@ -22,6 +25,9 @@ export function createPublicDeploymentGroup(
   vpc: ec2.IVpc,
   stack: cdk.Stack
 ): [codedeploy.ServerDeploymentGroup, ec2.SecurityGroup, autoscaling.AutoScalingGroup] {
+  const deplGroupDirector = new ServerDeploymentGroupDirector(AsgDeploymentGroupBuilder);
+  deplGroupDirector.application = app;
+  deplGroupDirector.role = codedeployRole;
   let resourceName = names.ec2SecurityGroupName(resourceNamePrefix, 'asg');
   const ltDirector = new LaunchTemplateDirector(Al2023PublicBuilder);
   ltDirector.profile = instanceProfile;
@@ -37,38 +43,16 @@ export function createPublicDeploymentGroup(
 
   // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
   resourceName = names.autoscalingGroupName(resourceNamePrefix);
-  const autoscalingGroup = new autoscaling.AutoScalingGroup(stack, resourceName, {
-    autoScalingGroupName: resourceName,
-    vpc: vpc,
-    vpcSubnets: { subnetType: ec2.SubnetType.PUBLIC },
-    mixedInstancesPolicy: {
-      instancesDistribution: {
-        onDemandBaseCapacity: 0, // All instances are Spot
-        onDemandPercentageAboveBaseCapacity: 0, // 100% Spot instances
-      },
-      launchTemplate: launchTemplate,
-      launchTemplateOverrides: instanceTypes.map((instanceType) => ({
-        instanceType: instanceType,
-      })),
-    },
-    minCapacity: 1,
-    maxCapacity: 1,
-    desiredCapacity: 1,
-    healthChecks: autoscaling.HealthChecks.ec2({
-      gracePeriod: cdk.Duration.minutes(5),
-    }),
-  });
-
+  const asgDirector = new AutoscalingGroupDirector(AllSpotEc2AutoscalingGroupBuilder);
+  asgDirector.vpc = vpc;
+  asgDirector.launchTemplate = launchTemplate;
+  asgDirector.instanceTypes = instanceTypes;
+  asgDirector.vpcSubnets = { subnetType: ec2.SubnetType.PUBLIC };
+  const autoscalingGroup = asgDirector.constructAutoscalingGroup(stack, resourceName, resourceName);
   // Create deployment group
   resourceName = names.codedeployDeploymentGroupName(resourceNamePrefix);
-  const deplGroup = new codedeploy.ServerDeploymentGroup(stack, resourceName, {
-    application: app,
-    autoScalingGroups: [autoscalingGroup],
-    deploymentGroupName: resourceName,
-    deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
-    installAgent: true,
-    role: codedeployRole,
-  });
+  deplGroupDirector.autoScalingGroups = [autoscalingGroup];
+  const deplGroup = deplGroupDirector.constructAsgGroup(stack, resourceName, resourceName);
 
   return [deplGroup, ltDirector.securityGroup, autoscalingGroup];
 }
@@ -96,30 +80,13 @@ export function createDeploymentGroupToAsg(
   // Define the launch template for Spot instances
   resourceName = names.launchTemplateName(resourceNamePrefix);
   const launchTemplate = ltDirector.constructLaunchTemplate(stack, resourceName, resourceName);
-
   // Create an Auto Scaling Group with MixedInstancesPolicy (Spot + On-Demand)
   resourceName = names.autoscalingGroupName(resourceNamePrefix);
-  const autoscalingGroup = new autoscaling.AutoScalingGroup(stack, resourceName, {
-    autoScalingGroupName: resourceName,
-    vpc: vpc,
-    vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
-    mixedInstancesPolicy: {
-      instancesDistribution: {
-        onDemandBaseCapacity: 0, // All instances are Spot
-        onDemandPercentageAboveBaseCapacity: 0, // 100% Spot instances
-      },
-      launchTemplate: launchTemplate,
-      launchTemplateOverrides: instanceTypes.map((instanceType) => ({
-        instanceType: instanceType,
-      })),
-    },
-    minCapacity: 1,
-    maxCapacity: 1,
-    desiredCapacity: 1,
-    healthChecks: autoscaling.HealthChecks.ec2({
-      gracePeriod: cdk.Duration.minutes(5),
-    }),
-  });
+  const asgDirector = new AutoscalingGroupDirector(AllSpotEc2AutoscalingGroupBuilder);
+  asgDirector.vpc = vpc;
+  asgDirector.launchTemplate = launchTemplate;
+  asgDirector.instanceTypes = instanceTypes;
+  const autoscalingGroup = asgDirector.constructAutoscalingGroup(stack, resourceName, resourceName);
   // Add lifecycle hooks
   autoscalingGroup.addLifecycleHook(names.autoscalingGroupHookName(resourceNamePrefix, 'term'), {
     defaultResult: autoscaling.DefaultResult.CONTINUE,
@@ -147,11 +114,10 @@ export function createDeploymentGroupToEc2(
   codedeployRole: iam.Role,
   stack: cdk.Stack
 ): codedeploy.ServerDeploymentGroup {
-  const resourceName = names.codedeployDeploymentGroupName(resourceNamePrefix);
-  // Tag instance and create tag set
-  cdk.Tags.of(server).add('Environment', stackName);
-  cdk.Tags.of(server).add('Application', app.applicationName);
-  const tagSet = new codedeploy.InstanceTagSet(
+  const deplGroupDirector = new ServerDeploymentGroupDirector(Ec2DeploymentGroupBuilder);
+  deplGroupDirector.application = app;
+  deplGroupDirector.role = codedeployRole;
+  deplGroupDirector.ec2InstanceTags = new codedeploy.InstanceTagSet(
     {
       Environment: [stackName],
     },
@@ -159,14 +125,12 @@ export function createDeploymentGroupToEc2(
       Application: [app.applicationName],
     }
   );
+  // Tag instance
+  cdk.Tags.of(server).add('Environment', stackName);
+  cdk.Tags.of(server).add('Application', app.applicationName);
   // Create deployment group
-  const deplGroup = new codedeploy.ServerDeploymentGroup(stack, resourceName, {
-    application: app,
-    deploymentGroupName: resourceName,
-    deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
-    ec2InstanceTags: tagSet,
-    role: codedeployRole,
-  });
+  const resourceName = names.codedeployDeploymentGroupName(resourceNamePrefix);
+  const deplGroup = deplGroupDirector.constructEc2Group(stack, resourceName, resourceName);
 
   return deplGroup;
 }

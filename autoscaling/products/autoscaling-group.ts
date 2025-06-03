@@ -30,8 +30,8 @@ export interface IAutoScalingGroupBullder {
   setMaxCapacity?(max: number | undefined): IAutoScalingGroupBullder;
   setMinCapacity?(min: number | undefined): IAutoScalingGroupBullder;
   setMixedInstancesPolicy?(
-    launchTemplate?: ec2.ILaunchTemplate | undefined,
-    instanceTypes?: ec2.InstanceType | undefined,
+    launchTemplate: ec2.ILaunchTemplate | undefined,
+    instanceTypes?: ec2.InstanceType[] | undefined,
     policy?: autoscaling.MixedInstancesPolicy | undefined
   ): IAutoScalingGroupBullder;
   setVpc(vpc: ec2.IVpc): IAutoScalingGroupBullder;
