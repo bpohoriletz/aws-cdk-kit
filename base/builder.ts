@@ -24,6 +24,7 @@
 /////////////////////////////////////////////////////////
 
 /*
+/* eslint-disable @typescript-eslint/no-unused-expressions /*
 export default abstract class BaseBuilder implements IBaseBuilder {
   protected props: BaseProduct;
 

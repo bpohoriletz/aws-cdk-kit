@@ -1,4 +1,4 @@
-import AutoscalingGroupProduct from '../../products/autoscaling-group';
+import { AutoscalingGroupProduct } from '../../products/autoscaling-group';
 
 describe('new AutoscalingGroupProduct()', () => {
   let instance: AutoscalingGroupProduct;

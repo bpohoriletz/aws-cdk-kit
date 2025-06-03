@@ -38,6 +38,10 @@ export function stub(stack: Stack, clazz: string, id?: string): any {
       return new eb.CfnApplication(stack, id || 'CfnApplicationID', {
         applicationName: 'eb.CfnApplication',
       });
+    case 'ec2.LaunchTemplate':
+      return new ec2.LaunchTemplate(stack, id || 'LaunchTemplate', {
+        machineImage: ec2.MachineImage.latestAmazonLinux2023(),
+      });
     case 'ec2.Vpc':
       return new ec2.Vpc(stack, 'VpcID', {
         subnetConfiguration: [

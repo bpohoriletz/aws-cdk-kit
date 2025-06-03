@@ -1,16 +1,21 @@
 /////////////////////////////////////////////////////
-//                                                     //
-//  Director classes are the top level abstraction.    //
-//  They do the following:                             //
-//    Manage Builders i.e.                             //
-//      a) Instantiate Builder classes                 //
-//      b) Invoke Builder methods to construct         //
-//  They may have attributes in order to               //
-//      a) Have same behavior across cases             //
-//      b) Have small parameter nuber in methods       //
-//  They may have multiple methods                     //
-//      a) If construction is different per construct  //
-//                                                     //
+//                                                       //
+//  Director classes are the top level abstraction.      //
+//  They do the following:                               //
+//    Manage Builders i.e.                               //
+//      a) Instantiate Builder classes                   //
+//      b) Invoke Builder methods to construct           //
+//  They may have attributes in order to                 //
+//      a) Have same behavior across cases               //
+//      b) Have small parameter nuber in methods         //
+//  They may have multiple methods                       //
+//      a) If construction is different per construct    //
+//  Their methods accept three arguments                 //
+//      a) scope: Construct (Stach or NestedStack)       //
+//      b) id: string ID of the construct                //
+//      c) name?: string optional name of the construct  //
+//    all other parameters should be set as properties   //
+//                                                       //
 /////////////////////////////////////////////////////
 
 /*

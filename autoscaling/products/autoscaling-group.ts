@@ -1,38 +1,42 @@
-import { AutoScalingGroupProps, HealthChecks, MixedInstancesPolicy } from 'aws-cdk-lib/aws-autoscaling';
-import { IVpc, SubnetSelection } from 'aws-cdk-lib/aws-ec2';
+import * as autoscaling from 'aws-cdk-lib/aws-autoscaling';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
-export default class AutoscalingGroupProduct implements IAutoScalingGroupProduct {
+export class AutoscalingGroupProduct implements IAutoScalingGroupProduct {
   autoScalingGroupName?: string | undefined;
   desiredCapacity?: number | undefined;
-  healthChecks?: HealthChecks | undefined;
+  healthChecks?: autoscaling.HealthChecks | undefined;
   maxCapacity?: number | undefined;
   minCapacity?: number | undefined;
-  mixedInstancesPolicy?: MixedInstancesPolicy | undefined;
-  vpc: IVpc;
-  vpcSubnets?: SubnetSelection | undefined;
+  mixedInstancesPolicy?: autoscaling.MixedInstancesPolicy | undefined;
+  vpc: ec2.IVpc;
+  vpcSubnets?: ec2.SubnetSelection | undefined;
 }
 
-interface IAutoScalingGroupProduct extends AutoScalingGroupProps {
+interface IAutoScalingGroupProduct extends autoscaling.AutoScalingGroupProps {
   autoScalingGroupName?: string | undefined;
   desiredCapacity?: number | undefined;
-  healthChecks?: HealthChecks | undefined;
+  healthChecks?: autoscaling.HealthChecks | undefined;
   maxCapacity?: number | undefined;
   minCapacity?: number | undefined;
-  mixedInstancesPolicy?: MixedInstancesPolicy | undefined;
-  vpc: IVpc;
-  vpcSubnets?: SubnetSelection | undefined;
+  mixedInstancesPolicy?: autoscaling.MixedInstancesPolicy | undefined;
+  vpc: ec2.IVpc;
+  vpcSubnets?: ec2.SubnetSelection | undefined;
 }
 
 export interface IAutoScalingGroupBullder {
-  setName?(name: string | undefined): IAutoScalingGroupBullder;
+  setName(name: string | undefined): IAutoScalingGroupBullder;
   setDesiredCapacity?(desired: number | undefined): IAutoScalingGroupBullder;
-  setHealthChecks?(checks: HealthChecks | undefined): IAutoScalingGroupBullder;
+  setHealthChecks?(checks: autoscaling.HealthChecks | undefined): IAutoScalingGroupBullder;
   setMaxCapacity?(max: number | undefined): IAutoScalingGroupBullder;
   setMinCapacity?(min: number | undefined): IAutoScalingGroupBullder;
-  setMixedInstancesPolicy?(policy: MixedInstancesPolicy | undefined): IAutoScalingGroupBullder;
-  setVpc(vpc: IVpc): IAutoScalingGroupBullder;
-  setVpcSubnets?(subnets: SubnetSelection | undefined): IAutoScalingGroupBullder;
-  getResult(): AutoScalingGroupProps;
+  setMixedInstancesPolicy?(
+    launchTemplate?: ec2.ILaunchTemplate | undefined,
+    instanceTypes?: ec2.InstanceType | undefined,
+    policy?: autoscaling.MixedInstancesPolicy | undefined
+  ): IAutoScalingGroupBullder;
+  setVpc(vpc: ec2.IVpc): IAutoScalingGroupBullder;
+  setVpcSubnets?(subnets: ec2.SubnetSelection | undefined): IAutoScalingGroupBullder;
+  getResult(): autoscaling.AutoScalingGroupProps;
 }
 
 export interface IAutoScalingGroupBullderConstructor {
