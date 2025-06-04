@@ -42,17 +42,17 @@ exports[`CodeDeploy .createCodedeployRole() matches snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "allowEc2UploadToEbRegionalCdBucket94B7A9C3": {
+    "allowEc2UploadLogsToCodedeployRegionalBucketF9632D95": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
             {
               "Action": [
-                "s3:PutObject",
                 "s3:ListBucket",
                 "s3:ListBucketVersions",
                 "s3:GetObject",
                 "s3:GetObjectVersion",
+                "s3:PutObject",
               ],
               "Effect": "Allow",
               "Resource": [
@@ -63,7 +63,7 @@ exports[`CodeDeploy .createCodedeployRole() matches snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "allowEc2UploadToEbRegionalCdBucket94B7A9C3",
+        "PolicyName": "allowEc2UploadLogsToCodedeployRegionalBucketF9632D95",
         "Roles": [
           {
             "Ref": "PreFixCodedeployRole548A928C",

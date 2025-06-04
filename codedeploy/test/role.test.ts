@@ -33,11 +33,11 @@ describe('CodeDeploy .createCodedeployRole()', () => {
     });
     expect(resourceCapture.asArray()).toEqual(['arn::', 'arn::/resources/*']);
     expect(actionCapture.asArray()).toEqual([
-      's3:PutObject',
       's3:ListBucket',
       's3:ListBucketVersions',
       's3:GetObject',
       's3:GetObjectVersion',
+      's3:PutObject',
     ]);
   });
 });

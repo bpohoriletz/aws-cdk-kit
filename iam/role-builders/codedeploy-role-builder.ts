@@ -28,7 +28,7 @@ export default class CodedeployRoleBuilder extends RoleBuilderBase implements IR
   }
 
   private setProps(name: string): void {
-    this.roleProps.assumedBy =new iam.ServicePrincipal('codedeploy.amazonaws.com');
+    this.roleProps.assumedBy = new iam.ServicePrincipal('codedeploy.amazonaws.com');
     this.roleProps.roleName = name;
   }
 }
