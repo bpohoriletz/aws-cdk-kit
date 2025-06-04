@@ -9,7 +9,7 @@ export class LambdaFunctionProduct implements lambda.FunctionProps {
 //interface ILambdaFunctionProduct extends lambda.FunctionProps {}
 
 export interface ILambdaFunctionBuilder {
-  setRuntime(runtime: lambda.Runtime): ILambdaFunctionBuilder;
+  setRuntime(runtime?: lambda.Runtime): ILambdaFunctionBuilder;
   setCode(code: lambda.Code): ILambdaFunctionBuilder;
   setHandler(handler: string): ILambdaFunctionBuilder;
   getResult(): lambda.FunctionProps;

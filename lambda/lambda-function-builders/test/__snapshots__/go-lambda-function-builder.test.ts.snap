@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`new GoLambdaFunctionBuilder has correct defaults 1`] = `
+GoLambdaFunctionBuilder {
+  "props": LambdaFunctionProduct {},
+}
+`;
