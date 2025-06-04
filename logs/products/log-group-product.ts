@@ -6,9 +6,8 @@ export class LogGroupProduct implements LogGroupProduct {
 }
 
 export interface ILogGroupBuilder {
-  props: LogGroupProduct;
   setName?(name: string | undefined): ILogGroupBuilder;
-  setRetention?(days: logs.RetentionDays | undefined): ILogGroupBuilder;
+  setRetention?(days?: logs.RetentionDays | undefined): ILogGroupBuilder;
   getResult(): logs.LogGroupProps;
 }
 
