@@ -1,4 +1,4 @@
-import { RoleProduct } from '../../products/role';
+import { RoleProduct } from '../role';
 
 describe('new RoleProduct()', () => {
   let instance: RoleProduct;

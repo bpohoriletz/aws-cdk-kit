@@ -16,4 +16,8 @@ export default class RoleDirector {
   constructGtihubRole(stack: Stack, accountName: string): iam.Role {
     return new this.builder(stack, accountName).setInlinePolicies([]).setManagedPolicies().getResult();
   }
+
+  constructCodedeployRole(stack: Stack, roleId: string, codeDeployBucketArn: string): iam.Role {
+    return new this.builder(stack, roleId).setInlinePolicies([codeDeployBucketArn]).setManagedPolicies().getResult();
+  }
 }

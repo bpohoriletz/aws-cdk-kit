@@ -3,7 +3,8 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 
 export class RoleProduct implements IRoleProduct {
   assumedBy: iam.IPrincipal;
-  description?: string;
+  description?: string | undefined;
+  roleName?: string | undefined;
 }
 
 interface IRoleProduct extends iam.RoleProps {

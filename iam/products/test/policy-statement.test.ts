@@ -1,4 +1,4 @@
-import { PolicyStatementProduct } from '../../products/policy-statement';
+import { PolicyStatementProduct } from '../policy-statement';
 
 describe('new PolicyStatementProduct()', () => {
   let instance: PolicyStatementProduct;
