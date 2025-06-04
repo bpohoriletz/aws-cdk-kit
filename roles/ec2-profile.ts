@@ -11,7 +11,6 @@ export function createEc2InstanceProfile(
   stack: Stack
 ): iam.InstanceProfile {
   // create role for EC2
-  //const ec2Role = createEc2Role(resourceNamePrefix, bucketArns, stack);
   const profileId = con.iamInstanceProfileName(resourceNamePrefix);
   const ec2Role = new RoleDirector(EbEc2RoleBuilder).constructEc2Role(stack, 'Ec2Role', bucketArn);
   // embed role into instance profile
