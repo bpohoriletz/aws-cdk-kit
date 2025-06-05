@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as events from 'aws-cdk-lib/aws-events';
 
 export class EventRuleProduct implements IEventRuleProduct {
@@ -11,7 +12,7 @@ interface IEventRuleProduct extends events.RuleProps {
 }
 
 export interface IEventRuleBuilder {
-  setEventPattern?(pattern: events.EventPattern | undefined): IEventRuleBuilder;
+  setEventPattern?(...args: any[]): IEventRuleBuilder;
   // maybe have on director
   addTarget?(target: events.IRuleTarget | undefined): IEventRuleBuilder;
   getResult(): events.RuleProps;

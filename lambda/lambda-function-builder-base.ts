@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { LambdaFunctionProduct, ILambdaFunctionBuilder } from './products/lambda-function-product';
 
