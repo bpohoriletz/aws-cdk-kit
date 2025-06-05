@@ -12,7 +12,10 @@ export default class LambdaFunctionDirector {
   }
 
   constructSampleGoLambdaFunction(scope: Construct, id: string): lambda.Function {
-    this.builder.setRuntime().setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/main.zip')));
+    this.builder
+      .setRuntime()
+      .setHandler(this.handler)
+      .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/main.zip')));
 
     return new lambda.Function(scope, id, this.builder.getResult());
   }
