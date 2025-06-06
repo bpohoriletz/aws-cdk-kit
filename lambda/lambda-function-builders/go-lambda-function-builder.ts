@@ -10,7 +10,7 @@ export default class GoLambdaFunctionBuilder extends LambdaFunctionBuilder {
   }
 
   setHandler(handler: string | undefined): ILambdaFunctionBuilder {
-    this.props.handler = handler || 'main';
+    this.props.handler = handler || 'bootstrap';
 
     return this;
   }
