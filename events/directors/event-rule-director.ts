@@ -3,15 +3,14 @@ import { IEventRuleBuilder, IEventRuleBuilderConstructor } from '../products/eve
 import * as events from 'aws-cdk-lib/aws-events';
 
 export default class EventRuleDirector {
-  autoscalingGroupName: string;
   private builder: IEventRuleBuilder;
 
   constructor(builder: IEventRuleBuilderConstructor) {
     this.builder = new builder();
   }
 
-  constructAutoscalingGroupEvent(scope: Construct, id: string) {
-    this.builder.setEventPattern!(this.autoscalingGroupName!);
+  constructAutoscalingGroupEvent(scope: Construct, id: string, autoscalingGroupName: string) {
+    this.builder.setEventPattern!(autoscalingGroupName);
 
     return new events.Rule(scope, id, this.builder.getResult());
   }

@@ -14,7 +14,9 @@ exports[`new EventRuleDirector() constructs role for autoscaling group EC2 succe
       "Properties": {
         "EventPattern": {
           "detail": {
-            "AutoScalingGroupName": [],
+            "AutoScalingGroupName": [
+              "test-asg",
+            ],
           },
           "detail-type": [
             "EC2 Instance Launch Successful",

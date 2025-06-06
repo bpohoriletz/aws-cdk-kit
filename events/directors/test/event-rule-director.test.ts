@@ -15,7 +15,7 @@ describe('new EventRuleDirector()', () => {
 
   it('constructs role for autoscaling group EC2 succesful terminate/launch', () => {
     instance = new EventRuleDirector(AutoscalingLaunchTerminateEventRuleBuilder);
-    instance.constructAutoscalingGroupEvent(stack, 'EventID');
+    instance.constructAutoscalingGroupEvent(stack, 'EventID', 'test-asg');
 
     expect(Template.fromStack(stack)).toMatchSnapshot();
   });
