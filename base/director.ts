@@ -21,7 +21,7 @@
 /*
 export default class BaseDirector {
   prop: any;
-  private builder: BaseBuilder;
+  private builder: IBaseBuilder;
 
   constructor(builder: IBaseBuilderConstructor) {
     this.builder = new builder();

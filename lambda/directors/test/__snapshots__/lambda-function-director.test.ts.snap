@@ -21,6 +21,7 @@ exports[`new LambdaFunctionDirector() constructs role for EC2 lifecycle events 1
           },
           "S3Key": "05aa4bdf38c09631c3439d6ba1fb9556c0bfeb31415df93eda221af1b3688748.zip",
         },
+        "Handler": "main",
         "Role": {
           "Fn::GetAtt": [
             "gomainServiceRole67369D3C",
