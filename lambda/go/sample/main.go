@@ -1,4 +1,4 @@
-package main
+package sample
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
-func handler(ctx context.Context, event any) (map[string]any, error) {
+func Handler(ctx context.Context, event any) (map[string]any, error) {
 	fmt.Println("Received event:", event)
 
 	return map[string]any{
@@ -17,5 +17,5 @@ func handler(ctx context.Context, event any) (map[string]any, error) {
 }
 
 func main() {
-	lambda.Start(handler)
+	lambda.Start(Handler)
 }

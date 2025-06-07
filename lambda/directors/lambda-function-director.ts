@@ -15,7 +15,7 @@ export default class LambdaFunctionDirector {
     this.builder
       .setRuntime()
       .setHandler(this.handler)
-      .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/function.zip')));
+      .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/sample/function.zip')));
 
     return new lambda.Function(scope, id, this.builder.getResult());
   }
