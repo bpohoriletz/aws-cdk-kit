@@ -1,9 +1,7 @@
 import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import EventRuleDirector from '../event-rule-director';
-import
-  AutoscalingLaunchTerminateEventRuleBuilder
-from '../../event-rule-builders/autoscaling-launch-terminate-event-rule-builder';
+import AutoscalingLaunchTerminateEventRuleBuilder from '../../event-rule-builders/autoscaling-launch-terminate-event-rule-builder'; // eslint-disable-line max-len
 
 describe('new EventRuleDirector()', () => {
   let instance: EventRuleDirector;

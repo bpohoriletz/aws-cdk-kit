@@ -11,10 +11,21 @@ describe('new LambdaFunctionDirector()', () => {
     stack = new cdk.Stack();
   });
 
-  it('constructs role for EC2 lifecycle events', () => {
-    instance = new LambdaFunctionDirector(GoLambdaFunctionBuilder);
-    instance.constructSampleGoLambdaFunction(stack, '/go/main');
+  describe('constructSampleGoLambdaFunction ', () => {
+    it('constructs sample Lambda function in Go', () => {
+      instance = new LambdaFunctionDirector(GoLambdaFunctionBuilder);
+      instance.constructSampleGoLambdaFunction(stack, '/go/main');
 
-    expect(Template.fromStack(stack)).toMatchSnapshot();
+      expect(Template.fromStack(stack)).toMatchSnapshot();
+    });
+  });
+
+  describe('constructHaproxyDynamicBackendGoLambdaFunction ', () => {
+    it('constructs Lambda function that updates Haprohy backends via API in Go', () => {
+      instance = new LambdaFunctionDirector(GoLambdaFunctionBuilder);
+      instance.constructHaproxyDynamicBackendGoLambdaFunction(stack, 'HaproxyFunction');
+
+      expect(Template.fromStack(stack)).toMatchSnapshot();
+    });
   });
 });

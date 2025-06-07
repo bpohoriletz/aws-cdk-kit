@@ -1,6 +1,100 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`new LambdaFunctionDirector() constructs role for EC2 lifecycle events 1`] = `
+exports[`new LambdaFunctionDirector() constructHaproxyDynamicBackendGoLambdaFunction  constructs Lambda function that updates Haprohy backends via API in Go 1`] = `
+{
+  "Parameters": {
+    "BootstrapVersion": {
+      "Default": "/cdk-bootstrap/hnb659fds/version",
+      "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]",
+      "Type": "AWS::SSM::Parameter::Value<String>",
+    },
+  },
+  "Resources": {
+    "HaproxyFunction9EFBBEAD": {
+      "DependsOn": [
+        "HaproxyFunctionServiceRole74F06CFD",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+          },
+          "S3Key": "40f05772382a4970ef6a13be098863f86cdff6c679374318e8f383fa7c891064.zip",
+        },
+        "Handler": "bootstrap",
+        "Role": {
+          "Fn::GetAtt": [
+            "HaproxyFunctionServiceRole74F06CFD",
+            "Arn",
+          ],
+        },
+        "Runtime": "provided.al2023",
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "HaproxyFunctionServiceRole74F06CFD": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+  },
+  "Rules": {
+    "CheckBootstrapVersion": {
+      "Assertions": [
+        {
+          "Assert": {
+            "Fn::Not": [
+              {
+                "Fn::Contains": [
+                  [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                  ],
+                  {
+                    "Ref": "BootstrapVersion",
+                  },
+                ],
+              },
+            ],
+          },
+          "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI.",
+        },
+      ],
+    },
+  },
+}
+`;
+
+exports[`new LambdaFunctionDirector() constructSampleGoLambdaFunction  constructs sample Lambda function in Go 1`] = `
 {
   "Parameters": {
     "BootstrapVersion": {
@@ -19,9 +113,9 @@ exports[`new LambdaFunctionDirector() constructs role for EC2 lifecycle events 1
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "05aa4bdf38c09631c3439d6ba1fb9556c0bfeb31415df93eda221af1b3688748.zip",
+          "S3Key": "0c47e27efd735c505ff36ecd9c22475648464a3b80ea7105247014c4b7ba5962.zip",
         },
-        "Handler": "main",
+        "Handler": "bootstrap",
         "Role": {
           "Fn::GetAtt": [
             "gomainServiceRole67369D3C",

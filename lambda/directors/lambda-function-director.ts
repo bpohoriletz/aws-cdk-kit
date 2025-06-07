@@ -19,4 +19,13 @@ export default class LambdaFunctionDirector {
 
     return new lambda.Function(scope, id, this.builder.getResult());
   }
+
+  constructHaproxyDynamicBackendGoLambdaFunction(scope: Construct, id: string): lambda.Function {
+    this.builder
+      .setRuntime()
+      .setHandler(this.handler)
+      .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/haproxy/addremovebackend/function.zip')));
+
+    return new lambda.Function(scope, id, this.builder.getResult());
+  }
 }
