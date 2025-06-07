@@ -6,8 +6,9 @@
 //      a) Instantiate Builder classes                   //
 //      b) Invoke Builder methods to construct           //
 //  They may have attributes in order to                 //
-//      a) Have same behavior across cases               //
-//      b) Have small parameter nuber in methods         //
+//      a) Have same behavior across method calls        //
+//      b) Have shorter method calls                     //
+//      b) Have shared resources across method calls     //
 //  They may have multiple methods                       //
 //      a) If construction is different per construct    //
 //  Their methods accept three arguments                 //

@@ -1,6 +1,8 @@
 import { Construct } from 'constructs';
+import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as path from 'path';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import { ILambdaFunctionBuilder, ILambdaFunctionBuilderConstructor } from '../products/lambda-function-product';
 
 export default class LambdaFunctionDirector {
@@ -23,9 +25,13 @@ export default class LambdaFunctionDirector {
   constructHaproxyDynamicBackendGoLambdaFunction(scope: Construct, id: string): lambda.Function {
     this.builder
       .setRuntime()
+      .setTimeout(cdk.Duration.minutes(1))
       .setHandler(this.handler)
       .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/haproxy/addremovebackend/function.zip')));
 
-    return new lambda.Function(scope, id, this.builder.getResult());
+    const lambdaFunction = new lambda.Function(scope, id, this.builder.getResult());
+    lambdaFunction.role!.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName('AmazonEC2ReadOnlyAccess'));
+
+    return lambdaFunction;
   }
 }

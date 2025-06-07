@@ -8,6 +8,7 @@
 //  They dont have any attributes                          //
 //  They may have conditional methods                      //
 //  They may have single Base abstract class               //
+//  They may use other builders for no-shared resources    //
 //  They have method .getResult() that returns CdkProps    //
 //  Their methods start with:                              //
 //    a) set... if attribute is not Array                  //

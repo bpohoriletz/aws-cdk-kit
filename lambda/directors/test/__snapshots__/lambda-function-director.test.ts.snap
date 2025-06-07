@@ -29,6 +29,7 @@ exports[`new LambdaFunctionDirector() constructHaproxyDynamicBackendGoLambdaFunc
           ],
         },
         "Runtime": "provided.al2023",
+        "Timeout": 60,
       },
       "Type": "AWS::Lambda::Function",
     },
@@ -56,6 +57,18 @@ exports[`new LambdaFunctionDirector() constructHaproxyDynamicBackendGoLambdaFunc
                   "Ref": "AWS::Partition",
                 },
                 ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/AmazonEC2ReadOnlyAccess",
               ],
             ],
           },

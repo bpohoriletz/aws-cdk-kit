@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as iam from 'aws-cdk-lib/aws-iam';
+import * as cdk from 'aws-cdk-lib';
 import { LambdaFunctionProduct, ILambdaFunctionBuilder } from './products/lambda-function-product';
 
 export default abstract class LambdaFunctionBuilder implements ILambdaFunctionBuilder {
@@ -20,7 +23,19 @@ export default abstract class LambdaFunctionBuilder implements ILambdaFunctionBu
     return this;
   }
 
+  setRole(role?: iam.IRole | undefined): ILambdaFunctionBuilder {
+    role && (this.props.role = role);
+
+    return this;
+  }
+
   setRuntime(): ILambdaFunctionBuilder {
+    return this;
+  }
+
+  setTimeout(timeout?: cdk.Duration | undefined): ILambdaFunctionBuilder {
+    timeout && (this.props.timeout = timeout);
+
     return this;
   }
 
