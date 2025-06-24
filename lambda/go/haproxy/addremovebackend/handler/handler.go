@@ -59,7 +59,7 @@ func tcpPing(address string, port string, timeout time.Duration) bool {
 
 func Handler(ctx context.Context) (string, error) {
 	instanceName := "Parser/NonprodParserVpc/PublicSubnet1/NatInstance" // Replace with your EC2 Name tag value
-	port := "22"
+	port := "5555"
 	timeout := 3 * time.Second
 
 	ip, err := getInstancePrivateIP(ctx, instanceName)
