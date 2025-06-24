@@ -11,6 +11,9 @@ export default class PetVpcBuilder extends VpcBuilderBase {
   setNatProvider(): this {
     const provider = ec2.NatProvider.instanceV2({
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.NANO),
+      machineImage: new ec2.GenericLinuxImage({
+        'us-east-1': 'ami-02b3c03c6fadb6e2c'
+      }),
     });
     this.vpcProps.natGatewayProvider = provider;
 
