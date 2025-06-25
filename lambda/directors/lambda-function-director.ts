@@ -4,9 +4,11 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as path from 'path';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { ILambdaFunctionBuilder, ILambdaFunctionBuilderConstructor } from '../products/lambda-function-product';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 
 export default class LambdaFunctionDirector {
   handler: string;
+  vpc: ec2.IVpc;
   private builder: ILambdaFunctionBuilder;
 
   constructor(builder: ILambdaFunctionBuilderConstructor) {
@@ -17,6 +19,7 @@ export default class LambdaFunctionDirector {
     this.builder
       .setRuntime()
       .setHandler(this.handler)
+      .setVpc(this.vpc)
       .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/sample/function.zip')));
 
     return new lambda.Function(scope, id, this.builder.getResult());
@@ -27,6 +30,7 @@ export default class LambdaFunctionDirector {
       .setRuntime()
       .setTimeout(cdk.Duration.minutes(1))
       .setHandler(this.handler)
+      .setVpc(this.vpc)
       .setCode(lambda.Code.fromAsset(path.join(__dirname, '../go/haproxy/addremovebackend/function.zip')));
 
     const lambdaFunction = new lambda.Function(scope, id, this.builder.getResult());

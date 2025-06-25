@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import LambdaFunctionDirector from '../lambda-function-director';
 import GoLambdaFunctionBuilder from '../../lambda-function-builders/go-lambda-function-builder';
+import { stub } from '../../../test/stubs';
 
 describe('new LambdaFunctionDirector()', () => {
   let instance: LambdaFunctionDirector;
@@ -14,6 +15,7 @@ describe('new LambdaFunctionDirector()', () => {
   describe('constructSampleGoLambdaFunction ', () => {
     it('constructs sample Lambda function in Go', () => {
       instance = new LambdaFunctionDirector(GoLambdaFunctionBuilder);
+      instance.vpc = stub(stack, 'ec2.Vpc');
       instance.constructSampleGoLambdaFunction(stack, '/go/main');
 
       expect(Template.fromStack(stack)).toMatchSnapshot();

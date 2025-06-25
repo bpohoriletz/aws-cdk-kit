@@ -39,6 +39,12 @@ export default abstract class LambdaFunctionBuilder implements ILambdaFunctionBu
     return this;
   }
 
+  setVpc(vpc?: cdk.aws_ec2.IVpc | undefined): ILambdaFunctionBuilder {
+    vpc && (this.props.vpc = vpc);
+
+    return this;
+  }
+
   getResult(): lambda.FunctionProps {
     return this.props;
   }

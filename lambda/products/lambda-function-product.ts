@@ -8,6 +8,7 @@ export class LambdaFunctionProduct implements lambda.FunctionProps {
   role?: iam.IRole | undefined;
   runtime: lambda.Runtime;
   timeout?: cdk.Duration | undefined;
+  vpc?: cdk.aws_ec2.IVpc | undefined;
 }
 
 //interface ILambdaFunctionProduct extends lambda.FunctionProps {}
@@ -18,6 +19,7 @@ export interface ILambdaFunctionBuilder {
   setHandler(handler: string): ILambdaFunctionBuilder;
   setRole(role?: iam.IRole | undefined): ILambdaFunctionBuilder;
   setTimeout(timeout?: cdk.Duration | undefined): ILambdaFunctionBuilder;
+  setVpc(vpc?: cdk.aws_ec2.IVpc | undefined): ILambdaFunctionBuilder;
   getResult(): lambda.FunctionProps;
 }
 

@@ -26,6 +26,12 @@ VpcProduct {
       "instanceType": InstanceType {
         "instanceTypeIdentifier": "t2.nano",
       },
+      "machineImage": GenericLinuxImage {
+        "amiMap": {
+          "us-east-1": "ami-09e6f87a47903347c",
+        },
+        "props": {},
+      },
     },
   },
   "natGatewaySubnets": {
