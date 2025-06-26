@@ -1,4 +1,4 @@
-import { MachineImage, UserData } from 'aws-cdk-lib/aws-ec2';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import LaunchTemplateBuilderBase from '../launch-template-builder-base';
 import { ILaunchTemplateBuilder } from '../products/launch-template';
 
@@ -10,7 +10,7 @@ export default class Al2023PrivateBuilder extends LaunchTemplateBuilderBase impl
   }
 
   setUserData(): ILaunchTemplateBuilder {
-    const userData = UserData.forLinux();
+    const userData = ec2.UserData.forLinux();
     userData.addCommands('echo Hello World');
     this.launchTemplateProps.userData = userData;
 
@@ -18,7 +18,9 @@ export default class Al2023PrivateBuilder extends LaunchTemplateBuilderBase impl
   }
 
   setMachineImage(): ILaunchTemplateBuilder {
-    this.launchTemplateProps.machineImage = MachineImage.latestAmazonLinux2023();
+    this.launchTemplateProps.machineImage = new ec2.GenericLinuxImage({
+      'us-east-1': 'ami-05ffe3c48a9991133',
+    });
 
     return this;
   }
