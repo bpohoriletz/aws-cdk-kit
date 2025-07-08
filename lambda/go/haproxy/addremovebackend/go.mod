@@ -1,4 +1,4 @@
-module main
+module bpohoriletz.github.io/internaltool
 
 go 1.24.3
 

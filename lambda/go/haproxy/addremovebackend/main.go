@@ -1,8 +1,7 @@
 package main
 
 import (
-	handler "main/handler"
-
+	"bpohoriletz.github.io/internaltool/internal/handler"
 	"github.com/aws/aws-lambda-go/lambda"
 )
 
