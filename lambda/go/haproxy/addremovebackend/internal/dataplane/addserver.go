@@ -26,8 +26,6 @@ type HapTransaction struct {
 	Status string `json:"status"`
 }
 
-var transaction HapTransaction
-
 func AddServerToBackend(apiURL string, serverConfig HapBackendServerConfig) error {
 	// 1. Get config file version
 	confVersion, err := getConfFileVersion(apiURL)
@@ -42,7 +40,7 @@ func AddServerToBackend(apiURL string, serverConfig HapBackendServerConfig) erro
 	}
 	log.Printf("Using transaction: %s", transaction.ID)
 	// 3. Update server within transaction
-	resp, err := updateBackend(apiURL, serverConfig)
+	resp, err := updateBackend(apiURL, serverConfig, transaction.ID)
 	if err != nil {
 		return err
 	}
@@ -68,9 +66,9 @@ func commitTransaction(apiURL, transactionID string) error {
 	return nil
 }
 
-func updateBackend(apiURL string, serverConfig HapBackendServerConfig) (string, error) {
+func updateBackend(apiURL string, serverConfig HapBackendServerConfig, transactionID string) (string, error) {
 	// TODO: try other API
-	path := fmt.Sprintf("/configuration/backends/%s/servers/parser1?transaction_id=%s", serverConfig.Name, transaction.ID)
+	path := fmt.Sprintf("/configuration/backends/%s/servers/parser1?transaction_id=%s", serverConfig.Name, transactionID)
 
 	payload := map[string]any{
 		"name":    serverConfig.Name,

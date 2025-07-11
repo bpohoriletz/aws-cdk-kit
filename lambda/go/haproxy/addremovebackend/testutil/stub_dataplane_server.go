@@ -2,6 +2,7 @@ package testutil
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"os"
 	"slices"
@@ -55,4 +56,5 @@ func verifyRequest(t *testing.T, r *http.Request) {
 	if r.Header.Get("Authorization") != "Basic "+expectedToken {
 		t.Errorf("Authorization header mismatch")
 	}
+	fmt.Printf("Processing %s %s \n", r.Method, r.URL)
 }
