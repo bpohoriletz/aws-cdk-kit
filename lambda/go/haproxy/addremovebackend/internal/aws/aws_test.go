@@ -1,10 +1,11 @@
-package aws
+package aws_test
 
 import (
 	"context"
 	"errors"
 	"testing"
 
+	"bpohoriletz.github.io/internaltool/internal/aws"
 	"github.com/aws/aws-sdk-go-v2/service/ec2"
 	ec2Types "github.com/aws/aws-sdk-go-v2/service/ec2/types"
 )
@@ -39,19 +40,22 @@ func (s stubEC2Client) DescribeInstances(ctx context.Context, input *ec2.Describ
 // Test GetPrivateIP
 // ------------------------------
 func TestGetPrivateIP_Success(t *testing.T) {
-	client := stubEC2Client{privateIP: "192.168.0.100"}
-	ip, err := GetPrivateIP(context.Background(), client, "i-test123")
+	privateIP := "192.168.0.100"
+	client := stubEC2Client{privateIP: privateIP}
+	ip, err := aws.GetPrivateIPFunc(context.Background(), client, "i-test123", []ec2Types.Filter{})
 	if err != nil {
 		t.Fatalf("Unexpected error: %v", err)
 	}
-	if ip != "192.168.0.100" {
-		t.Errorf("Expected 192.168.0.100, got %s", ip)
+
+	if ip != privateIP {
+		t.Errorf("Expected %s, got %s", privateIP, ip)
 	}
 }
 
 func TestGetPrivateIP_Error(t *testing.T) {
 	client := stubEC2Client{err: errors.New("fail")}
-	_, err := GetPrivateIP(context.Background(), client, "i-test123")
+	_, err := aws.GetPrivateIPFunc(context.Background(), client, "i-test124", []ec2Types.Filter{})
+
 	if err == nil {
 		t.Fatalf("Expected error, got nil")
 	}
