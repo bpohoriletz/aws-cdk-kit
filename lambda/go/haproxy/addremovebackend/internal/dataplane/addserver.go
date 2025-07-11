@@ -139,6 +139,7 @@ func makeAPIRequest(apiURL string, method string, path string, body io.Reader) (
 	if err != nil {
 		log.Fatal(err)
 	}
+	req.Header.Set("Content-Type", "application/json")
 	req.SetBasicAuth(username, password)
 	client := &http.Client{}
 	resp, err := client.Do(req)
