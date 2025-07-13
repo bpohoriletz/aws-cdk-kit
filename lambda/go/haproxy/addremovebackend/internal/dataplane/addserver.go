@@ -71,7 +71,8 @@ func updateBackend(apiURL string, serverConfig HapBackendServerConfig, transacti
 	path := fmt.Sprintf("/configuration/backends/%s/servers/parser1?transaction_id=%s", serverConfig.Name, transactionID)
 
 	payload := map[string]any{
-		"name":    serverConfig.Name,
+		//"name":    serverConfig.Name,
+		"name":    "parser1",
 		"port":    serverConfig.Port,
 		"address": serverConfig.Address,
 		"ssl":     serverConfig.SSL,
