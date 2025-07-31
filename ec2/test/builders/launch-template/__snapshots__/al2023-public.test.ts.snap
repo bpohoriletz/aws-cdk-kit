@@ -9,13 +9,11 @@ LaunchTemplateProduct {
 exports[`new Al2023PublicBuilder() matches default 1`] = `
 LaunchTemplateProduct {
   "associatePublicIpAddress": true,
-  "machineImage": AmazonLinux2023ImageSsmParameter {
-    "cachedInContext": false,
-    "props": {
-      "cachedInContext": false,
-      "parameterName": "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-6.1-x86_64",
-      "userData": undefined,
+  "machineImage": GenericLinuxImage {
+    "amiMap": {
+      "us-east-1": "ami-05ffe3c48a9991133",
     },
+    "props": {},
   },
   "userData": LinuxUserData {
     "lines": [

@@ -14,10 +14,21 @@ describe('Ec2InstanceDirector', () => {
   });
 
   describe('.constructPublicEc2', () => {
-    test('provisions public EC2', () => {
+    test('constructs public EC2', () => {
       instance.vpc = stub(stack, 'ec2.Vpc');
       instance.machineImage = new ec2.GenericLinuxImage({ 'us-east-1': 'ami-05ffe3c48a9991133' });
       instance.constructPublicEc2(stack, 'PublicEc2', 'PublicEc2', new ec2.InstanceType('t2.micro'));
+
+      expect(Template.fromStack(stack)).toMatchSnapshot();
+    });
+  });
+
+  describe('.constructPublicEc2ForCodedeploy', () => {
+    test('constructs public EC2 with CodeDeploy agent', () => {
+      instance.vpc = stub(stack, 'ec2.Vpc');
+      instance.stack = stack;
+      instance.machineImage = new ec2.GenericLinuxImage({ 'us-east-1': 'ami-05ffe3c48a9991133' });
+      instance.constructPublicEc2ForCodedeploy(stack, 'codedeploy', 'codedeploy', new ec2.InstanceType('t2.micro'));
 
       expect(Template.fromStack(stack)).toMatchSnapshot();
     });

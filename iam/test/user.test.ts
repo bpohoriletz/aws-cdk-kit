@@ -3,7 +3,7 @@ import { Template } from 'aws-cdk-lib/assertions';
 
 import * as func from '../user';
 
-describe('IAM .createPublicInstance()', () => {
+describe('create user for CodeDeploy deployments with GitHub()', () => {
   let stack: cdk.Stack;
 
   beforeEach(() => {

@@ -19,7 +19,7 @@ exports[`new LambdaFunctionDirector() constructHaproxyDynamicBackendGoLambdaFunc
           "S3Bucket": {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "82636ae559690bb571f2892db71a847851e6e0f1542f4ae522794dabcc28725d.zip",
+          "S3Key": "555b0322c750dc0abeff99f9658136e39f645c215564b34adbd955d47d77f17d.zip",
         },
         "Handler": "bootstrap",
         "Role": {

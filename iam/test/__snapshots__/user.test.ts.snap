@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`IAM .createPublicInstance() matches snapshot 1`] = `
+exports[`create user for CodeDeploy deployments with GitHub() matches snapshot 1`] = `
 {
   "Parameters": {
     "BootstrapVersion": {
