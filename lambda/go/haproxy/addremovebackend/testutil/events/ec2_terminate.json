@@ -1,31 +1,31 @@
 {
-    "version": "0",
-    "id": "81132ae1-1266-5a06-f4bd-4c8ce472044c",
-    "detail-type": "EC2 Instance Terminate Successful",
-    "source": "aws.autoscaling",
-    "account": "400000000000",
-    "time": "2025-07-10T00:48:38Z",
-    "region": "us-east-1",
-    "resources": [
-        "arn:aws:autoscaling:us-east-1:400000000000:autoScalingGroup:c0f07e85-9f98-4432-9240-4db1d3f11346:autoScalingGroupName/nonprod-test-asg",
-        "arn:aws:ec2:us-east-1:400000000000:instance/i-0d9c2c88f3a17bc5e"
-    ],
-    "detail": {
-        "Origin": "AutoScalingGroup",
-        "Destination": "EC2",
-        "Description": "Terminating EC2 instance: i-0d9c2c88f3a17bc5e",
-        "EndTime": "2025-07-10T00:48:38.079Z",
-        "RequestId": "d530581a-b91e-47e4-a954-13e06bcfdd41",
-        "ActivityId": "d530581a-b91e-47e4-a954-13e06bcfdd41",
-        "StartTime": "2025-07-10T00:45:14.593Z",
-        "EC2InstanceId": "i-0d9c2c88f3a17bc5e",
-        "StatusCode": "MidTerminatingLifecycleAction",
-        "StatusMessage": "",
-        "Details": {
-            "Subnet ID": "subnet-0900000000000000d",
-            "Availability Zone": "us-east-1a"
-        },
-        "Cause": "At 2025-07-10T00:45:04Z a scheduled action update of AutoScalingGroup constraints to min: 1, max: 1, desired: 1 changing the desired capacity from 4 to 1.  At 2025-07-10T00:45:04Z the scheduled action Test-nonpr-PUXSYJEMOFLM executed. Setting min size from 4 to 1. Setting max size from 4 to 1. Setting desired capacity from 4 to 1.  At 2025-07-10T00:45:14Z an instance was taken out of service in response to a difference between desired and actual capacity, shrinking the capacity from 4 to 1.  At 2025-07-10T00:45:14Z instance i-05dab7677f6954993 was selected for termination.  At 2025-07-10T00:45:14Z instance i-0d9c2c88f3a17bc5e was selected for termination.  At 2025-07-10T00:45:14Z instance i-01213339366cb4338 was selected for termination.",
-        "AutoScalingGroupName": "nonprod-test-asg"
-    }
+  "version": "0",
+  "id": "81132ae1-1266-5a06-f4bd-4c8ce472044c",
+  "detail-type": "EC2 Instance Terminate Successful",
+  "source": "aws.autoscaling",
+  "account": "400000000000",
+  "time": "2025-07-10T00:48:38Z",
+  "region": "us-east-1",
+  "resources": [
+    "arn:aws:autoscaling:us-east-1:400000000000:autoScalingGroup:c0f07e85-9f98-4432-9240-4db1d3f11346:autoScalingGroupName/nonprod-test-asg",
+    "arn:aws:ec2:us-east-1:400000000000:instance/i-0d9c2c88f3a17bc5e"
+  ],
+  "detail": {
+    "Origin": "AutoScalingGroup",
+    "Destination": "EC2",
+    "Description": "Terminating EC2 instance: i-0d9c2c88f3a17bc5e",
+    "EndTime": "2025-07-10T00:48:38.079Z",
+    "RequestId": "d530581a-b91e-47e4-a954-13e06bcfdd41",
+    "ActivityId": "d530581a-b91e-47e4-a954-13e06bcfdd41",
+    "StartTime": "2025-07-10T00:45:14.593Z",
+    "EC2InstanceId": "i-0d9c2c88f3a17bc5e",
+    "StatusCode": "MidTerminatingLifecycleAction",
+    "StatusMessage": "",
+    "Details": {
+      "Subnet ID": "subnet-0900000000000000d",
+      "Availability Zone": "us-east-1a"
+    },
+    "Cause": "At 2025-07-10T00:45:04Z a scheduled action update of AutoScalingGroup constraints to min: 1, max: 1, desired: 1 changing the desired capacity from 4 to 1.  At 2025-07-10T00:45:04Z the scheduled action Test-nonpr-PUXSYJEMOFLM executed. Setting min size from 4 to 1. Setting max size from 4 to 1. Setting desired capacity from 4 to 1.  At 2025-07-10T00:45:14Z an instance was taken out of service in response to a difference between desired and actual capacity, shrinking the capacity from 4 to 1.  At 2025-07-10T00:45:14Z instance i-05dab7677f6954993 was selected for termination.  At 2025-07-10T00:45:14Z instance i-0d9c2c88f3a17bc5e was selected for termination.  At 2025-07-10T00:45:14Z instance i-01213339366cb4338 was selected for termination.",
+    "AutoScalingGroupName": "nonprod-test-asg"
+  }
 }

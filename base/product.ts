@@ -18,12 +18,12 @@
 /////////////////////////////////////////////////////////////
 /*
 export class BaseProduct implements IBaseProduct {
-  parameter?: boolean;
-  innerParams: any[];
+  //parameter?: boolean;
+  //innerParams: any[];
 }
 
-interface IBaseProduct { // extends SomeProps
-  parameter?: boolean;
+interface IBaseProduct extends SomeProps (
+  //parameter?: boolean;
 }
 
 export interface IBaseBuilder {

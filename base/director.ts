@@ -16,10 +16,23 @@
 //      b) id: string ID of the construct                //
 //      c) name?: string optional name of the construct  //
 //    all other parameters should be set as properties   //
-//                                                       //
+//  Their implementations may differ in two ways         //
+//      a) Director knows everything - in this case      //
+//         there is single builder class and director    //
+//         decides:                                      //
+//          - which builder methods to call              //
+//          - how to obtain parameters for calls         //
+//      b) Builder knows something - in this case there  //
+//         are multiple builders and director has single //
+//         method that accepts builder that will build   //
+//         expected product:                             //
+//          - builder methods may not accept parameters  //
+//          - director has to call all builder methods   //
 /////////////////////////////////////////////////////
 
 /*
+import { Construct } from "constructs";
+
 export default class BaseDirector {
   prop: any;
   private builder: IBaseBuilder;

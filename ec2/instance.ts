@@ -14,6 +14,7 @@ export function createPublicInstance(
   instanceType: ec2.InstanceType = new ec2.InstanceType('t2.micro')
 ): ec2.Instance {
   const resourceName = names.ec2InstanceName(resourceNamePrefix);
+  // ***************************************************************************** User Script
   // Install CodeDeploy agent by default
   const userDataScript = ec2.UserData.forLinux();
   userDataScript.addCommands(
@@ -24,6 +25,7 @@ export function createPublicInstance(
     'chmod +x ./install',
     'sudo ./install auto'
   );
+  // ***************************************************************************** Instance
   const instance = new ec2.Instance(stack, resourceName, {
     instanceType: instanceType,
     associatePublicIpAddress: true,
