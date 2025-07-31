@@ -42,8 +42,14 @@ export function stub(stack: Stack, clazz: string, id?: string): any {
       return new ec2.LaunchTemplate(stack, id || 'LaunchTemplate', {
         machineImage: ec2.MachineImage.latestAmazonLinux2023(),
       });
+    case 'ec2.InstanceProfile':
+      return new iam.InstanceProfile(stack, `${id}InstanceProfile`);
+    case 'ec2.SecurityGroup':
+      return new ec2.SecurityGroup(stack, id || 'SecurityGroup', { vpc: stub(stack, 'ec2.Vpc', 'SgVpc') });
+    case 'ec2.UserData':
+      return ec2.UserData.forLinux();
     case 'ec2.Vpc':
-      return new ec2.Vpc(stack, 'VpcID', {
+      return new ec2.Vpc(stack, id || 'VpcID', {
         subnetConfiguration: [
           {
             name: 'Public',
@@ -79,7 +85,7 @@ export function stub(stack: Stack, clazz: string, id?: string): any {
           }),
         });
       } else {
-        throw `Found no stub definition for ${clazz}, replace with 'any' if you don't need exact stub.`;
+        throw `Found no stub definition for ${clazz}, prefix with 'any.' if you don't need exact stub.`;
       }
     }
   }

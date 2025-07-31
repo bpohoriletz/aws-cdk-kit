@@ -1,10 +1,10 @@
-import { InstanceProduct } from '../../products/instance';
+import { Ec2InstanceProduct } from '../../products/instance';
 
-describe('new InstanceProduct', () => {
-  let instance: InstanceProduct;
+describe('new Ec2InstanceProduct', () => {
+  let instance: Ec2InstanceProduct;
 
   beforeEach(() => {
-    instance = new InstanceProduct();
+    instance = new Ec2InstanceProduct();
   });
 
   test('has default properties set', () => {
