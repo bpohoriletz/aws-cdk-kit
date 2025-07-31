@@ -29,6 +29,19 @@ export default class Ec2InstanceDirector {
     return new ec2.Instance(scope, id, this.builder.getResult());
   }
 
+  constructK8sMasterNode(scope: Construct, id: string, name: string): ec2.Instance {
+    // TODO:  <31-07-25, Me> Refactor security group builder with new logic layout //
+    this.builder
+      .setVpc(this.vpc)
+      .setMachineImage(new ec2.GenericLinuxImage({ 'us-east-1': 'ami-020cba7c55df1f615' }))
+      .setInstanceName(name)
+      .setInstanceType(new ec2.InstanceType('t2.medium'))
+      .setVpcSubnets({ subnetType: ec2.SubnetType.PUBLIC });
+    //.setUserData(new ec2.UserData.forLinux());
+
+    return new ec2.Instance(scope, id, this.builder.getResult());
+  }
+
   constructPublicEc2ForCodedeploy(
     scope: Construct,
     id: string,
@@ -46,10 +59,10 @@ export default class Ec2InstanceDirector {
       .setMachineImage(this.machineImage)
       .setInstanceName(name)
       .setInstanceType(instanceType)
+      .setVpcSubnets({ subnetType: ec2.SubnetType.PUBLIC })
       .setInstanceProfile(this.instanceProfile)
       .setSecurityGroup(securityGroup)
-      .setUserData(this.codeDeployUserScript())
-      .setVpcSubnets({ subnetType: ec2.SubnetType.PUBLIC });
+      .setUserData(this.codeDeployUserScript());
 
     return new ec2.Instance(scope, id, this.builder.getResult());
   }
