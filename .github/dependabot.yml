@@ -1,0 +1,19 @@
+version: 2
+
+multi-ecosystem-groups:
+  all-dependencies:
+    schedule:
+      interval: weekly
+
+updates:
+  - package-ecosystem: gomod
+    directory: "/lambda/go/haproxy/addremovebackend"
+    patterns:
+      - "*"
+    multi-ecosystem-group: all-dependencies
+
+  - package-ecosystem: gomod
+    directory: "/lambda/go/sample"
+    patterns:
+      - "*"
+    multi-ecosystem-group: all-dependencies
